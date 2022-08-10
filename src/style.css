@@ -1,0 +1,386 @@
+
+body {
+  margin: 0;
+  /* background-image:  */
+  /* background-color: #BFB999; */
+   background-color: #FFFFFF;
+  /* background-color: #DBD8D6; */
+  /* background-color: #F7F7F7; */
+  font-family: Lato, sans-serif;
+  /* font-family: Merriweather, sans-serif; */
+  background-image: url('./images/beach-photo-2.jpg');
+  background-size: cover;
+  background-repeat: no-repeat;
+}
+
+.background-img {
+  /* background-image: url('./images/beach-photo-2.jpg'); */
+  background-size: cover;
+  background-repeat: no-repeat; 
+  height: 600px;
+  width: 100%;
+  background-position: center;
+  background-size: cover;
+  position: relative;
+}
+
+.navbar-container {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin: 0 auto;
+  width: 90%;
+}
+
+header {
+  /* background-color: #DBD8D6; */
+  /* background-color: #00BDDC ; */
+  /* background-color: #B0A1ED; */
+  /* background-color: #00C5D1; */
+  /* background-color: #FFFFFF; */
+  /* background-color: #2AF3D8; */
+  /* background-color: #00FDCB; */
+  /* background-color: #36EBFC; */
+  /* background-color: #FFE4C4; */
+  /* background-color: #94C8D5; */
+  padding: 10px 0;
+}
+
+header::after {
+  content: '';
+  display: table;
+  clear: both;
+}
+
+nav {
+  float: right;
+  display: flex;
+  align-items: center;
+}
+
+.title-site {
+  text-transform: uppercase;
+  color: #1F0000;  
+  /* color: black; */
+  /* color: #FFFFFF; */
+  font-size: 20px;
+}
+
+.nav-items {
+  /* width: 800px; */
+  /* margin: o auto; */
+  
+}
+
+nav ul {
+    margin: 0;
+    padding: 0;
+}
+
+nav li {
+  display: inline-block;
+  position: relative;
+  margin-right: 25px;
+  padding-top: 5px;
+  padding-bottom: 5px;
+}
+
+nav a {
+  text-decoration: none;
+  text-transform: uppercase;
+  color: #1F0000;  
+  /* color: #FFFFFF; */
+  font-size: 16px;
+  cursor: pointer;
+}
+
+/* .nav-home {
+  margin-left: 70px;
+  text-decoration: none;
+  text-transform: uppercase;
+  color: #F6F5FF;
+  font-size: 18px;
+  position: relative;
+}
+
+.nav-profile {
+  margin-left: 70px;
+  text-decoration: none;
+  text-transform: uppercase;
+  color: #F6F5FF;
+  font-size: 18px;
+  position: relative;
+} */
+
+/* line generators from middle outward */
+nav a:before {
+  content: '';
+  display: block;
+  position: absolute;
+  width: 100%;
+  height: 2px;
+  bottom: 0;
+  left: 0;
+  transform: scaleX(0); 
+  transition: all ease-in-out .3s;
+  background-color: #1F0000; 
+  /* background-color: #FFFFFF; */
+}
+nav a:hover::before {
+  transform: scaleX(1);
+}
+
+/* nav a:before {
+    content: '';
+    display: block;
+    height: 4px;
+    background-color: #F6F5FF;
+    background-color: #330000;
+
+    position: absolute;
+    top: 0;
+    width: 0%;
+    transition: all ease-in-out 300ms;
+}
+
+nav a:hover::before {
+    width: 100%;
+} */
+
+/* line generators from left to right */
+
+/* nav a:before {
+    content: '';
+    display: block;
+    position: absolute;
+    width: 100%;
+    height: 2px;
+    bottom: 0;
+    left: 0;
+    background-color: #1F0000; 
+    transform: scaleX(0); 
+    transform-origin: left;
+    transition: all ease-in-out .5s;
+  }
+nav a:hover::before {
+    transform: scaleX(1);
+    transform-origin: left;
+} */
+
+/* line generators from right to left */
+/*
+nav a:before {
+    content: '';
+    display: block;
+    position: absolute;
+    width: 100%;
+    height: 2px;
+    bottom: 0;
+    left: 0;
+    background-color: #1F0000; 
+    transform: scaleX(0); 
+    transform-origin: right;
+    transition: all ease-in-out .5s;
+  }
+nav a:hover::before {
+    transform: scaleX(1);
+    transform-origin: right;
+} 
+*/
+
+.post-container {
+  margin: 0;
+  position: relative;
+  /* background-color: #F7F7F7; */
+  
+}
+
+/* center div horizontally, child has margin: 0 auto  */
+/* center div w/flexbox vertically, parent justify-content: center */
+.review-container {
+  margin: 0 auto;
+  margin-top: 50px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  border: 2px solid #1F0000;  
+  height: 550px;
+  /* border-radius: 35px; */
+  width: 500px;
+  /* background-color: #DBD8D6; */
+  /* background-color: #F7F7F7; */
+  background-color: #FFFFFF;
+}
+
+.create-post-txt {
+  color: #1F0000;  
+  /* color: white; */
+}
+
+.form-inputs {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  gap: 8px;
+  margin: 0 auto;  
+}
+
+#postTitle {
+  width: 350px;
+  height: 15px;
+  font-size: 1.2rem;
+  padding: 10px 10px;
+  border: none;
+  /* border-radius: 7px; */
+  text-align: center;
+  font-family: Lato, sans-serif;  
+  font-size: 1.3rem;
+  border: 1px solid #1F0000;
+}
+
+/* #dateOfTravel {
+  width: 50%;
+  height: 35px;
+  font-size: 1.0rem;
+  padding: 10px 10px;
+  border: none;
+  border-radius: 7px;
+  font-size: 20px;
+} */
+
+/* date container */
+.form-control {
+  font-size: 0.95em;
+  border: none;
+  /* border-radius: 7px; */
+  padding: 10px 10px;
+  text-align: center;
+  font-family: Lato, sans-serif;
+  width: 350px;
+  height: 10px;
+  border: 1px solid #1F0000;
+}
+
+/* stars for add review */
+.star-container {
+  display: flex;
+  gap: 5px
+}
+
+.post-star { 
+  font-size: 20px;
+  text-decoration: none;
+}
+
+.post-star:hover {
+  cursor: pointer
+}
+
+/* post description for add review */
+#postDescription {
+  font-size: 1.0rem;
+  padding: 11px 10px;
+  resize: none;
+  border: none;
+  /* border-radius: 7px; */
+  margin: 0;
+  font-family: Lato, sans-serif;
+  width: 350px;
+  border: 1px solid #1F0000;
+}
+
+.postPhoto-container {
+  display: flex;
+  flex-direction: row;
+  flex-wrap: wrap;
+}
+
+/* 
+#postPhoto {
+  position: relative;  
+}  */
+
+
+/* upload image for add review */
+
+.photo-display-container {
+  padding-left: 30%;
+}
+
+input[type='file'] {
+  display: none;
+} 
+
+.postPhoto-label {
+  font-size: 0.8rem;
+  font-family: Lato,  sans-serif;
+  border: 1px solid black;
+  width: max-content;
+  padding: 5px;
+  position: absolute;
+  box-shadow: 0px 1px 2px rgba(0,0,0,0.7); 
+  transition: all 200ms ease;
+}
+
+.postPhoto-label:hover {
+  cursor: pointer;
+  /* background-color: #BDBDBD; */
+}
+.postPhoto-label:active {
+  box-shadow: none;
+}
+
+.img-post {
+  position: absolute;
+  width: 40px;
+  height:25px
+}
+
+/* cancel and post button from add review */
+.btn-container {
+  display: flex;
+  justify-content: space-between;
+  margin-top: 40px;
+}
+
+.post-btn {
+  width: 25%;
+  padding: 10px;
+  /* border-radius: 5px; */
+  border: none;
+  cursor: pointer; 
+  /* box-shadow: 0px 1px 2px rgba(0,0,0,0.5); */
+  /* background-color: #36EBFC; */
+  background-color: #F7F7F7;
+  font-family: Lato, sans-serif;
+  font-size: 0.8rem;
+  transition: all 200ms ease;
+}
+
+.post-btn:hover {
+  background-color: #94C8D5;
+}
+
+/* .post-btn:active {
+  top: 2px;
+  left: 1px;
+  box-shadow: none;
+  background-color: #36EBFC;
+} */
+
+.cancel-btn {
+  width: 25%;
+  padding: 10px;
+  /* border-radius: 5px; */
+  border: none;
+  cursor: pointer; 
+  background-color: #F7F7F7;
+  font-family: Lato, sans-serif;
+  font-size: 0.8rem;
+  transition: all 200ms ease;
+}
+
+.cancel-btn:hover {
+  background-color: #BDBDBD;
+}
+

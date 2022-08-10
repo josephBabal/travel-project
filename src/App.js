@@ -1,25 +1,35 @@
-import logo from './logo.svg';
-import './App.css';
+import React from 'react'
+import Navbar from './components/Navbar'
+import {BrowserRouter as Router, Routes, Route, Link} from 'react-router-dom'
+import Home from './pages/Home'
+import Friends from './pages/Friends'
+import AddReview from './pages/AddReview'
+import UserPost from './pages/UserPost'
+import ErrorPage from './pages/ErrorPage'
+import Profile from './pages/Profile'
 
-function App() {
+export default function App() {
+  const [userPost, setUserPost] = React.useState([])
+  
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
+    <div>
+      <Router>
+          {/* <Navbar /> */}
+        <main>
+          {/* <div className="background-img"></div>
+          <div className="general-post"></div> */}
+        </main>
+        <Routes>
+          <Route path="/" element={<Home />} /> 
+          <Route path="/friends" element={<Friends />} /> 
+          <Route path="/userPost" element={<UserPost />} />
+          <Route path="/addReview" element={<AddReview />} /> 
+          <Route path="/profile/" element={<Profile />} /> 
+          <Route path="/profile/:username" element={<Profile />} /> 
+          <Route path="*" element={<ErrorPage />} />
+        </Routes>
+        <footer></footer>
+      </Router>
     </div>
-  );
+  )
 }
-
-export default App;
