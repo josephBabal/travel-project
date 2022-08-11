@@ -1,18 +1,23 @@
 import React from 'react'
+import {FaStar} from 'react-icons/fa'
 
 export default function Star(props) {
-  const styles = {
-    color: props.isSelected ? "#C3C500" : ""
-  }
   return (
-    <div 
-      className="post-star" 
-      onClick={props.clickStar}
-      onMouseOver={props.clickStar}
-      onMouseOut={props.unhoveredStar}
-      style={styles} 
-    >
-      {props.isSelected ? <i className="fa-solid fa-star"></i> : <i className="fa-regular fa-star"></i>} 
-    </div>
+    <label>
+      <input
+        type="radio" 
+        name="ratingValue" 
+        value={props.ratingValue}
+        onClick={props.updateRating}
+      />
+      <FaStar 
+        className="post-star" 
+        // checks if props.hover is >= the star rating value first, then the selectedRating
+        // if the first case is true then sets to yellow color, then checks second case
+        color={props.ratingValue <= (props.hover || props.selectedRating) ? "#FFC107" : "E4E5E9"}
+        onMouseEnter={props.updateHover}
+        onMouseLeave={props.resetHover}
+    />
+    </label>
   )
 }

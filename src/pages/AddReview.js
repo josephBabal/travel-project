@@ -1,7 +1,7 @@
 import React, { useState, useEffect, useRef } from 'react'
 import { useNavigate } from "react-router-dom"
 import Navbar from '../components/Navbar'
-import Axios from 'axios'
+import axios from 'axios'
 import {nanoid} from 'nanoid'
 import Star from '../components/Star'
 // react flatpickr
@@ -21,18 +21,25 @@ import Flatpickr from "react-flatpickr";
 export default function AddReview(props) {
   const navigate = useNavigate()
 
+  // all text data of post
   const [reviewData, setReviewData] = useState({
       postTitle: "",
-      // postDate: "",
-      postDescription: "",
-  })
-  const [date, setDate] = useState('')
-  const [photo, setPhoto] = useState({
-    postPhoto: null,
-    hasPhoto: false
+      postDescription: ""
   })
 
+  const [date, setDate] = useState('')
+
+  const [photo, setPhoto] = useState(null)
+  function uploadPhoto(selectedPhoto) {
+    if (selectedPhoto) {
+      setPhoto(selectedPhoto[0])
+    }
+  }
+
+  // states used for star icons
   const [stars, setStars] = useState(newStar())
+  const [rating, setRating] = useState(null)
+  const [hover, setHover] = useState(null)
 
   function newStar() {
     const starArr = []
@@ -45,42 +52,42 @@ export default function AddReview(props) {
 
   function generateStar(idx) {
     return {
-      isSelected: false,
       id: idx + 1,
-      isMouseOver: false,
-      notHovered: true
+      ratingValue: idx + 1
   }}
 
-
-  function clickStar(id) {
-    setStars(oldStar => oldStar.map(star => (
-        {...star, isSelected: false}
-        
-    )))
-    setStars(oldStar => oldStar.map(star => {
-      return star.id <= id ? 
-        { ...star, isSelected: !star.isSelected} : star
-    })) 
+  // if star is click it sets rating to that star's value
+  function updateRating(value) {
+    setRating(value)
   }
 
-
-  function unhoveredStar() {
-    setStars(oldStar => oldStar.map(star => {
-      return {...star, isSelected: false}
-    }))
+  // if star is hovered it sets hover to that star's value
+  function updateHover(value) {
+    setHover(value)
   }
+
+  // if star is not hovered it sets hover to null
+  function resetHover() {
+    setHover(null)
+  }
+
+  console.log("rating is", rating)
+  console.log("hover is", hover)
 
   const starElements = stars.map(star => (
     <Star 
       key={star.id} 
-      clickStar={() => clickStar(star.id)}
-      isSelected={star.isSelected} 
-      unhoveredStar={() => unhoveredStar()}
-
+      selectedRating={rating}
+      hover={hover}
+      updateRating={() => updateRating(star.ratingValue)}
+      updateHover={() => updateHover(star.ratingValue)}
+      resetHover={() => resetHover()}
+      ratingValue={star.ratingValue}
     />
   ))
 
-  const cancelNavHome = () => {
+  // navigates back to home page if cancel btn is clicked
+  const NavHome = () => {
     navigate('/')
   }
 
@@ -114,9 +121,38 @@ export default function AddReview(props) {
     
   // }
 
- 
 
-    
+  console.log(reviewData)
+  const handleSubmit = async (event) => {
+    event.preventDefault()
+    if (reviewData.postTitle !== "" && 
+        reviewData.postDescription !== "" && 
+        rating != null) 
+      {
+        try {
+          // const url = 'https://localhost:3001/addReview/post'
+          const res = await axios.post('http://localhost:3001/addReview/post', {
+            username: props.username,
+            userId: props.userId,
+            title: reviewData.postTitle,
+            postDate: date,
+            postRating: rating,
+            postDescription: reviewData.postDescription,
+            postPhoto: photo
+          })
+          console.log("submitted review: ", res.data)
+        } catch(err) {
+          alert(err)
+        }
+
+      } else {
+        console.log("not completed")
+      }
+  }
+
+  console.log("date traveled", date)
+
+
   return (
     <div className="post-container"> 
       <header>
@@ -125,7 +161,8 @@ export default function AddReview(props) {
 
       <div className="review-container">
           <h1 className="create-post-txt"> Create Post</h1>
-          <form className="form-inputs">
+          <form className="form-inputs" onSubmit={handleSubmit}>
+            {/* Title of post */}
             <input
               type="text"
               id="postTitle"
@@ -152,15 +189,14 @@ export default function AddReview(props) {
               }} 
             /> */}
         
-          {/* main for date of travle */}
+          {/* Date traveled of post */}
             <Flatpickr
               id="postDate"
               name="postDate"
               // value={reviewData.postDate}
               placeholder = "Select date that you went"
-              onChange={date => {
-                setDate({date})
-                console.log("printing", date)
+              onChange={newDate => {
+                setDate(newDate)
               }}
               options={{
                 altFormat: "d M Y",
@@ -170,10 +206,12 @@ export default function AddReview(props) {
               }} 
             />
 
+            {/* Rating/star of post */}
             <div className="star-container">
               {starElements}
             </div>
                     
+            {/* Description of post */}
             <textarea 
               type="text"
               id="postDescription"
@@ -186,51 +224,36 @@ export default function AddReview(props) {
               cols={50} 
             />
 
+            {/* choosing photo for post */}
             <div className="postPhoto-container">
               <div className="photo-btn-container">
                 <label htmlFor="postPhoto" className="postPhoto-label"> Choose photo </label>
-                {/* <div> {newName} </div> */}
                 <input 
                   type="file"
                   id="postPhoto"
                   name="postPhoto"
-                  accept="image/png, .jpeg, .jpg, image/gif"
+                  accept="image/png, .jpeg, .jpg"
                   placeholder="Choose photo"
-                  // style={styles}
-                  onChange={event => {
-                    console.log("photo:", event.target.files[0])
-                    setPhoto(oldPhoto => ({
-                      ...oldPhoto,
-                      postPhoto: event.target.files[0],
-                      hasPhoto: true
-                    }))
-                  }}
+                  onChange={(event) => uploadPhoto(event.target.files)}
                 />
               </div>
-
+              
+              {/* Photo displayed */}
               <div className="photo-display-container">
-                {photo.hasPhoto && 
+                {photo && 
                 (
                   <div>
-                    <img className="img-post" src={URL.createObjectURL(photo.postPhoto)} alt="not found"/>
+                    <img className="img-post" src={URL.createObjectURL(photo)} alt="not found"/>
                   </div>
                   // displayPhoto(postPhoto.value)
                 )}
               </div>
             </div>
-
-            {/* {photo.hasPhoto && 
-            (
-              <div>
-                <img className="post-photo" src={URL.createObjectURL(photo.postPhoto)} alt="not found"/>
-              </div>
-              // displayPhoto(postPhoto.value)
-            )} */}
             
-          
+            {/* cancel and post buttons */}
             <div className="btn-container">
-              <button className="cancel-btn" onClick={cancelNavHome}> Cancel </button>
-              <button className="post-btn"> Post </button>
+              <button className="cancel-btn" onClick={NavHome}> Cancel </button>
+              <button type="submit" className="post-btn"> Post </button>
             </div>
           </form>
       </div>
