@@ -12,6 +12,7 @@ const dbPostData = mysql.createPool({
   database: 'postData'
 });
 
+// middleware functions
 app.use(cors())
 app.use(express.json()) // you can grab stuff from front end to back end req.body
 app.use(bodyParser.urlencoded({extended: true}))
