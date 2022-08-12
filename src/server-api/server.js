@@ -4,6 +4,7 @@ const cors = require('cors')
 const app = express()
 const mysql = require('mysql')
 
+// postData sql database
 const dbPostData = mysql.createPool({
   host: 'localhost',
   user: 'joseph',
