@@ -4,6 +4,9 @@ import Navbar from '../components/Navbar'
 import axios from 'axios'
 import {nanoid} from 'nanoid'
 import Star from '../components/Star'
+// date picker library
+import DatePicker from 'react-datepicker'
+import "react-datepicker/dist/react-datepicker.css";
 // react flatpickr
 // import "flatpickr/dist/themes/material_green.css";
 // theme options:
@@ -27,7 +30,8 @@ export default function AddReview(props) {
       postDescription: ""
   })
 
-  const [date, setDate] = useState('')
+   // const [date, setDate] = useState('')
+   const [date, setDate] = useState(new Date())
 
   const [photo, setPhoto] = useState(null)
   function uploadPhoto(selectedPhoto) {
@@ -106,23 +110,9 @@ export default function AddReview(props) {
   //   </div> 
   // }
 
-  // const styles = {
-  //   display: photo.hasPhoto ? "" : "none"
-  // }
-
-  // const photoName = []
-  // photoName.push('')
-  // const newName = photoName.map(name => (
-  //   photo.postPhoto
-  // ))
-  // console.log("photoName: ", photoName)
-
-  // const postData = async () => {
-    
-  // }
-
-
   console.log(reviewData)
+
+  // server for posting data
   const handleSubmit = async (event) => {
     event.preventDefault()
     if (reviewData.postTitle !== "" && 
@@ -130,17 +120,18 @@ export default function AddReview(props) {
         rating != null) 
       {
         try {
+          const newDate = `{${date.getMonth()+1}/${date.getDate()}/${date.getFullYear()}}`
+          console.log("newDate: ", newDate)
           // const url = 'https://localhost:3001/addReview/post'
           const res = await axios.post('http://localhost:3001/addReview/post', {
             username: props.username,
             userId: props.userId,
             title: reviewData.postTitle,
-            postDate: date,
+            postDate: newDate,
             postRating: rating,
             postDescription: reviewData.postDescription,
             postPhoto: photo
           })
-          console.log("submitted review: ", res.data)
         } catch(err) {
           alert(err)
         }
@@ -151,13 +142,14 @@ export default function AddReview(props) {
   }
 
   console.log("date traveled", date)
+  console.log("new date: ", date)
 
 
   return (
     <div className="post-container"> 
-      <header>
+      {/* <header>
           <Navbar />
-      </header>
+      </header> */}
 
       <div className="review-container">
           <h1 className="create-post-txt"> Create Post</h1>
@@ -190,21 +182,43 @@ export default function AddReview(props) {
             /> */}
         
           {/* Date traveled of post */}
-            <Flatpickr
+
+            <DatePicker 
+              selected={date}
+              onChange={oldDate => {
+                setDate(oldDate)
+                // const selectedDate = new Date(oldDate)
+                // const formateDate = `{${selectedDate.getMonth()+1}/${selectedDate.getDate()}/${selectedDate.getFullYear()}}`
+                // console.log("formatted date", formateDate)
+                // setDate(formateDate)
+              }}
+              dateFormate={"MM/DD/YYYY"}
+              
+              maxDate={new Date()}
+              isClearable
+              showYearDropdown
+              scrollableMonthYearDropdown
+            />
+        
+            {/* <Flatpickr
               id="postDate"
               name="postDate"
+              value={date}
               // value={reviewData.postDate}
-              placeholder = "Select date that you went"
+              placeholder = "Select date that you went flatpickr"
               onChange={newDate => {
                 setDate(newDate)
               }}
               options={{
-                altFormat: "d M Y",
-                dateFormat: "d M Y",
+                // altFormat: "d M Y",
+                // dateFormat: "d M Y",
+                // altFormat: "M d Y",
+                altFormate: "F j, Y",
                 maxDate: "today",
-                altInput: true
+                altInput: true,
+                enableTime: false
               }} 
-            />
+            /> */}
 
             {/* Rating/star of post */}
             <div className="star-container">

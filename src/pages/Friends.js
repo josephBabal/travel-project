@@ -4,9 +4,9 @@ import Navbar from '../components/Navbar'
 export default function Friends() {
   return (
     <div>
-      <header>
+      {/* <header>
           <Navbar />
-      </header>
+      </header> */}
         This is friends page
       </div>
   )

@@ -15,10 +15,20 @@ export default function Navbar() {
           {/* friends - friends posts */}
           <li> <Link to="/friends" className="nav-friends"> Friends </Link></li>
           {/* adding a review */}
-          <li> <Link to="/addReview" className="nav-create-post"> Add Review </Link></li>
+          <li> <Link to="/addReview" className="nav-addReview"> Add Review </Link></li>
           {/* your posts, bio, settings, add friend, etc */}
-          <li> <Link to="/profile" className="nav-profile"> Login </Link> </li>
-          <div className="active"></div>
+          <div className="profile-dropDown-container"> 
+            <li> <Link to="/profile" className="nav-profile"> Profile</Link> </li>
+              <div className="profile-dropDown-menu ">
+                <ul className="profile-nav-list">
+                  <li> <Link to="/logIn" className="logOut"> Log Out </Link></li>
+                </ul>
+              </div>
+          </div>
+          
+          
+          
+          {/* <div className="active"></div> */}
         </ul>
         </nav>
     </div>

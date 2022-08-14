@@ -7,6 +7,7 @@ import AddReview from './pages/AddReview'
 import UserPost from './pages/UserPost'
 import ErrorPage from './pages/ErrorPage'
 import Profile from './pages/Profile'
+import LogInPage from './pages/LogInPage'
 import { FaJournalWhills } from 'react-icons/fa'
 import { nanoid } from 'nanoid'
 
@@ -32,7 +33,7 @@ export default function App() {
   return (
     <div>
       <Router>
-          {/* <Navbar /> */}
+          <Navbar />
         <main>
           {/* <div className="background-img"></div>
           <div className="general-post"></div> */}
@@ -44,8 +45,10 @@ export default function App() {
           <Route path="/addReview" element={<AddReview
              username={users.username} userId={users.id} />} 
           /> 
-          <Route path="/profile/" element={<Profile />} /> 
-          <Route path="/profile/:username" element={<Profile />} /> 
+          <Route path="/profile" element={<Profile username={users.username} userId={users.id}/>} />
+          {/* <Route path={`/profile/:${users.id}`}  element={<Profile />} />  */}
+          {/* <Route path="/profile/:username" element={<Profile />} />  */}
+          <Route path="logIn" element={<LogInPage/>} />
           <Route path="*" element={<ErrorPage />} />
         </Routes>
         <footer></footer>

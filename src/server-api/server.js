@@ -18,6 +18,14 @@ app.use(express.json()) // you can grab stuff from front end to back end req.bod
 app.use(bodyParser.urlencoded({extended: true}))
 
 
+app.get("/profile/userPost", (req, res) => {
+  const sqlGetUserPost = "SELECT * FROM postData";
+  dbPostData.query(sqlGetUserPost, (err, result) => {
+    console.log("user post data: ", result)
+    res.send(result)
+  })
+})
+
 
 app.post("/addReview/post", (req, res) => {
   const username = req.body.username
