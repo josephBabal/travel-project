@@ -3,6 +3,7 @@ import { useNavigate, useParams } from 'react-router-dom'
 import Navbar from '../components/Navbar'
 import axios from 'axios'
 import Post from '../components/Post'
+import {FaStar} from 'react-icons/fa'
 
 
 export default function Profile(props) {
@@ -31,25 +32,37 @@ export default function Profile(props) {
     const getDate = val.dateTraveled
     const newDate = getDate.substring(1, getDate.length-1)
     console.log(newDate)
+    console.log("proifle photo value: ", val.photo)
 
+    const starElements = fillStarArr()
+
+    function fillStarArr() {
+      const arr = []
+      for (let i = 0; i < 5; i++) {
+        arr.push(<FaStar key={i} className="card-star" color={i <= val.rating ? "#FFC107" : "E4E5E9"}/>)
+      }
+      return arr
+    }
+  
     return (
       <Post 
         key={val.id}
-        userName={val.userName}
+        userName={val.username}
         title={val.title}
         dateTraveled={newDate}
-        rating={val.rating}
+        rating={starElements}
         postDescription={val.postDescription}
+        photo={val.photo}
         // photo={val.photo.urls.regular}
       />
     )}
-    )
+    ).reverse()
 
   return (
     <div className="profile-container">
-      <div> <p> profile </p> </div>
-
-      <div> {userPostDataElements} </div>
+      <h3> {props.username} </h3>
+     
+      <div className="user-post"> {userPostDataElements} </div>
 
       {/* <div className="user-post-container">
         {userPostData.map((val) => {

@@ -27,18 +27,30 @@ export default function AddReview(props) {
   // all text data of post
   const [reviewData, setReviewData] = useState({
       postTitle: "",
-      postDescription: ""
+      postDescription: "",
+      postPhoto: ""
   })
 
    // const [date, setDate] = useState('')
    const [date, setDate] = useState(new Date())
 
-  const [photo, setPhoto] = useState(null)
-  function uploadPhoto(selectedPhoto) {
-    if (selectedPhoto) {
-      setPhoto(selectedPhoto[0])
-    }
-  }
+  // for button/img from computer
+  // const [photo, setPhoto] = useState(null)
+  // used for photo state being separte
+  // const [photo, setPhoto] = useState('')
+  // function handlePhoto(event) {
+  //   const {value} = event.target
+  //   console.log("event value: ", value)
+  //   setPhoto(value)
+  // }
+  // console.log("test photo: ", photo)
+
+  // function for button/choosing photo from computer
+  // function uploadPhoto(selectedPhoto) {
+  //   if (selectedPhoto) {
+  //     setPhoto(selectedPhoto[0])
+  //   }
+  // }
 
   // states used for star icons
   const [stars, setStars] = useState(newStar())
@@ -81,12 +93,12 @@ export default function AddReview(props) {
   const starElements = stars.map(star => (
     <Star 
       key={star.id} 
-      selectedRating={rating}
+      ratingValue={star.ratingValue} // individual star rating
+      selectedRating={rating} // rating that was clicked
       hover={hover}
       updateRating={() => updateRating(star.ratingValue)}
       updateHover={() => updateHover(star.ratingValue)}
       resetHover={() => resetHover()}
-      ratingValue={star.ratingValue}
     />
   ))
 
@@ -96,7 +108,7 @@ export default function AddReview(props) {
   }
 
   function handleChange(event) {
-      const {name, value, type} = event.target
+      const {name, value} = event.target
       setReviewData(prevData => ({
           ...prevData,
           [name] : value
@@ -122,6 +134,7 @@ export default function AddReview(props) {
         try {
           const newDate = `{${date.getMonth()+1}/${date.getDate()}/${date.getFullYear()}}`
           console.log("newDate: ", newDate)
+          navigate('/')
           // const url = 'https://localhost:3001/addReview/post'
           const res = await axios.post('http://localhost:3001/addReview/post', {
             username: props.username,
@@ -130,7 +143,7 @@ export default function AddReview(props) {
             postDate: newDate,
             postRating: rating,
             postDescription: reviewData.postDescription,
-            postPhoto: photo
+            postPhoto: reviewData.postPhoto
           })
         } catch(err) {
           alert(err)
@@ -184,13 +197,12 @@ export default function AddReview(props) {
           {/* Date traveled of post */}
 
             <DatePicker 
+              id="date-input"
+              name="postDate"
               selected={date}
               onChange={oldDate => {
                 setDate(oldDate)
-                // const selectedDate = new Date(oldDate)
-                // const formateDate = `{${selectedDate.getMonth()+1}/${selectedDate.getDate()}/${selectedDate.getFullYear()}}`
-                // console.log("formatted date", formateDate)
-                // setDate(formateDate)
+                
               }}
               dateFormate={"MM/DD/YYYY"}
               
@@ -240,28 +252,41 @@ export default function AddReview(props) {
 
             {/* choosing photo for post */}
             <div className="postPhoto-container">
-              <div className="photo-btn-container">
+              <input 
+                id="photoUrl"
+                type="text"
+                placeholder="Enter url of photo"
+                onChange={handleChange}
+                name="postPhoto"
+                value={reviewData.postPhoto}
+                maxLength={100}
+                rows={10}
+                cols={50}
+              />
+              {/* button to get photo from user comptuer
+              <div className="photo-btn-container"> 
                 <label htmlFor="postPhoto" className="postPhoto-label"> Choose photo </label>
                 <input 
                   type="file"
-                  id="postPhoto"
+                  // id="postPhoto"
                   name="postPhoto"
                   accept="image/png, .jpeg, .jpg"
                   placeholder="Choose photo"
                   onChange={(event) => uploadPhoto(event.target.files)}
                 />
-              </div>
+              </div> */}
               
               {/* Photo displayed */}
-              <div className="photo-display-container">
+              {/* <div className="photo-display-container">
                 {photo && 
                 (
                   <div>
+                    <img className="img-post" src={photo} alt=""/>
                     <img className="img-post" src={URL.createObjectURL(photo)} alt="not found"/>
                   </div>
-                  // displayPhoto(postPhoto.value)
-                )}
-              </div>
+                )
+                }  
+              </div> */}
             </div>
             
             {/* cancel and post buttons */}

@@ -209,7 +209,7 @@ nav a:hover::before {
   border: 1px solid #1F0000;
 }
 
-.date-input {
+#date-input {
   font-size: 0.95em;
   border: none;
   /* border-radius: 7px; */
@@ -220,10 +220,12 @@ nav a:hover::before {
   height: 10px;
   border: 1px solid #1F0000;
 }
-
+/* 
 #postDate {
-
-}
+ width: 350px;
+ height: 10px;
+ font-size: 0.95rem;
+} */
 
 /* stars for add review */
 .star-container {
@@ -268,6 +270,21 @@ input[type="radio"] {
   padding-left: 30%;
 }
 
+#photoUrl {
+  font-size: 1.0rem;
+  position: absolute;
+  padding: 5px 10px;
+  resize: none;
+  border: none;
+  /* border-radius: 7px; */
+  margin: 0;
+  font-family: Lato, sans-serif;
+  width: 350px;
+  border: 1px solid #1F0000;
+}
+
+
+/* styles for button/choosing photo from comptuer */
 input[type='file'] {
   display: none;
 } 
@@ -336,5 +353,72 @@ input[type='file'] {
 
 .cancel-btn:hover {
   background-color: #BDBDBD;
+}
+
+
+
+/* User post  */
+
+.profile-container {
+  background-color: lightslategray;
+  margin: 0 auto;
+
+  width: 90%;
+
+}
+
+.user-post {
+  display: grid;
+  grid-template-columns: 30% 30% 30%;
+  grid-template-rows: auto; 
+  justify-content: space-around;
+  gap: 20px;
+  padding: 15px;
+}
+
+.card-post {
+  position: relative;
+  border: 1px solid black;
+}
+
+.card-top {
+  display: flex;
+  justify-content: space-between;
+  border-bottom: 1px solid black;
+  height: 45px;
+}
+
+.card-username {
+  /* margin: 0; */
+  padding-left: 20px;
+}
+
+.card-title {
+ /* margin: 0; */
+ padding-left: 20px;
+}
+
+.card-date {
+  padding-right: 20px;
+}
+
+.card-rating-container {
+  padding-left: 20px;
+}
+
+.card-star {
+  font-size: 20px;
+  /* text-decoration: none; */
+}
+
+.card-description {
+  padding: 0px 20px;;
+}
+
+.card-photo {
+  width: 100px;
+  height: 100px;
+  padding-left: 20px;
+  padding-bottom: 20px;
 }
 

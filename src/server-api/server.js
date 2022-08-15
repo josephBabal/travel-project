@@ -12,11 +12,27 @@ const dbPostData = mysql.createPool({
   database: 'postData'
 });
 
+
+// var allowCrossDomain = (req, res, next) => {
+//   res.header('Access-Control-Allow-Origin', '*')
+//   res.header('Access-Control-Allow-Methods', 'GET,PUT,POST,DELETE')
+//   res.header('Access-Control-Allow-Headers', 'Content-Type')
+//   next()
+// }
+
 // middleware functions
 app.use(cors())
 app.use(express.json()) // you can grab stuff from front end to back end req.body
 app.use(bodyParser.urlencoded({extended: true}))
 
+
+
+// app.configure(function() {
+//   app.use(cors())
+//   app.use(express.json()) // you can grab stuff from front end to back end req.body
+//   app.use(bodyParser.urlencoded({extended: true}))
+//   app.use(allowCrossDomain) 
+// })
 
 app.get("/profile/userPost", (req, res) => {
   const sqlGetUserPost = "SELECT * FROM postData";
@@ -37,7 +53,7 @@ app.post("/addReview/post", (req, res) => {
   const photo = req.body.postPhoto
   
   const sqlInsert = "INSERT INTO postData (username, userId, title, dateTraveled, rating, postDescription, photo) VALUES (?,?,?,?,?,?,?)";
-  dbPostData.query(sqlInsert, [username, userId, title, dateTraveled, rating, postDescription, ' + photo+ '], (err, result) => {
+  dbPostData.query(sqlInsert, [username, userId, title, dateTraveled, rating, postDescription, photo], (err, result) => {
     if (err) {
       console.log(err)
     }
