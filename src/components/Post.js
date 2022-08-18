@@ -63,22 +63,24 @@ export default function Post(props) {
 
 
   return (
-      <div className="card-post"> 
-      
-        <div className="card-top">
-          <h5 className="card-username"> {props.userName} </h5>
-          <h5 className="card-date"> {props.dateTraveled} </h5>
-        </div>
-      {/* <div>
+    <div className="card-post"> 
+
+      <div className="card-top">
+        <h5 className="card-username"> {props.userName} </h5>
+        <h5 className="card-date"> {props.dateTraveled} </h5>
+      </div>
+    {/* <div>
 
       </div> */}
+      <div className="card-content"> 
         <h3 className="card-title"> {props.title} </h3>
         <div className="card-rating-container"> {props.rating}  </div>
         <p className="card-description"> {props.postDescription} </p>
         <img className="card-photo" src={props.photo} onError={(e)=>{e.target.onError = null; e.target.src = fallbackSrc}}/>
+      </div>
         {/* <img className="card-photo" src={props.photo} /> */}
         {/* {props.photo && <img className="card-photo" src={`profile/userPost//${props.photo}`} alt="img"/>} */}
         {/* {props.photo && <div className="card-photo"> {URL.createObjectURL(props.photo)} </div>} */}
-      </div>
+    </div>
   )
 }

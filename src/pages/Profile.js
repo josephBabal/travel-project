@@ -4,14 +4,20 @@ import Navbar from '../components/Navbar'
 import axios from 'axios'
 import Post from '../components/Post'
 import {FaStar} from 'react-icons/fa'
-
+import { IoMdSettings } from "react-icons/io";
 
 export default function Profile(props) {
   const navigate = useNavigate()
   const {userId} = useParams()
+  // const styles= {
+  //   backgroundColor: "white"
+  // }
 
   const [userPostData, setUserPostData] = useState([])
+  const [setting, setSetting] = useState(false)
+  const [backdrop, setBackdrop] = useState(false)
 
+  // getting post data from database and storing in userPostData
   useEffect(() => {
     const getUserPostData = async () => {
       try {
@@ -25,8 +31,13 @@ export default function Profile(props) {
     getUserPostData()
   }, [])
 
+  const handleSetting = () => {
+    setSetting(oldSetting => !oldSetting)
+    setBackdrop(oldBackdrop => !oldBackdrop)
+  }
 
 
+  // returning 
   const userPostDataElements = userPostData.map((val) => {
     // Getting rid of {} around date using subString
     const getDate = val.dateTraveled
@@ -55,39 +66,39 @@ export default function Profile(props) {
         photo={val.photo}
         // photo={val.photo.urls.regular}
       />
-    )}
-    ).reverse()
+    )
+    }).reverse()
 
   return (
     <div className="profile-container">
-      <h3> {props.username} </h3>
-     
+
+      {useEffect(() => {
+        document.body.classList.add('login-background')
+
+      },[])}
+
+      {backdrop && (
+      <div id="modal-backdrop"></div> )}
+      {setting && (
+        <div id="setting-btn-list">
+          <button className="logout-btn" onClick={() => {
+            navigate('/logIn')
+          }}> Log Out </button>
+          <button className="delete-btn"> Delete Account </button>
+        </div>
+      )}
+
+      <div className="profile-header">
+        <h3 className="profile-username"> {props.username} </h3>
+        <IoMdSettings
+          className="profile-setting" 
+          onClick={handleSetting} 
+        />
+        {/* <button className="profile-setting"> hello </button> */}
+      </div>
+
       <div className="user-post"> {userPostDataElements} </div>
 
-      {/* <div className="user-post-container">
-        {userPostData.map((val) => {
-          return (
-            
-            <div key={props.userId}className="card-post"> 
-              <h1 className="card-username"> {val.userName} </h1>
-              <h2 className="card-title"> {val.title} </h2>
-              <h3 className="card-date"> {val.dateTraveled} </h3>
-              <p className="card-rating"> {val.rating} </p>
-              <p className="card-description"> {val.postDescription} </p>
-              <div className="card-photo"> {val.photo} </div>
-            </div>
-          )
-        })}
-      </div> */}
-
-
-
-
-
-
-      {/* <header>
-          <Navbar />
-      </header> */}
 
       {/* This is the profile page for {userId}! */}
       {/* <button onClick={() => {

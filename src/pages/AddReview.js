@@ -104,7 +104,7 @@ export default function AddReview(props) {
 
   // navigates back to home page if cancel btn is clicked
   const NavHome = () => {
-    navigate('/')
+    navigate('/home')
   }
 
   function handleChange(event) {
@@ -134,7 +134,7 @@ export default function AddReview(props) {
         try {
           const newDate = `{${date.getMonth()+1}/${date.getDate()}/${date.getFullYear()}}`
           console.log("newDate: ", newDate)
-          navigate('/')
+          navigate('/home')
           // const url = 'https://localhost:3001/addReview/post'
           const res = await axios.post('http://localhost:3001/addReview/post', {
             username: props.username,
@@ -159,7 +159,13 @@ export default function AddReview(props) {
 
 
   return (
+    
     <div className="post-container"> 
+      {useEffect(() => {
+        document.body.classList.contains('login-background') ?
+        document.body.classList.remove('login-background') :
+        document.body.classList.add('background-img')
+      },[])}
       {/* <header>
           <Navbar />
       </header> */}
