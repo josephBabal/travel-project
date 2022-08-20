@@ -34,11 +34,21 @@ app.use(bodyParser.urlencoded({extended: true}))
 //   app.use(allowCrossDomain) 
 // })
 
-app.get("/profile/userPost", (req, res) => {
-  const sqlGetUserPost = "SELECT * FROM postData";
-  dbPostData.query(sqlGetUserPost, (err, result) => {
+app.get("/profile/:username/userPost", (req, res) => {
+  const usernameParam = req.params.username
+  const sqlGetUserPost = "SELECT * FROM postData WHERE username = ?";
+  dbPostData.query(sqlGetUserPost, [usernameParam], (err, result) => {
     console.log("user post data: ", result)
-    res.send(result)
+    if (err) {
+      res.send({err: err})
+    } 
+    
+    // if reviews exist, send result to front end, else send err message
+    if (result.length > 0) {
+      res.send(result)
+    } else {
+      res.send({message: "no reviews"})
+    }
   })
 })
 
@@ -59,6 +69,44 @@ app.post("/addReview/post", (req, res) => {
     }
     else {
       console.log(result)
+    }
+  })
+})
+
+// creating account
+
+app.post('/createAccount/post', (req, res) => {
+  const username = req.body.username
+  const userId = req.body.userId
+  const userPassword = req.body.userPassword
+  const userPasswordConfirm = req.body.userPasswordConfirm
+
+  const sqlInsert = "INSERT INTO userData (username, userId, userPassword, userPasswordConfirm) VALUES (?,?,?,?)";
+  dbPostData.query(sqlInsert, [username, userId, userPassword, userPasswordConfirm], (err, result) => {
+    if (err) {
+      res.send({err: err})
+    } else {
+      res.send(result)
+    }
+  })
+})
+
+app.post('/login/post', (req, res) => {
+  const username = req.body.username
+  const userPassword = req.body.userPassword
+  const sqlSelect = "SELECT * FROM userData WHERE username = ? AND userPassword = ?"
+  dbPostData.query(sqlSelect, [username, userPassword], (err, result) => {
+
+    // send is like a return
+    if (err) {
+      res.send({err: err})
+    } 
+    
+    // if result/user exist, send result to front end, else send err message
+    if (result.length > 0) {
+      res.send(result)
+    } else {
+      res.send({message: "wrong username/password"})
     }
   })
 })

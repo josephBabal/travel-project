@@ -7,7 +7,6 @@ body {
   margin: 0;
   font-family: Lato, sans-serif;
   color: #1F0000;
-  overflow-x: hidden;
 }
 
 .background-img {
@@ -22,9 +21,11 @@ body {
 
 .login-background {
   /* background: linear-gradient(120deg, #F4B4BC, #F6C3A7); */
-  background: linear-gradient(#F4B4BC, #F6C3A7);
+  background: linear-gradient(99deg,#F4B4BC, #F6C3A7);
   height: 100vh;
-  overflow: hidden;
+  /* background-size: cover; */
+  /* background-repeat: no-repeat;  */
+  /* overflow: hidden; */
 }
 
 /* navbar */
@@ -486,7 +487,8 @@ input[type='file'] {
 
 
 /* log in page */
-.login-container {
+.login-container,
+.account-container {
   /* position to transform used to center */
   position: absolute;
   top: 50%;
@@ -498,23 +500,27 @@ input[type='file'] {
   border-radius: 12px;
 }
 
-.login-title {
+.login-title,
+.account-title {
   border-bottom: 1px solid #BDBDBD;
   text-align: center;
 }
 
-.login-container form {
+.login-container form,
+.account-container form {
   padding: 0 40px;
 
 }
 
-form .login-form {
+form .login-form,
+form .account-form  {
   position: relative;
   border-bottom: 1px solid #BDBDBD;
   margin: 30px 0;
 }
 
-.login-form Input {
+.login-form Input,
+.account-form Input {
   width: 100%;
   padding: 0 5px;
   height: 40px;
@@ -524,7 +530,8 @@ form .login-form {
   font-size: 1.0rem;
 }
 
-.login-form label {
+.login-form label,
+.account-form label {
   position: absolute;
   top: 50%;
   left: 5px;
@@ -535,7 +542,9 @@ form .login-form {
   transition: 0.5s;
 }
 
-.login-form span::before {
+
+.login-form span::before,
+.account-form span::before {
   content: '';
   position: absolute;
   width: 0;
@@ -547,14 +556,24 @@ form .login-form {
   transform: scaleX(0);
 }
 
-.login-form input:focus ~ label,
+/* if input is focused it will hold these properties */
+/* input:valid: any content inside will hold properties*/
+.login-form input:focus ~ label, 
 .login-form input:valid ~ label {
   top: -5px;
   color: #FDB289;
 }
 
+.account-form input:focus ~ label,
+.account-form input:valid ~label {
+  top: -5px;
+  color: #FDB289;
+}
+
 .login-form input:focus ~ span::before,
-.login-form input:valid ~ span::before {
+.login-form input:valid ~ span::before,
+.account-form input:focus ~ span::before,
+.acount-form input:valid ~ span::before {
   width: 100%;
   transform: scaleX(1);
 }
@@ -578,4 +597,10 @@ input[type="button"] {
   margin: 25px 0;
   cursor: pointer;
   outline: none;
+}
+
+input[type="submit"].create-account-btn {
+  width: 100%;
+  font-size: 1.3rem;
+  margin: 5px 0 30px 0;
 }

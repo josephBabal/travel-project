@@ -1,7 +1,7 @@
 import React, {useState} from 'react'
 // import urlExist from 'url-exist'
 // import Validator from 'validator'
-import {FaStar} from 'react-icons/fa'
+// import {FaStar} from 'react-icons/fa'
 
 export default function Post(props) {
   console.log("props.photo: ", props.photo)

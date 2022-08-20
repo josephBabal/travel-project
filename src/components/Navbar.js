@@ -3,7 +3,7 @@ import {Link} from 'react-router-dom'
 
 
 
-export default function Navbar() {
+export default function Navbar(props) {
 
   return (
     <div className="navbar-container">
@@ -17,7 +17,13 @@ export default function Navbar() {
           {/* adding a review */}
           <li> <Link to="/addReview" className="nav-addReview"> Add Review </Link></li>
           {/* your posts, bio, settings, add friend, etc */}
-          <Link to="/profile" className="nav-profile"> Profile</Link>
+          {/* <Link to="/profile" className="nav-profile"> Profile</Link> */}
+
+          <Link to={`/profile/${props.username}`} className="nav-profile"> Profile</Link>
+         
+         
+         
+         
           {/* <div className="profile-dropDown-container"> 
             <li> <Link to="/profile" className="nav-profile"> Profile</Link> </li>
               <div className="profile-dropDown-menu ">

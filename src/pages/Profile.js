@@ -1,6 +1,5 @@
 import React, {useState, useEffect } from 'react'
 import { useNavigate, useParams } from 'react-router-dom'
-import Navbar from '../components/Navbar'
 import axios from 'axios'
 import Post from '../components/Post'
 import {FaStar} from 'react-icons/fa'
@@ -8,7 +7,7 @@ import { IoMdSettings } from "react-icons/io";
 
 export default function Profile(props) {
   const navigate = useNavigate()
-  const {userId} = useParams()
+  const {username} = useParams()
   // const styles= {
   //   backgroundColor: "white"
   // }
@@ -16,29 +15,38 @@ export default function Profile(props) {
   const [userPostData, setUserPostData] = useState([])
   const [setting, setSetting] = useState(false)
   const [backdrop, setBackdrop] = useState(false)
+  const [hasReview, setHasReview] = useState(false)
+
+  const getUrl = `http://localhost:3001/profile/${props.username}/userPost`
 
   // getting post data from database and storing in userPostData
   useEffect(() => {
     const getUserPostData = async () => {
       try {
-        const res = await axios.get('http://localhost:3001/profile/userPost')
-        setUserPostData(res.data)
-        console.log(res.data.photo)
+        const res = await axios.get(getUrl)
+        if (res.data.message) {
+          console.log(res.data.message)
+          setUserPostData(res.data.message)
+        } else {
+          setUserPostData(res.data)
+          console.log(res.data)
+          setHasReview(oldVal => true)
+        }
       } catch(err) {
         console.log(err)
       }
     }
     getUserPostData()
-  }, [])
+  }, [getUrl])
 
   const handleSetting = () => {
     setSetting(oldSetting => !oldSetting)
     setBackdrop(oldBackdrop => !oldBackdrop)
   }
 
-
-  // returning 
-  const userPostDataElements = userPostData.map((val) => {
+  let userPostDataElements
+  if (hasReview === true) {
+    userPostDataElements = userPostData.map((val) => {
     // Getting rid of {} around date using subString
     const getDate = val.dateTraveled
     const newDate = getDate.substring(1, getDate.length-1)
@@ -68,6 +76,7 @@ export default function Profile(props) {
       />
     )
     }).reverse()
+  }
 
   return (
     <div className="profile-container">
@@ -97,7 +106,9 @@ export default function Profile(props) {
         {/* <button className="profile-setting"> hello </button> */}
       </div>
 
-      <div className="user-post"> {userPostDataElements} </div>
+      {hasReview ? <div className="user-post"> {userPostDataElements} </div> :
+        <h3 className="no-review-txt"> You have no reviews </h3>
+      }
 
 
       {/* This is the profile page for {userId}! */}

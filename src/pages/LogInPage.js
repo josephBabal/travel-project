@@ -1,39 +1,97 @@
-import react, {useEffect, useState} from 'react'
-import { useNavigate, useParams } from 'react-router-dom'
-import { nanoid } from 'nanoid'
+import React, {useEffect, useState} from 'react'
+import { useNavigate } from 'react-router-dom'
+import axios from 'axios'
 
-export default function LogInPage() {
-  const [userInfo, setUserInfo] = useState({
+export default function LogInPage(props) {
+  const [loginInfo, setLoginInfo] = useState({
     username: "",
     password: "",
-    userId: ""
   })
 
-  function handleSubmit(event) {
-    event.preventDefault()
-  }
+  const [loginStatus, setLoginStatus] = useState('')
+
+  const navigate = useNavigate() 
+
+
 
   const handleForm = (event) => {
     const {name, value} = event.target
 
-    setUserInfo(oldInfo => ({
+    setLoginInfo(oldInfo => ({
       ...oldInfo,
       [name] : value
     }))
   }
 
-  console.log(userInfo)
+  // const handleLoginSubmit = async(event) => {
+  //   event.preventDefault()
+  //   if (loginInfo.username === "" || loginInfo.password === "") {
+  //     console.log("login fields not filled")
+  //   } else {
+  //     try {
+  //       const res = axios.post('http://localhost:3001/login/post', {
+  //         username: loginInfo.username,
+  //         userPassword: loginInfo.password
+  //       })
+  //       if (res.message) {
+  //         setLoginStatus(res.message)
+  //       } else {
+  //         console.log("you are logged in", res)
+  //         // props.updateUser(response.data[0].password)
+  //         props.handleLogIn()
+  //         setLoginStatus(res)
+  //         navigate('/')
+  //       }
+  //     } catch(err) {
+  //       console.log(err)
+  //     }
+  //   }
+  // }
+
+  
+
+  const handleLoginSubmit = (event) => {
+    event.preventDefault()
+    const postUrl = 'http://localhost:3001/login/post'
+    axios.post(postUrl, {
+      username: loginInfo.username,
+      userPassword: loginInfo.password,
+    }).then((response) => {
+      console.log(response)
+      // sets the message if it returns a message
+      if (response.data.message) {
+        setLoginStatus(response.data.message)
+      } else {
+        // sets it as password if there is a user
+        // setLoginStatus(response.data[0].userPassword)    
+
+        const {username, userId} = response.data[0]
+        // props.updateUser(username, userId)
+        console.log("username and userId:", username, userId)
+
+  
+        props.updateUser(response.data[0])
+
+        props.handleLogin()
+        navigate('/')
+        document.body.classList.remove('login-background') 
+        console.log(loginStatus)
+      }
+    })
+  }
+
 
   return (
     <div className="login-container">
       <div className="login-title"> <h2> MY JOURNEY </h2> </div>
 
-      <form className="login-form">
+      <form /*onSubmit={handleLoginSubmit}*/ onSubmit={handleLoginSubmit}>
         <div className="login-form">
           <input 
             type="text" 
             name="username" 
             id="username"
+            value={loginInfo.username}
             onChange={handleForm}
             required
           />
@@ -44,8 +102,9 @@ export default function LogInPage() {
         <div className="login-form"> 
           <input 
             type="password" 
-            name="pasword" 
+            name="password" 
             id="password" 
+            value={loginInfo.password}
             onChange={handleForm}
             required
           />
@@ -54,8 +113,15 @@ export default function LogInPage() {
         </div>
 
         <div className="login-btn-container">
-          <input type="button" className="create-account-btn" value="Create Account" />
-          <input type="submit" className="login-btn" value="Login" />
+          <input
+            type="button" 
+            className="login-create-account-btn"
+            value="Create Account" 
+            onClick={() => {
+              navigate('/createAccount')
+            }}
+          />
+          <input type="submit" className="login-btn" value="Login"/>
         </div>
 
         {useEffect(() => {
@@ -64,7 +130,8 @@ export default function LogInPage() {
           document.body.classList.add('login-background')
         },[])}
 
-      </form>  
+      </form> 
+      <h2> {loginStatus} </h2>
     </div>
   )
 }

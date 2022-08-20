@@ -1,8 +1,6 @@
-import React, { useState, useEffect, useRef } from 'react'
+import React, { useState, useEffect } from 'react'
 import { useNavigate } from "react-router-dom"
-import Navbar from '../components/Navbar'
 import axios from 'axios'
-import {nanoid} from 'nanoid'
 import Star from '../components/Star'
 // date picker library
 import DatePicker from 'react-datepicker'
@@ -18,7 +16,7 @@ import "react-datepicker/dist/react-datepicker.css";
 // airbnb.css
 // confetti.css
 import "flatpickr/dist/themes/airbnb.css";
-import Flatpickr from "react-flatpickr";
+// import Flatpickr from "react-flatpickr";
 
 
 export default function AddReview(props) {
