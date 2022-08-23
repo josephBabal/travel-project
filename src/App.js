@@ -60,7 +60,11 @@ export default function App() {
 
           {isLoggedIn === false ? 
             <Routes>
-              <Route path="/" element={<LogInPage updateUser={updateUser} handleLogin={handleLogin} />} /> 
+              <Route path="/" 
+                element={<LogInPage 
+                  updateUser={updateUser} 
+                  handleLogin={handleLogin} />} 
+              /> 
               <Route path="/createAccount" element={<CreateAccount />} />
             </Routes>
             :
@@ -69,11 +73,18 @@ export default function App() {
               <Route path="/home" element={<Home />} />
               {/* <Route path="/friends" element={<Friends />} />  */}
               <Route path="/userPost" element={<UserPost />} />
-              <Route path="/addReview" element={<AddReview
-                username={user.username} userId={user.userId} />} 
+              <Route path="/addReview" 
+                element={<AddReview
+                  username={user.username} 
+                  userId={user.userId} />} 
               /> 
               {/* <Route path="/profile" element={<Profile username={user.username} userId={user.userId} />} /> */}
-              <Route path={`/profile/${user.username}`}  element={<Profile username={user.username} userId={user.userId}/>} /> 
+              <Route path={`/profile/${user.username}`}  
+                element={<Profile 
+                  username={user.username} 
+                  userId={user.userId} 
+                  handleLogin={handleLogin} />}
+              /> 
               {/* <Route path="/profile/:username" element={<Profile />} />  */}
               {/* <Route path="/login" element={<LogInPage/>} /> */}
               <Route path="*" element={<ErrorPage />} />

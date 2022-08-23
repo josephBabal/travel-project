@@ -21,7 +21,8 @@ import "flatpickr/dist/themes/airbnb.css";
 
 export default function AddReview(props) {
   const navigate = useNavigate()
-
+  const [isFilled, setIsFilled] = useState({postTitle: true, postDescription: true})
+  console.log("filled", isFilled)
   // all text data of post
   const [reviewData, setReviewData] = useState({
       postTitle: "",
@@ -111,6 +112,7 @@ export default function AddReview(props) {
           ...prevData,
           [name] : value
       }))
+      setIsFilled(old => ({...old, [name]: true}))
       console.log("review data", reviewData)
   }
   
@@ -125,9 +127,7 @@ export default function AddReview(props) {
   // server for posting data
   const handleSubmit = async (event) => {
     event.preventDefault()
-    if (reviewData.postTitle !== "" && 
-        reviewData.postDescription !== "" && 
-        rating != null) 
+    if (reviewData.postTitle !== "" && reviewData.postDescription !== "") 
       {
         try {
           const newDate = `{${date.getMonth()+1}/${date.getDate()}/${date.getFullYear()}}`
@@ -148,6 +148,14 @@ export default function AddReview(props) {
         }
 
       } else {
+        if (reviewData.postTitle === "") {
+          setIsFilled(old => ({...old, postTitle: false})) 
+        } 
+
+        if (reviewData.postDescription === "") {
+          setIsFilled(old => ({...old, postDescription: false})) 
+        } 
+
         console.log("not completed")
       }
   }
@@ -167,7 +175,6 @@ export default function AddReview(props) {
       {/* <header>
           <Navbar />
       </header> */}
-
       <div className="review-container">
           <h1 className="create-post-txt"> Create Post</h1>
           <form className="form-inputs" onSubmit={handleSubmit}>
@@ -180,6 +187,7 @@ export default function AddReview(props) {
               value={reviewData.postTitle}
               name="postTitle"
             />
+            {isFilled.postTitle ? "" : <span className="title-span"> *Title not filled</span>}
 
             {/* <input
               ref={setFp} 
@@ -199,11 +207,11 @@ export default function AddReview(props) {
             /> */}
         
           {/* Date traveled of post */}
-
+            <label htmlFor="date-input" className="date-label"> Enter date traveled </label>
             <DatePicker 
               id="date-input"
               name="postDate"
-              selected={date}
+              selected={date}e
               onChange={oldDate => {
                 setDate(oldDate)
                 
@@ -253,6 +261,7 @@ export default function AddReview(props) {
               rows={10}
               cols={50} 
             />
+             {isFilled.postDescription ? "" : <span className="description-span"> *Description not filled</span>}
 
             {/* choosing photo for post */}
             <div className="postPhoto-container">

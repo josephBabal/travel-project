@@ -2,6 +2,8 @@ import React, {useEffect, useState} from 'react'
 import { useNavigate, useParams } from 'react-router-dom'
 import { nanoid } from 'nanoid'
 import axios from 'axios'
+import { IoIosArrowRoundBack } from "react-icons/io"
+import { classnames } from 'classnames'
 
 
 export default function CreateAccount() {
@@ -12,10 +14,14 @@ export default function CreateAccount() {
     userId: nanoid()
   })
 
+  const [isUsernameTaken, setIsUsernameTaken] = useState(false)
+
   const navigate = useNavigate() 
 
   const handleForm = (event) => {
     const {name, value} = event.target
+
+    setIsUsernameTaken(false)
 
     setAccountInfo(oldInfo => ({
       ...oldInfo,
@@ -24,25 +30,59 @@ export default function CreateAccount() {
   }
 
 
+  // async function checkUsername() {
+  //   const postUrl = 'http://localhost:3001/createAccount/checkUsername'
+  //   try {
+  //     const res = await axios.post(postUrl, {
+  //       username: accountInfo.username
+  //     })
+  //     console.log("Res:", res)
+  //     if (res.data.message) {
+  //       setIsUsernameTaken(val => !val)
+  //     }
 
+  //   } catch(err) {
+  //     console.log(err)
+  //   }
+  // }
+
+  async function makeAccount() {
+    try {
+      setIsUsernameTaken(false)
+      navigate('/')
+      console.log("user id is: ", accountInfo.userId)
+      const postUrl = 'http://localhost:3001/createAccount/post'
+      const res = await axios.post(postUrl, {
+        username: accountInfo.username,
+        userId: accountInfo.userId,
+        userPassword: accountInfo.password,
+        userPasswordConfirm: accountInfo.passwordConfirm
+      })
+      console.log(res)
+    } catch(err) {
+      console.log(err)
+    }
+  }
+
+  
   const handleSubmit = async(event) => {
     event.preventDefault()
     if (accountInfo.password !== accountInfo.passwordConfirm ||
-        (accountInfo.username === "" || accountInfo.password === "" || 
-        accountInfo.passwordConfirm === "")) {
+      (accountInfo.username === "" || accountInfo.password === "" || 
+      accountInfo.passwordConfirm === "")) {
       console.log("Input fields not field out")
     } else {
+      const postUrl = 'http://localhost:3001/createAccount/checkUsername'
       try {
-        navigate('/')
-        console.log("user id is: ", accountInfo.userId)
-        const postUrl = 'http://localhost:3001/createAccount/post'
         const res = await axios.post(postUrl, {
-          username: accountInfo.username,
-          userId: accountInfo.userId,
-          userPassword: accountInfo.password,
-          userPasswordConfirm: accountInfo.passwordConfirm
+          username: accountInfo.username
         })
-        console.log(res)
+        console.log("Res:", res)
+        if (res.data.message) {
+          setIsUsernameTaken(true)
+        } else {
+          makeAccount()
+        }
       } catch(err) {
         console.log(err)
       }
@@ -50,9 +90,11 @@ export default function CreateAccount() {
   }
 
   console.log(accountInfo)
+  console.log(isUsernameTaken)
 
   return (
     <div className="account-container">
+      <IoIosArrowRoundBack className="account-back-btn" onClick={() => navigate('/')} />
       <div className="account-title"> <h2> MY JOURNEY </h2> </div>
 
       <form onSubmit={handleSubmit}>
@@ -65,8 +107,10 @@ export default function CreateAccount() {
             maxLength={20}
             required
           />
+          {/* <span className={`${isUsernameTaken ? 'span-taken' : 'span-account'}`}></span> */}
           <span></span>
-          <label htmlFor="username"> Username </label>
+          {isUsernameTaken ? <label htmlFor="username" className="username-taken"> Error username taken </label> : <label htmlFor="username"> Username </label>}
+          
         </div>
 
         <div className="account-form"> 

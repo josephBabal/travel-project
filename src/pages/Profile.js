@@ -3,7 +3,8 @@ import { useNavigate, useParams } from 'react-router-dom'
 import axios from 'axios'
 import Post from '../components/Post'
 import {FaStar} from 'react-icons/fa'
-import { IoMdSettings } from "react-icons/io";
+import { IoMdSettings } from "react-icons/io"
+import { IoIosCloseCircleOutline } from "react-icons/io"
 
 export default function Profile(props) {
   const navigate = useNavigate()
@@ -38,6 +39,7 @@ export default function Profile(props) {
     }
     getUserPostData()
   }, [getUrl])
+
 
   const handleSetting = () => {
     setSetting(oldSetting => !oldSetting)
@@ -86,15 +88,19 @@ export default function Profile(props) {
 
       },[])}
 
-      {backdrop && (
-      <div id="modal-backdrop"></div> )}
+      {backdrop && (<div id="modal-backdrop"></div> )}
       {setting && (
-        <div id="setting-btn-list">
-          <button className="logout-btn" onClick={() => {
-            navigate('/logIn')
-          }}> Log Out </button>
-          <button className="delete-btn"> Delete Account </button>
-        </div>
+        <>   
+          {/* <IoIosCloseCircleOutline className="close-btn" onClick={handleSetting} /> */}
+          <div id="setting-btn-list">
+            <IoIosCloseCircleOutline className="close-btn" onClick={handleSetting} />
+            <button className="logout-btn" onClick={() => {
+              navigate('/')
+              props.handleLogin()
+            }}> Log Out </button>
+            {/* <button className="delete-btn"> Delete Account </button> */}
+          </div> 
+       </> 
       )}
 
       <div className="profile-header">

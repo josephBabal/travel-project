@@ -9,12 +9,14 @@ export default function LogInPage(props) {
   })
 
   const [loginStatus, setLoginStatus] = useState('')
+  const [wrongInfo, setWrongInfo] = useState(false)
 
   const navigate = useNavigate() 
 
 
 
   const handleForm = (event) => {
+    setWrongInfo(false)
     const {name, value} = event.target
 
     setLoginInfo(oldInfo => ({
@@ -23,69 +25,80 @@ export default function LogInPage(props) {
     }))
   }
 
-  // const handleLoginSubmit = async(event) => {
-  //   event.preventDefault()
-  //   if (loginInfo.username === "" || loginInfo.password === "") {
-  //     console.log("login fields not filled")
-  //   } else {
-  //     try {
-  //       const res = axios.post('http://localhost:3001/login/post', {
-  //         username: loginInfo.username,
-  //         userPassword: loginInfo.password
-  //       })
-  //       if (res.message) {
-  //         setLoginStatus(res.message)
-  //       } else {
-  //         console.log("you are logged in", res)
-  //         // props.updateUser(response.data[0].password)
-  //         props.handleLogIn()
-  //         setLoginStatus(res)
-  //         navigate('/')
-  //       }
-  //     } catch(err) {
-  //       console.log(err)
-  //     }
-  //   }
-  // }
 
-  
-
-  const handleLoginSubmit = (event) => {
+  const handleLoginSubmit = async(event) => {
     event.preventDefault()
     const postUrl = 'http://localhost:3001/login/post'
-    axios.post(postUrl, {
-      username: loginInfo.username,
-      userPassword: loginInfo.password,
-    }).then((response) => {
-      console.log(response)
-      // sets the message if it returns a message
-      if (response.data.message) {
-        setLoginStatus(response.data.message)
-      } else {
-        // sets it as password if there is a user
-        // setLoginStatus(response.data[0].userPassword)    
-
-        const {username, userId} = response.data[0]
-        // props.updateUser(username, userId)
-        console.log("username and userId:", username, userId)
+    if (loginInfo.username === "" || loginInfo.password === "") {
+      console.log("login fields not filled")
+    } else {
+      try {
+        const res = await axios.post(postUrl, {
+          username: loginInfo.username,
+          userPassword: loginInfo.password
+        })
+        console.log(res)
+        if (res.data.message) {
+          setLoginStatus(res.data.message)
+          setWrongInfo(true)
+        } else {
+          // sets it as password if there is a user
+          // setLoginStatus(response.data[0].userPassword)    
+  
+          // const {username, userId} = res.data[0]
+          // props.updateUser(username, userId)
+          // console.log("username and userId:", username, userId)
+  
+          props.updateUser(res.data[0])
+          props.handleLogin()
+          navigate('/')
+          document.body.classList.remove('login-background') 
+          console.log(loginStatus)
+        }
+      } catch(err) {
+        console.log(err)
+      }
+    }
+  }
 
   
-        props.updateUser(response.data[0])
 
-        props.handleLogin()
-        navigate('/')
-        document.body.classList.remove('login-background') 
-        console.log(loginStatus)
-      }
-    })
-  }
+  // const handleLoginSubmit = (event) => {
+  //   event.preventDefault()
+  //   const postUrl = 'http://localhost:3001/login/post'
+  //   axios.post(postUrl, {
+  //     username: loginInfo.username,
+  //     userPassword: loginInfo.password,
+  //   }).then((response) => {
+  //     console.log(response)
+  //     // sets the message if it returns a message
+  //     if (response.data.message) {
+  //       setLoginStatus(response.data.message)
+  //     } else {
+  //       // sets it as password if there is a user
+  //       // setLoginStatus(response.data[0].userPassword)    
+
+  //       const {username, userId} = response.data[0]
+  //       // props.updateUser(username, userId)
+  //       console.log("username and userId:", username, userId)
+
+  
+  //       props.updateUser(response.data[0])
+
+  //       props.handleLogin()
+  //       navigate('/')
+  //       document.body.classList.remove('login-background') 
+  //       console.log(loginStatus)
+  //     }
+  //   })
+  // }
 
 
   return (
     <div className="login-container">
       <div className="login-title"> <h2> MY JOURNEY </h2> </div>
 
-      <form /*onSubmit={handleLoginSubmit}*/ onSubmit={handleLoginSubmit}>
+      <form onSubmit={handleLoginSubmit}>
         <div className="login-form">
           <input 
             type="text" 
@@ -96,7 +109,7 @@ export default function LogInPage(props) {
             required
           />
           <span></span>
-          <label htmlFor="username"> Username </label>
+          {wrongInfo ? <label htmlFor="username" className="wrong-login"> Incorrect Username </label> : <label htmlFor="username"> Username </label> }
         </div>
 
         <div className="login-form"> 
@@ -109,7 +122,7 @@ export default function LogInPage(props) {
             required
           />
           <span></span>
-          <label htmlFor="password"> Password </label>
+          {wrongInfo ? <label htmlFor="username" className="wrong-login"> Incorrect Password </label> : <label htmlFor="password"> Password </label>}
         </div>
 
         <div className="login-btn-container">
@@ -131,7 +144,6 @@ export default function LogInPage(props) {
         },[])}
 
       </form> 
-      <h2> {loginStatus} </h2>
     </div>
   )
 }

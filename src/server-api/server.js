@@ -65,15 +65,36 @@ app.post("/addReview/post", (req, res) => {
   const sqlInsert = "INSERT INTO postData (username, userId, title, dateTraveled, rating, postDescription, photo) VALUES (?,?,?,?,?,?,?)";
   dbPostData.query(sqlInsert, [username, userId, title, dateTraveled, rating, postDescription, photo], (err, result) => {
     if (err) {
+      res.send(err)
       console.log(err)
     }
     else {
+      res.send(result)
       console.log(result)
     }
   })
 })
 
 // creating account
+app.post('/createAccount/checkUsername', (req, res) => {
+  const username = req.body.username
+  const sqlSelect = "SELECT * FROM userData WHERE username = ?"
+  dbPostData.query(sqlSelect, [username], (err, result) => {
+    if (err) {
+      res.send({err: err})
+    }
+
+    if (result.length === 0) {
+      console.log(result.length)
+      res.send(result)
+    }
+    else {
+      console.log(result.length)
+      res.send({message: 'username already used'})
+    }
+  })
+})
+
 
 app.post('/createAccount/post', (req, res) => {
   const username = req.body.username
@@ -90,6 +111,7 @@ app.post('/createAccount/post', (req, res) => {
     }
   })
 })
+
 
 app.post('/login/post', (req, res) => {
   const username = req.body.username

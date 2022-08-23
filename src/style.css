@@ -2,7 +2,6 @@
   font-family: Lato, sans-serif;
 }
 
-
 body {
   margin: 0;
   font-family: Lato, sans-serif;
@@ -20,12 +19,8 @@ body {
 }
 
 .login-background {
-  /* background: linear-gradient(120deg, #F4B4BC, #F6C3A7); */
   background: linear-gradient(99deg,#F4B4BC, #F6C3A7);
   height: 100vh;
-  /* background-size: cover; */
-  /* background-repeat: no-repeat;  */
-  /* overflow: hidden; */
 }
 
 /* navbar */
@@ -48,7 +43,6 @@ header::after {
 }
 
 nav {
-  /* float: right; */
   display: flex;
   align-items: center;
 }
@@ -60,8 +54,8 @@ nav {
 }
 
 nav ul {
-    margin: 0;
-    padding: 0;
+  margin: 0;
+  padding: 0;
 }
 
 nav li {
@@ -76,7 +70,6 @@ nav a {
   text-decoration: none;
   text-transform: uppercase;
   color: #1F0000;  
-  /* color: #FFFFFF; */
   font-size: 16px;
   cursor: pointer;
 }
@@ -87,7 +80,6 @@ nav div {
 
 .profile-dropDown-container {
   position: relative;
-  
 }
 
 .profile-dropDown-menu {
@@ -122,12 +114,10 @@ nav a:hover::before {
 }
 
 /* add review whole container */
-
 .post-container {
   margin: 0;
   position: relative;
   /* background-color: #F7F7F7; */
-  
 }
 
 /* review container */
@@ -140,7 +130,7 @@ nav a:hover::before {
   flex-direction: column;
   align-items: center;
   border: 2px solid transparent;  
-  height: 550px;
+  height: 575px;
   /* border-radius: 35px; */
   width: 500px;
   /* background-color: #DBD8D6; */
@@ -163,6 +153,8 @@ nav a:hover::before {
   margin: 0 auto;  
 }
 
+
+
 #postTitle {
   width: 350px;
   height: 15px;
@@ -172,8 +164,27 @@ nav a:hover::before {
   /* border-radius: 7px; */
   text-align: center;
   font-size: 1.3rem;
-  border: 1px solid #1F0000;
+  border: none;
+  outline: none;
+  background: none;
+  border-bottom: 1px solid #1F0000;
 }
+
+.title-span {
+  position: absolute;
+  top: 123px;
+  margin-left: 3px;
+  color: #C92432;
+}
+
+/* #postTitle[data-error] {
+  border-bottom: 1px solid red;
+}
+
+#postTitle[data-error]::after {
+  content: attr(data-error);
+  font-size: 5px;
+}  */
 
 /* #dateOfTravel {
   width: 50%;
@@ -187,17 +198,18 @@ nav a:hover::before {
 
 
 /* date container */
-.form-control {
-  /* display: none; */
+/* for  */
+/* .form-control {
+  display: none;
   font-size: 0.95em;
   border: none;
-  /* border-radius: 7px; */
+  border-radius: 7px;
   padding: 10px 10px;
   text-align: center;
   width: 350px;
   height: 10px;
   border: 1px solid #1F0000;
-}
+} */
 
 #date-input {
   font-size: 0.95em;
@@ -208,6 +220,15 @@ nav a:hover::before {
   width: 350px;
   height: 10px;
   border: 1px solid #1F0000;
+  border: none;
+  outline: none;
+  background: none;
+}
+
+.date-label {
+  margin-top: 17px;
+  margin-bottom: 0;
+ text-align: center;
 }
 /* 
 #postDate {
@@ -247,6 +268,13 @@ input[type="radio"] {
   border: 1px solid #1F0000;
 }
 
+.description-span {
+  position: absolute;
+  top: 447px;
+  color: #C92432;
+  margin-left: 3px;
+}
+
 .postPhoto-container {
   display: flex;
   flex-direction: row;
@@ -261,13 +289,18 @@ input[type="radio"] {
 #photoUrl {
   font-size: 1.0rem;
   position: absolute;
-  padding: 5px 10px;
+  padding: 10px 10px;
   resize: none;
   border: none;
   /* border-radius: 7px; */
   margin: 0;
+  margin-top: 20px;
   width: 350px;
   border: 1px solid #1F0000;
+}
+
+.review-container input:invalid {
+  outline: 1px solid red;
 }
 
 
@@ -305,7 +338,7 @@ input[type='file'] {
 .btn-container {
   display: flex;
   justify-content: space-between;
-  margin-top: 40px;
+  margin-top: 70px;
 }
 
 .post-btn {
@@ -339,8 +372,6 @@ input[type='file'] {
   background-color: #BDBDBD;
   cursor: pointer; 
 }
-
-
 
 /* full page of profile */
 .profile-container {
@@ -385,15 +416,29 @@ input[type='file'] {
   background-color: rgba(79, 79, 79, 0.7);
 }
 
+.close-btn {
+  font-size: 2.0rem;
+  color: white;
+  z-index: 1001;
+  cursor: pointer;
+}
+
 #setting-btn-list {
   position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
   z-index: 1001;
   width: 250px;
-  margin-bottom: 50%;
   display: flex;
   flex-direction: column;
-  background-color: white;
 }
+
+#setting-btn-list .close-btn {
+  background-color: none;
+  align-self: flex-end;
+  margin-bottom: 20px;
+} 
 
 .logout-btn,
 .delete-btn {
@@ -443,7 +488,6 @@ input[type='file'] {
   border-bottom: 1px solid #1F0000;
   height: 45px;
 }
-
 
 .card-username {
   padding-left: 20px;
@@ -539,7 +583,7 @@ form .account-form  {
   color: #BDBDBD;
   font-size: 1.15rem;
   pointer-events: none;
-  transition: 0.5s;
+  transition: 0.4s;
 }
 
 
@@ -559,13 +603,9 @@ form .account-form  {
 /* if input is focused it will hold these properties */
 /* input:valid: any content inside will hold properties*/
 .login-form input:focus ~ label, 
-.login-form input:valid ~ label {
-  top: -5px;
-  color: #FDB289;
-}
-
+.login-form input:valid ~ label,
 .account-form input:focus ~ label,
-.account-form input:valid ~label {
+.account-form input:valid ~label  {
   top: -5px;
   color: #FDB289;
 }
@@ -576,6 +616,11 @@ form .account-form  {
 .acount-form input:valid ~ span::before {
   width: 100%;
   transform: scaleX(1);
+}
+
+.login-form input:valid ~ .wrong-login,
+.account-form input:valid ~ .username-taken {
+  color: #C92432;
 }
 
 .login-btn-container {
@@ -603,4 +648,11 @@ input[type="submit"].create-account-btn {
   width: 100%;
   font-size: 1.3rem;
   margin: 5px 0 30px 0;
+}
+
+.account-back-btn {
+  position: absolute;
+  font-size: 2.6rem;
+  margin: 13px 10px;
+  cursor: pointer
 }
