@@ -15,14 +15,18 @@ export default function CreateAccount() {
   })
 
   const [isUsernameTaken, setIsUsernameTaken] = useState(false)
+  const [samePassword, setSamePassword] = useState(true)
+  const [isValid, setIsValid] = useState(true)
 
   const navigate = useNavigate() 
 
   const handleForm = (event) => {
     const {name, value} = event.target
 
+    // rest values
+    setIsValid(true)
     setIsUsernameTaken(false)
-
+    setSamePassword(true)
     setAccountInfo(oldInfo => ({
       ...oldInfo,
       [name] : value
@@ -48,7 +52,8 @@ export default function CreateAccount() {
 
   async function makeAccount() {
     try {
-      setIsUsernameTaken(false)
+      // setSamePassword(false)
+      // setIsUsernameTaken(false)
       navigate('/')
       console.log("user id is: ", accountInfo.userId)
       const postUrl = 'http://localhost:3001/createAccount/post'
@@ -67,10 +72,13 @@ export default function CreateAccount() {
   
   const handleSubmit = async(event) => {
     event.preventDefault()
-    if (accountInfo.password !== accountInfo.passwordConfirm ||
-      (accountInfo.username === "" || accountInfo.password === "" || 
-      accountInfo.passwordConfirm === "")) {
-      console.log("Input fields not field out")
+    if (accountInfo.username === "" || accountInfo.password === "" ||
+      accountInfo.passwordConfirm === "") {
+        setIsValid(false)
+      if (accountInfo.password !== accountInfo.passwordConfirm) {
+        setSamePassword(false)
+      }
+      return
     } else {
       const postUrl = 'http://localhost:3001/createAccount/checkUsername'
       try {
@@ -81,16 +89,23 @@ export default function CreateAccount() {
         if (res.data.message) {
           setIsUsernameTaken(true)
         } else {
-          makeAccount()
+          if (accountInfo.password === accountInfo.passwordConfirm) {
+            makeAccount()
+          } else {
+            setSamePassword(false)
+            setIsValid(false)
+            return
+          }
         }
       } catch(err) {
         console.log(err)
       }
-    }
+    } 
   }
 
   console.log(accountInfo)
   console.log(isUsernameTaken)
+
 
   return (
     <div className="account-container">
@@ -104,13 +119,13 @@ export default function CreateAccount() {
             name="username" 
             id="username"
             onChange={handleForm}
+            value={accountInfo.username}
             maxLength={20}
             required
           />
-          {/* <span className={`${isUsernameTaken ? 'span-taken' : 'span-account'}`}></span> */}
           <span></span>
-          {isUsernameTaken ? <label htmlFor="username" className="username-taken"> Error username taken </label> : <label htmlFor="username"> Username </label>}
-          
+
+          {isUsernameTaken ? <label htmlFor="username" className="username-taken"> Error username taken </label> : <label htmlFor="username" className="account-user"> Username </label>}
         </div>
 
         <div className="account-form"> 
@@ -119,11 +134,13 @@ export default function CreateAccount() {
             name="password" 
             id="password" 
             onChange={handleForm}
+            value={accountInfo.password}
             maxLength={30}
             required
           />
           <span></span>
-          <label htmlFor="password"> Password </label>
+          {samePassword === false ? <label htmlFor="password" className="password-not-match"> Password does not match </label> : <label htmlFor="password"> Password </label> }
+        
         </div>
 
         <div className="account-form"> 
@@ -132,12 +149,15 @@ export default function CreateAccount() {
             name="passwordConfirm" 
             id="passwordConfirm" 
             onChange={handleForm}
+            value={accountInfo.passwordConfirm}
             maxLength={30}
             required
           />
           <span></span>
-          <label htmlFor="passwordConfirm"> Password Confirmation </label>
+          {samePassword === false ? <label htmlFor="passwordConfirm" className="password-not-match"> Password does not match </label> : <label htmlFor="passwordConfirm"> Password Confirmation </label> }
         </div>
+
+        {/* {isValid === false ? <p className="invalid-str-account"> Invalid username or passwords do not match </p> : <p></p> } */}
 
         <div className="account-btn-container">
           <input

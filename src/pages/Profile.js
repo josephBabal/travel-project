@@ -9,9 +9,6 @@ import { IoIosCloseCircleOutline } from "react-icons/io"
 export default function Profile(props) {
   const navigate = useNavigate()
   const {username} = useParams()
-  // const styles= {
-  //   backgroundColor: "white"
-  // }
 
   const [userPostData, setUserPostData] = useState([])
   const [setting, setSetting] = useState(false)
@@ -82,27 +79,27 @@ export default function Profile(props) {
 
   return (
     <div className="profile-container">
-
       {useEffect(() => {
         document.body.classList.add('login-background')
-
+        // document.body.classList.add('white-background')
       },[])}
 
+      {/* backdrop, close setting btn and setting contents */}
       {backdrop && (<div id="modal-backdrop"></div> )}
       {setting && (
         <>   
-          {/* <IoIosCloseCircleOutline className="close-btn" onClick={handleSetting} /> */}
           <div id="setting-btn-list">
             <IoIosCloseCircleOutline className="close-btn" onClick={handleSetting} />
             <button className="logout-btn" onClick={() => {
               navigate('/')
-              props.handleLogin()
+              props.handleLogout()
             }}> Log Out </button>
             {/* <button className="delete-btn"> Delete Account </button> */}
           </div> 
        </> 
       )}
 
+      {/* profile page content */}
       <div className="profile-header">
         <h3 className="profile-username"> {props.username} </h3>
         <IoMdSettings
@@ -112,15 +109,10 @@ export default function Profile(props) {
         {/* <button className="profile-setting"> hello </button> */}
       </div>
 
-      {hasReview ? <div className="user-post"> {userPostDataElements} </div> :
+      {hasReview ? <div className="card-grid"> {userPostDataElements} </div> :
         <h3 className="no-review-txt"> You have no reviews </h3>
       }
 
-
-      {/* This is the profile page for {userId}! */}
-      {/* <button onClick={() => {
-          navigate('./userPost')
-      }}> UserPost</button> */}
     </div>
   )
 }

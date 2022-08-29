@@ -1,4 +1,4 @@
-import React, {useState} from 'react'
+import React from 'react'
 // import urlExist from 'url-exist'
 // import Validator from 'validator'
 // import {FaStar} from 'react-icons/fa'
@@ -76,7 +76,9 @@ export default function Post(props) {
         <h3 className="card-title"> {props.title} </h3>
         <div className="card-rating-container"> {props.rating}  </div>
         <p className="card-description"> {props.postDescription} </p>
-        <img className="card-photo" src={props.photo} onError={(e)=>{e.target.onError = null; e.target.src = fallbackSrc}}/>
+        <div className="card-photo-container">
+          <img className="card-photo" src={props.photo} onError={(e)=>{e.target.style.display = 'none';}}/>
+        </div> 
       </div>
         {/* <img className="card-photo" src={props.photo} /> */}
         {/* {props.photo && <img className="card-photo" src={`profile/userPost//${props.photo}`} alt="img"/>} */}

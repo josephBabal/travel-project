@@ -10,10 +10,7 @@ export default function LogInPage(props) {
 
   const [loginStatus, setLoginStatus] = useState('')
   const [wrongInfo, setWrongInfo] = useState(false)
-
   const navigate = useNavigate() 
-
-
 
   const handleForm = (event) => {
     setWrongInfo(false)
@@ -24,7 +21,6 @@ export default function LogInPage(props) {
       [name] : value
     }))
   }
-
 
   const handleLoginSubmit = async(event) => {
     event.preventDefault()
@@ -42,18 +38,22 @@ export default function LogInPage(props) {
           setLoginStatus(res.data.message)
           setWrongInfo(true)
         } else {
-          // sets it as password if there is a user
-          // setLoginStatus(response.data[0].userPassword)    
+          const {username, userId} = res.data[0]
+          console.log("username and userId:", username, userId)
   
-          // const {username, userId} = res.data[0]
-          // props.updateUser(username, userId)
-          // console.log("username and userId:", username, userId)
-  
+          // setting user
           props.updateUser(res.data[0])
+          // setting login to true
           props.handleLogin()
+
+          // store the user in localStorage when user refreshes or leaves/comes back
+          // stringify res.data[0] since it's an object and not a string since local storage stores strings
+          localStorage.setItem('user', JSON.stringify(res.data[0]))
+          console.log(res.data)
+
           navigate('/')
           document.body.classList.remove('login-background') 
-          console.log(loginStatus)
+          console.log("login status",loginStatus)
         }
       } catch(err) {
         console.log(err)
