@@ -14,14 +14,17 @@ export default function CreateAccount() {
     userId: nanoid()
   })
 
+
   const [isUsernameTaken, setIsUsernameTaken] = useState(false)
   const [samePassword, setSamePassword] = useState(true)
   const [isValid, setIsValid] = useState(true)
+  const [criteria, setCriteria] = useState(false)
 
   const navigate = useNavigate() 
 
   const handleForm = (event) => {
     const {name, value} = event.target
+    checkCriteria()
 
     // rest values
     setIsValid(true)
@@ -32,6 +35,20 @@ export default function CreateAccount() {
       [name] : value
     }))
   }
+
+  function checkCriteria() {
+    // const regex = /^(?=.*[a-z])(?=.*[A-Z])(?=.*[0-9])(?=.*[!@#$%&?]).{8,30}$/
+    const requirments = /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[#$@!%&*?])[A-Za-z\d#$@!%&*?]{7,}$/
+    let found = requirments.test(accountInfo.password)
+    console.log("test",found)
+    if (found === true) {
+      setCriteria(true)
+    }
+    else {
+      setCriteria(false)
+    }
+  }
+  
 
 
   // async function checkUsername() {
@@ -75,9 +92,12 @@ export default function CreateAccount() {
     if (accountInfo.username === "" || accountInfo.password === "" ||
       accountInfo.passwordConfirm === "") {
         setIsValid(false)
-      if (accountInfo.password !== accountInfo.passwordConfirm) {
         setSamePassword(false)
-      }
+        return
+    } else if (accountInfo.password !== accountInfo.passwordConfirm) {
+      setSamePassword(false)
+      return
+    } else if (criteria === false || accountInfo.password.length < 8) {
       return
     } else {
       const postUrl = 'http://localhost:3001/createAccount/checkUsername'
@@ -136,11 +156,12 @@ export default function CreateAccount() {
             onChange={handleForm}
             value={accountInfo.password}
             maxLength={30}
+            patten="/^(?=.*[a-z])(?=.*[A-Z])(?=.*[0-9])(?=.*[!@#$%&?]).{9,30}$/"
             required
           />
-          <span></span>
+          <span></span> 
           {samePassword === false ? <label htmlFor="password" className="password-not-match"> Password does not match </label> : <label htmlFor="password"> Password </label> }
-        
+          
         </div>
 
         <div className="account-form"> 
@@ -157,7 +178,7 @@ export default function CreateAccount() {
           {samePassword === false ? <label htmlFor="passwordConfirm" className="password-not-match"> Password does not match </label> : <label htmlFor="passwordConfirm"> Password Confirmation </label> }
         </div>
 
-        {/* {isValid === false ? <p className="invalid-str-account"> Invalid username or passwords do not match </p> : <p></p> } */}
+        {criteria === false || accountInfo.password.length < 8 ? <div><p>Password requirements </p> <ul className ="password-requirements"> <li>1 uppercase letter </li> <li>1 lowercase leter </li> <li>1 special character</li> <li> Minimum legnth 8 characters</li> </ul> </div> : ""}
 
         <div className="account-btn-container">
           <input

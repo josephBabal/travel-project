@@ -3,14 +3,15 @@
 }
 
 body {
-  margin: 0;
   font-family: Lato, sans-serif;
   color: #1F0000;
 }
 
 .background-img {
+  /* position: relative; */
   background-image: url('./images/beach-photo-2.jpg');
   background-size: cover;
+  height: 100vh;
   background-repeat: no-repeat; 
 }
 
@@ -113,6 +114,42 @@ nav a:hover::before {
   transform: scaleX(1);
 }
 
+
+/* home page */
+#slide-container {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  width: 500px;
+  height: 300px;
+  background-color: rgba(0, 0, 0, 0.7);
+  border-radius: 0.6rem;
+}
+
+.slide-txt {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  text-align: center;
+  font-size: 1.2rem;
+  color: white;
+  word-spacing: 0.1em;
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
 /* add review whole container */
 .post-container {
   margin: 0;
@@ -124,13 +161,15 @@ nav a:hover::before {
 /* center div horizontally, child has margin: 0 auto  */
 /* center div w/flexbox vertically, parent justify-content: center */
 .review-container {
+  position: relative;
   margin: 0 auto;
   margin-top: 50px;
   display: grid;
+  width: 450px;
   text-align: center;
   border: 2px solid transparent;  
   /* border-radius: 35px; */
-  width: 500px;
+  /* width: auto; */
   /* background-color: #DBD8D6; */
   /* background-color: #F7F7F7; */
   background-color: #FFFFFF;
@@ -168,13 +207,6 @@ nav a:hover::before {
   outline: none;
   background: none;
   border-bottom: 1px solid #1F0000;
-}
-
-.title-span {
-  position: absolute;
-  top: 123px;
-  margin-left: 3px;
-  color: #C92432;
 }
 
 /* #postTitle[data-error] {
@@ -230,6 +262,11 @@ nav a:hover::before {
   margin-bottom: 0;
  text-align: center;
 }
+
+.react-datepicker-wrapper .react-datepicker__close-icon {
+  display: none;
+}
+
 /* 
 #postDate {
  width: 350px;
@@ -262,24 +299,26 @@ input[type="radio"] {
   padding: 11px 10px;
   resize: none;
   border: none;
-  /* border-radius: 7px; */
   margin: 0;
   width: 350px;
   border: 1px solid #1F0000;
 }
 
-.description-span {
-  position: absolute;
-  top: 455px;
-  color: #C92432;
-  margin-left: 3px;
+.postPhoto-container {
+  text-align: start;
 }
 
-.postPhoto-container {
-  display: flex;
-  flex-direction: row;
-  flex-wrap: wrap;
+.post-error {
+  position: relative;
+  margin-bottom: 10px;
 }
+
+.post-error .post-txt-error {
+  position: absolute;
+  color: #C92432;
+}
+
+/* end of add review styling */
 
 /* upload image for add review */
 .photo-display-container {
@@ -288,7 +327,7 @@ input[type="radio"] {
 
 #photoUrl {
   font-size: 1.0rem;
-  position: absolute;
+  /* position: absolute; */
   padding: 10px 10px;
   resize: none;
   border: none;
@@ -338,7 +377,7 @@ input[type='file'] {
 .btn-container {
   display: flex;
   justify-content: space-between;
-  margin-top: 70px;
+  margin-top: 15px;
   margin-bottom: 20px;
 }
 
@@ -535,6 +574,10 @@ input[type='file'] {
   transform: scale(1.02);
 }
 
+.no-review-txt {
+  text-align: center;
+}
+
 
 /* log in page */
 .login-container,
@@ -623,6 +666,10 @@ form .account-form  {
 .acount-form input:valid ~ span::before {
   width: 100%;
   transform: scaleX(1);
+}
+
+.password-requirements li {
+  color: #C92432;
 }
 
 .login-form input:valid ~ .wrong-login,

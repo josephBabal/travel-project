@@ -102,9 +102,6 @@ export default function AddReview(props) {
   ))
 
   // navigates back to home page if cancel btn is clicked
-  const NavHome = () => {
-    navigate('/home')
-  }
 
   function handleChange(event) {
       const {name, value} = event.target
@@ -187,8 +184,6 @@ export default function AddReview(props) {
               value={reviewData.postTitle}
               name="postTitle"
             />
-            {isFilled.postTitle ? "" : <span className="title-span"> *Title not filled</span>}
-
             {/* <input
               ref={setFp} 
               name="dateOfTravel"
@@ -261,7 +256,6 @@ export default function AddReview(props) {
               rows={10}
               cols={50} 
             />
-             {isFilled.postDescription ? "" : <span className="description-span"> *Description not filled</span>}
 
             {/* choosing photo for post */}
             <div className="postPhoto-container">
@@ -302,9 +296,13 @@ export default function AddReview(props) {
               </div> */}
             </div>
             
+          <div className="post-error">
+            {isFilled.postTitle && isFilled.postDescription ? "" : <div className="post-txt-error"> *Title/description not filled</div>}
+          </div>
+
             {/* cancel and post buttons */}
             <div className="btn-container">
-              <button className="cancel-btn" onClick={NavHome}> Cancel </button>
+              <button className="cancel-btn" onClick={() => navigate('/')}> Cancel </button>
               <button type="submit" className="post-btn"> Post </button>
             </div>
           </form>

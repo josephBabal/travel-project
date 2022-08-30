@@ -82,7 +82,7 @@ export default function App() {
             :
             <Routes>
               <Route path="/" element={<Home />} />
-              <Route path="/home" element={<Home />} />
+              {/* <Route path="/home" element={<Home />} /> */}
               {/* <Route path="/friends" element={<Friends />} />  */}
               <Route path="/userPost" element={<UserPost />} />
               <Route path="/addReview" 
