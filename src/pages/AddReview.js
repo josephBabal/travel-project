@@ -129,7 +129,7 @@ export default function AddReview(props) {
         try {
           const newDate = `{${date.getMonth()+1}/${date.getDate()}/${date.getFullYear()}}`
           console.log("newDate: ", newDate)
-          navigate('/home')
+          navigate('/')
           // const url = 'https://localhost:3001/addReview/post'
           const res = await axios.post('http://localhost:3001/addReview/post', {
             username: props.username,

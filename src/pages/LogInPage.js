@@ -128,13 +128,13 @@ export default function LogInPage(props) {
         <div className="login-btn-container">
           <input
             type="button" 
-            className="login-create-account-btn"
+            id="login-create-account-btn"
             value="Create Account" 
             onClick={() => {
               navigate('/createAccount')
             }}
           />
-          <input type="submit" className="login-btn" value="Login"/>
+          <input type="submit" id="login-btn" value="Login"/>
         </div>
 
         {useEffect(() => {

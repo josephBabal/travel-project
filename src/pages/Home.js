@@ -15,8 +15,9 @@ export default function Home() {
         },[])}
       
       <div id="slide-container">
-        <p className="slide-txt"> You can write reviews of destinations you visted
-          or resatuarts you ate at
+        <p className="slide-intro">Here at My Journey...</p>
+        <p className="slide-txt"> You can write reviews of destinations 
+          you visted or restaurants you visted
         </p>
       </div>
 

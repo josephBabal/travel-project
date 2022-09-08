@@ -183,7 +183,7 @@ export default function CreateAccount() {
         <div className="account-btn-container">
           <input
             type="submit" 
-            className="create-account-btn" 
+            id="create-account-btn" 
             value="Create Account" 
             // onClick={handleSubmit}
           />
