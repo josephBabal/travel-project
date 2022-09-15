@@ -9,6 +9,7 @@ import ErrorPage from './pages/ErrorPage'
 import Profile from './pages/Profile'
 import LogInPage from './pages/LogInPage'
 import CreateAccount from './pages/CreateAccount'
+import SearchPage from './pages/SearchPage'
 // import { FaJournalWhills } from 'react-icons/fa'
 // import axios from 'axios'
 
@@ -98,6 +99,9 @@ export default function App() {
                   handleLogout={handleLogout} 
                 />}
               /> 
+
+              <Route path={'/search'} element={<SearchPage />} />
+
               {/* <Route path="/profile/:username" element={<Profile />} />  */}
               {/* <Route path="/login" element={<LogInPage/>} /> */}
               <Route path="*" element={<ErrorPage />} />

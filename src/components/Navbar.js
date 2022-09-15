@@ -10,7 +10,7 @@ export default function Navbar(props) {
     <div className="navbar-page-container">
       {/* <h1 className="title-site"> My Journey</h1> */}
       <div className="navbar-container">
-        <h1 className="title-site"> My Journey</h1>
+        <h1 className="title-site"> My Journey</h1>       
         <nav className="main-nav">
           <ul className="nav-items">
             {/* home - all/general feed */}
@@ -18,6 +18,11 @@ export default function Navbar(props) {
             {/* friends - friends posts */}
             {/* <li> <Link to="/friends" className="nav-friends"> Friends </Link></li> */}
             {/* adding a review */}
+
+
+            <li> <Link to="search" > Search </Link> </li>
+
+
             <li> <Link to="/addReview" className="nav-addReview"> Add Review </Link></li>
             {/* your posts, bio, settings, add friend, etc */}
             {/* <Link to="/profile" className="nav-profile"> Profile</Link> */}
@@ -46,6 +51,7 @@ export default function Navbar(props) {
             <nav className="resize-nav">
                 <ul className="dropdown-items">
                   <li> <Link to="/" className="dropdown-home" > Home </Link> </li>
+                  <li> <Link to="/search" > Search </Link> </li>
                   <li> <Link to="/addReview" className="dropdown-addReview"> Add Review </Link></li>
                   <li><Link to={`/profile/${props.username}`} className="dropdown-profile"> Profile</Link> </li>
                 </ul>

@@ -71,7 +71,6 @@ export default function Profile(props) {
         rating={starElements}
         postDescription={val.postDescription}
         photo={val.photo}
-        // photo={val.photo.urls.regular}
       />
     )
     }).reverse()

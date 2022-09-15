@@ -169,9 +169,7 @@ export default function AddReview(props) {
         document.body.classList.remove('login-background') :
         document.body.classList.add('background-img')
       },[])}
-      {/* <header>
-          <Navbar />
-      </header> */}
+   
       <div className="review-container">
           <h1 className="create-post-txt"> Create Post</h1>
           <form className="form-inputs" onSubmit={handleSubmit}>
@@ -183,6 +181,7 @@ export default function AddReview(props) {
               onChange={handleChange}
               value={reviewData.postTitle}
               name="postTitle"
+              maxLength={30}
             />
             {/* <input
               ref={setFp} 
@@ -248,7 +247,7 @@ export default function AddReview(props) {
             <textarea 
               type="text"
               id="postDescription"
-              placeholder="Description of travel"
+              placeholder="Description/thoughts of destination/restaurant "
               onChange={handleChange}
               value={reviewData.postDescription}
               name="postDescription"

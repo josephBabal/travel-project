@@ -75,6 +75,26 @@ app.post("/addReview/post", (req, res) => {
   })
 })
 
+
+// searching for words in post
+app.post('/search/checkInput', (req, res) => {
+  const searchValue = req.body.searchValue
+  const sqlSelect = "SELECT * FROM postData WHERE username LIKE ? OR title LIKE ? OR postDescription LIKE ?"
+  dbPostData.query(sqlSelect, [searchValue, searchValue, searchValue], (err, result) => {
+    if (err) {
+      res.send({err: err})
+    }
+    if (result.length === 0) {
+      console.log("no result found")
+      res.send({message: 'no results'})
+    }
+    else {
+      console.log(result.length)
+      res.send(result)
+    }
+  })
+})
+
 // creating account
 app.post('/createAccount/checkUsername', (req, res) => {
   const username = req.body.username
@@ -83,7 +103,7 @@ app.post('/createAccount/checkUsername', (req, res) => {
     if (err) {
       res.send({err: err})
     }
-
+    // username is not taken
     if (result.length === 0) {
       console.log(result.length)
       res.send(result)
