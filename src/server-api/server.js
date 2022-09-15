@@ -79,8 +79,8 @@ app.post("/addReview/post", (req, res) => {
 // searching for words in post
 app.post('/search/checkInput', (req, res) => {
   const searchValue = req.body.searchValue
-  const sqlSelect = "SELECT * FROM postData WHERE username LIKE ? OR title LIKE ? OR postDescription LIKE ?"
-  dbPostData.query(sqlSelect, [searchValue, searchValue, searchValue], (err, result) => {
+  const sqlSelect = "SELECT * FROM postData WHERE username LIKE ? OR title LIKE ?"
+  dbPostData.query(sqlSelect, [searchValue, searchValue], (err, result) => {
     if (err) {
       res.send({err: err})
     }
