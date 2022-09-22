@@ -1,4 +1,4 @@
-import React, {useEffect, useState} from 'react'
+import React, {useState} from 'react'
 import { useNavigate } from 'react-router-dom'
 import axios from 'axios'
 
@@ -95,55 +95,50 @@ export default function LogInPage(props) {
 
 
   return (
-    <div className="login-container">
-      <div className="login-title"> <h2> MY JOURNEY </h2> </div>
+    <div className="login-background">
+      <div className="login-container">
+        <div className="login-title"> <h2> MY JOURNEY </h2> </div>
 
-      <form onSubmit={handleLoginSubmit}>
-        <div className="login-form">
-          <input 
-            type="text" 
-            name="username" 
-            id="username"
-            value={loginInfo.username}
-            onChange={handleForm}
-            required
-          />
-          <span></span>
-          {wrongInfo ? <label htmlFor="username" className="wrong-login"> Incorrect Username </label> : <label htmlFor="username"> Username </label> }
-        </div>
+        <form onSubmit={handleLoginSubmit}>
+          <div className="login-form">
+            <input 
+              type="text" 
+              name="username" 
+              id="username"
+              value={loginInfo.username}
+              onChange={handleForm}
+              required
+            />
+            <span></span>
+            {wrongInfo ? <label htmlFor="username" className="wrong-login"> Incorrect Username </label> : <label htmlFor="username"> Username </label> }
+          </div>
 
-        <div className="login-form"> 
-          <input 
-            type="password" 
-            name="password" 
-            id="password" 
-            value={loginInfo.password}
-            onChange={handleForm}
-            required
-          />
-          <span></span>
-          {wrongInfo ? <label htmlFor="username" className="wrong-login"> Incorrect Password </label> : <label htmlFor="password"> Password </label>}
-        </div>
+          <div className="login-form"> 
+            <input 
+              type="password" 
+              name="password" 
+              id="password" 
+              value={loginInfo.password}
+              onChange={handleForm}
+              required
+            />
+            <span></span>
+            {wrongInfo ? <label htmlFor="username" className="wrong-login"> Incorrect Password </label> : <label htmlFor="password"> Password </label>}
+          </div>
 
-        <div className="login-btn-container">
-          <input
-            type="button" 
-            id="login-create-account-btn"
-            value="Create Account" 
-            onClick={() => {
-              navigate('/createAccount')
-            }}
-          />
-          <input type="submit" id="login-btn" value="Login"/>
-        </div>
-
-        {useEffect(() => {
-          document.body.classList.remove('background-img')
-          // document.body.classList.add('profile-background')
-          document.body.classList.add('login-background')
-        },[])}
-
-      </form> 
+          <div className="login-btn-container">
+            <input
+              type="button" 
+              id="login-create-account-btn"
+              value="Create Account" 
+              onClick={() => {
+                navigate('/createAccount')
+              }}
+            />
+            <input type="submit" id="login-btn" value="Login"/>
+          </div>
+        </form> 
+      </div>
     </div>
   )
 }

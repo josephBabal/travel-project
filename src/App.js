@@ -1,10 +1,9 @@
 import React, {useState, useEffect}from 'react'
-import Navbar from './components/Navbar'
+// import Navbar from './components/Navbar'
 import {BrowserRouter as Router, Routes, Route, Link, useSearchParams} from 'react-router-dom'
 import Home from './pages/Home'
 // import Friends from './pages/Friends'
 import AddReview from './pages/AddReview'
-import UserPost from './pages/UserPost'
 import ErrorPage from './pages/ErrorPage'
 import Profile from './pages/Profile'
 import LogInPage from './pages/LogInPage'
@@ -47,7 +46,7 @@ export default function App() {
   }
 
   useEffect(() => {
-    document.body.classList.add('background-img')
+    // document.body.classList.add('background-img')
 
     // getting user from local storage
     const loggedInUser = localStorage.getItem("user");
@@ -66,47 +65,49 @@ export default function App() {
     }
   }, [])
 
+  console.log("user is:", user.username)
+
   return (
     <div>
       <Router>
-          {isLoggedIn ? <Navbar username={user.username} /> : null }
+        {/* {isLoggedIn ? <Navbar username={user.username} /> : null } */}
 
-          {isLoggedIn === false ? 
-            <Routes>
-              <Route path="/" 
-                element={<LogInPage 
-                  updateUser={updateUser} 
-                  handleLogin={handleLogin} />} 
-              /> 
-              <Route path="/createAccount" element={<CreateAccount />} />
-            </Routes>
-            :
-            <Routes>
-              <Route path="/" element={<Home />} />
-              {/* <Route path="/home" element={<Home />} /> */}
-              {/* <Route path="/friends" element={<Friends />} />  */}
-              <Route path="/userPost" element={<UserPost />} />
-              <Route path="/addReview" 
-                element={<AddReview
-                  username={user.username} 
-                  userId={user.userId} />} 
-              /> 
-              {/* <Route path="/profile" element={<Profile username={user.username} userId={user.userId} />} /> */}
-              <Route path={`/profile/${user.username}`}  
-                element={<Profile 
-                  username={user.username} 
-                  userId={user.userId} 
-                  handleLogout={handleLogout} 
-                />}
-              /> 
+        {isLoggedIn === false ? 
+          <Routes>
+            <Route path="/" 
+              element={<LogInPage 
+                updateUser={updateUser} 
+                handleLogin={handleLogin} />} 
+            /> 
+            <Route path="/createAccount" element={<CreateAccount />} />
+            <Route path="*" element={<ErrorPage />} />
+          </Routes>
+          :
+          <Routes>
+            <Route path="/" element={<Home username={user.username}/>} />
+            {/* <Route path="/home" element={<Home />} /> */}
+            {/* <Route path="/friends" element={<Friends />} />  */}
+            {/* <Route path="/userPost" element={<UserPost />} /> */}
+            <Route path="/addReview" 
+              element={<AddReview
+                username={user.username} 
+                userId={user.userId} />} 
+            /> 
+            {/* <Route path="/profile" element={<Profile username={user.username} userId={user.userId} />} /> */}
+            <Route path={`/profile/${user.username}`}  
+              element={<Profile 
+                username={user.username} 
+                userId={user.userId} 
+                handleLogout={handleLogout} />}
+            /> 
 
-              <Route path={'/search'} element={<SearchPage />} />
+            <Route path={'/search'} element={<SearchPage username={user.username}/>} />
 
-              {/* <Route path="/profile/:username" element={<Profile />} />  */}
-              {/* <Route path="/login" element={<LogInPage/>} /> */}
-              <Route path="*" element={<ErrorPage />} />
-            </Routes>
-          }
+            {/* <Route path="/profile/:username" element={<Profile />} />  */}
+            {/* <Route path="/login" element={<LogInPage/>} /> */}
+            <Route path="*" element={<ErrorPage />} />
+          </Routes>
+        }
       </Router>
       
     </div>

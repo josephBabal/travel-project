@@ -1,18 +1,19 @@
-import React, { useEffect } from 'react'
-
-export default function Home() {
+import React from 'react'
+import Navbar from '../components/Navbar'
+export default function Home(props) {
   // const addBodyClass = className => document.body
   // useEffect(() => {
   //   document.body.classList.add('background-img')
   // })
 
   return (
-    <div>
-       {useEffect(() => {
+    <div className="background-img">
+      <Navbar username={props.username} />
+       {/* {useEffect(() => {
            document.body.classList.contains('login-background') ?
            document.body.classList.remove('login-background') :
            document.body.classList.add('background-img')
-        },[])}
+        },[])} */}
       
       <div id="slide-container">
         <p className="slide-intro">Here at My Journey...</p>

@@ -1,4 +1,5 @@
 import React, {useState, useEffect } from 'react'
+import Navbar from '../components/Navbar'
 import { useNavigate, useParams } from 'react-router-dom'
 import axios from 'axios'
 import Post from '../components/Post'
@@ -77,41 +78,45 @@ export default function Profile(props) {
   }
 
   return (
-    <div className="profile-container">
-      {useEffect(() => {
-        document.body.classList.add('login-background')
-        // document.body.classList.add('white-background')
-      },[])}
+    <div className="search-background">
+      <Navbar username={props.username} />
 
-      {/* backdrop, close setting btn and setting contents */}
-      {backdrop && (<div id="modal-backdrop"></div> )}
-      {setting && (
-        <>   
-          <div id="setting-btn-list">
-            <IoIosCloseCircleOutline className="close-btn" onClick={handleSetting} />
-            <button className="logout-btn" onClick={() => {
-              navigate('/')
-              props.handleLogout()
-            }}> Log Out </button>
-            {/* <button className="delete-btn"> Delete Account </button> */}
-          </div> 
-       </> 
-      )}
+      <div className="profile-container">
+        {useEffect(() => {
+          document.body.classList.add('login-background')
+          // document.body.classList.add('white-background')
+        },[])}
 
-      {/* profile page content */}
-      <div className="profile-header">
-        <h3 className="profile-username"> {props.username} </h3>
-        <IoMdSettings
-          className="profile-setting" 
-          onClick={handleSetting} 
-        />
-        {/* <button className="profile-setting"> hello </button> */}
+        {/* backdrop, close setting btn and setting contents */}
+        {backdrop && (<div id="modal-backdrop"></div> )}
+        {setting && (
+          <>   
+            <div id="setting-btn-list">
+              <IoIosCloseCircleOutline className="close-btn" onClick={handleSetting} />
+              <button className="logout-btn" onClick={() => {
+                navigate('/')
+                props.handleLogout()
+              }}> Log Out </button>
+              {/* <button className="delete-btn"> Delete Account </button> */}
+            </div> 
+        </> 
+        )}
+
+        {/* profile page content */}
+        <div className="profile-header">
+          <h3 className="profile-username"> {props.username} </h3>
+          <IoMdSettings
+            className="profile-setting" 
+            onClick={handleSetting} 
+          />
+          {/* <button className="profile-setting"> hello </button> */}
+        </div>
+
+        {hasReview ? <div className="card-grid"> {userPostDataElements} </div> :
+          <h3 className="no-review-txt"> You have no reviews </h3>
+        }
+
       </div>
-
-      {hasReview ? <div className="card-grid"> {userPostDataElements} </div> :
-        <h3 className="no-review-txt"> You have no reviews </h3>
-      }
-
     </div>
   )
 }

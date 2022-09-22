@@ -5,7 +5,10 @@
 body {
   font-family: Lato, sans-serif;
   color: #1F0000;
+  margin: 0;
+  padding: 0;
 }
+
 
 .background-img {
   /* position: relative; */
@@ -14,6 +17,8 @@ body {
   height: 100vh;
   background-position: center;
   background-repeat: no-repeat; 
+  margin: 0;
+  padding:0;
 }
 
 .profile-background {
@@ -23,6 +28,37 @@ body {
 .login-background {
   background: linear-gradient(99deg,#F4B4BC, #F6C3A7);
   height: 100vh;
+}
+
+.search-background {
+  background: linear-gradient(180deg, #90F7EC, #0396FF);
+  height: 100vh;
+}
+
+.err-page-container {
+  background: rgb(150, 150, 150);
+  height: 100vh;
+}
+
+.err-title {
+  padding: 10px 0 0 10px;
+  font-size: 20px;
+}
+
+.err-msg-container {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.err-msg {
+  font-size: 1.3rem;
+}
+
+
+.navbar-page-container {
+  margin: 0;
+  padding: 0;
 }
 
 
@@ -101,6 +137,8 @@ nav a {
 
  /* resize nabbar */
 .resize-nav-container {
+  margin: 0;
+  padding: 0;
   display: none;
 }
 
@@ -784,6 +822,15 @@ form .account-form  {
 
 .password-requirements li {
   color: #C92432;
+  /* color: black; */
+}
+
+.green {
+  color: green;
+}
+
+.red {
+  color: red;
 }
 
 .login-form input:valid ~ .wrong-login,
@@ -1030,7 +1077,7 @@ input[type="submit"]#create-account-btn {
   .resize-nav-container {
     display: flex;
     justify-content: space-between;
-    margin: 20px auto;
+    margin: 0 auto;
     width: 90%;
   }
   nav a {

@@ -1,5 +1,5 @@
-import React, {useEffect, useState} from 'react'
-import { useNavigate, useParams } from 'react-router-dom'
+import React, {useState} from 'react'
+import { useNavigate } from 'react-router-dom'
 import { nanoid } from 'nanoid'
 import axios from 'axios'
 import { IoIosArrowRoundBack } from "react-icons/io"
@@ -17,8 +17,12 @@ export default function CreateAccount() {
 
   const [isUsernameTaken, setIsUsernameTaken] = useState(false)
   const [samePassword, setSamePassword] = useState(true)
-  const [isValid, setIsValid] = useState(true)
   const [criteria, setCriteria] = useState(false)
+  const [metLength, setMetLength] = useState(false)
+  const [hasLowercase, setHasLowercase] = useState(false)
+  const [hasUppercase, setHasUppercase] = useState(false)
+  const [hasSpecialChar, setHasSpecialChar] = useState(false)
+  const [hasNumber, setHasNumber] = useState(false)
 
   const navigate = useNavigate() 
 
@@ -27,7 +31,6 @@ export default function CreateAccount() {
     checkCriteria()
 
     // rest values
-    setIsValid(true)
     setIsUsernameTaken(false)
     setSamePassword(true)
     setAccountInfo(oldInfo => ({
@@ -47,6 +50,16 @@ export default function CreateAccount() {
     else {
       setCriteria(false)
     }
+
+    const uppercaseRequirment = /[A-Z]/
+    let foundUpper = uppercaseRequirment.test(accountInfo.password)
+    if (foundUpper === true) {
+      setHasUppercase(true)
+    }
+    else {
+      setHasUppercase(false)
+    }
+    console.log("found upper", foundUpper)
   }
   
 
@@ -91,7 +104,6 @@ export default function CreateAccount() {
     event.preventDefault()
     if (accountInfo.username === "" || accountInfo.password === "" ||
       accountInfo.passwordConfirm === "") {
-        setIsValid(false)
         setSamePassword(false)
         return
     } else if (accountInfo.password !== accountInfo.passwordConfirm) {
@@ -113,7 +125,6 @@ export default function CreateAccount() {
             makeAccount()
           } else {
             setSamePassword(false)
-            setIsValid(false)
             return
           }
         }
@@ -128,75 +139,77 @@ export default function CreateAccount() {
 
 
   return (
-    <div className="account-container">
-      <IoIosArrowRoundBack className="account-back-btn" onClick={() => navigate('/')} />
-      <div className="account-title"> <h2> MY JOURNEY </h2> </div>
+    <div className="login-background">
+      <div className="account-container">
+        <IoIosArrowRoundBack className="account-back-btn" onClick={() => navigate('/')} />
+        <div className="account-title"> <h2> MY JOURNEY </h2> </div>
 
-      <form onSubmit={handleSubmit}>
-        <div className="account-form">
-          <input 
-            type="text" 
-            name="username" 
-            id="username"
-            onChange={handleForm}
-            value={accountInfo.username}
-            maxLength={20}
-            required
-          />
-          <span></span>
+        <form onSubmit={handleSubmit}>
+          <div className="account-form">
+            <input 
+              type="text" 
+              name="username" 
+              id="username"
+              onChange={handleForm}
+              value={accountInfo.username}
+              maxLength={20}
+              required
+            />
+            <span></span>
 
-          {isUsernameTaken ? <label htmlFor="username" className="username-taken"> Error username taken </label> : <label htmlFor="username" className="account-user"> Username </label>}
-        </div>
+            {isUsernameTaken ? <label htmlFor="username" className="username-taken"> Error username taken </label> : <label htmlFor="username" className="account-user"> Username </label>}
+          </div>
 
-        <div className="account-form"> 
-          <input 
-            type="password" 
-            name="password" 
-            id="password" 
-            onChange={handleForm}
-            value={accountInfo.password}
-            maxLength={30}
-            patten="/^(?=.*[a-z])(?=.*[A-Z])(?=.*[0-9])(?=.*[!@#$%&?]).{9,30}$/"
-            required
-          />
-          <span></span> 
-          {samePassword === false ? <label htmlFor="password" className="password-not-match"> Password does not match </label> : <label htmlFor="password"> Password </label> }
-          
-        </div>
+          <div className="account-form"> 
+            <input 
+              type="password" 
+              name="password" 
+              id="password" 
+              onChange={handleForm}
+              value={accountInfo.password}
+              maxLength={30}
+              // patten="/^(?=.*[a-z])(?=.*[A-Z])(?=.*[0-9])(?=.*[!@#$%&?]).{9,30}$/"
+              required
+            />
+            <span></span> 
+            {samePassword === false ? <label htmlFor="password" className="password-not-match"> Password does not match </label> : <label htmlFor="password"> Password </label> }
+            
+          </div>
 
-        <div className="account-form"> 
-          <input 
-            type="password" 
-            name="passwordConfirm" 
-            id="passwordConfirm" 
-            onChange={handleForm}
-            value={accountInfo.passwordConfirm}
-            maxLength={30}
-            required
-          />
-          <span></span>
-          {samePassword === false ? <label htmlFor="passwordConfirm" className="password-not-match"> Password does not match </label> : <label htmlFor="passwordConfirm"> Password Confirmation </label> }
-        </div>
+          <div className="account-form"> 
+            <input 
+              type="password" 
+              name="passwordConfirm" 
+              id="passwordConfirm" 
+              onChange={handleForm}
+              value={accountInfo.passwordConfirm}
+              maxLength={30}
+              required
+            />
+            <span></span>
+            {samePassword === false ? <label htmlFor="passwordConfirm" className="password-not-match"> Password does not match </label> : <label htmlFor="passwordConfirm"> Password Confirmation </label> }
+          </div>
 
-        {criteria === false || accountInfo.password.length < 8 ? <div><p>Password requirements </p> <ul className ="password-requirements"> <li>1 uppercase letter </li> <li>1 lowercase leter </li> <li>1 special character</li> <li> Minimum legnth 8 characters</li> </ul> </div> : ""}
+          {criteria === false || accountInfo.password.length < 8 ? <div><p>Password requirements </p> <ul className ="password-requirements"> <li>1 uppercase letter </li> <li>1 lowercase leter </li> <li>1 special character</li> <li> Minimum length 8 characters</li> </ul> </div> : ""}
 
-        <div className="account-btn-container">
-          <input
-            type="submit" 
-            id="create-account-btn" 
-            value="Create Account" 
-            // onClick={handleSubmit}
-          />
+          <div className="account-btn-container">
+            <input
+              type="submit" 
+              id="create-account-btn" 
+              value="Create Account" 
+              // onClick={handleSubmit}
+            />
 
-        </div>
+          </div>
 
-        {useEffect(() => {
-          document.body.classList.remove('background-img')
-          // document.body.classList.add('profile-background')
-          document.body.classList.add('login-background')
-        },[])}
+          {/* {useEffect(() => {
+            document.body.classList.remove('background-img')
+            // document.body.classList.add('profile-background')
+            document.body.classList.add('login-background')
+          },[])} */}
 
-      </form>  
+        </form>  
+      </div>
     </div>
   )
 }
