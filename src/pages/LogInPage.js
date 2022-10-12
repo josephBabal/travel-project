@@ -24,7 +24,7 @@ export default function LogInPage(props) {
 
   const handleLoginSubmit = async(event) => {
     event.preventDefault()
-    const postUrl = 'http://localhost:3001/login/post'
+    const postUrl = 'http://localhost:3000/login/post'
     if (loginInfo.username === "" || loginInfo.password === "") {
       console.log("login fields not filled")
     } else {

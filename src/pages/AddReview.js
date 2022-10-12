@@ -132,7 +132,7 @@ export default function AddReview(props) {
           console.log("newDate: ", newDate)
           navigate('/')
           // const url = 'https://localhost:3001/addReview/post'
-          const res = await axios.post('http://localhost:3001/addReview/post', {
+          const res = await axios.post('http://localhost:3000/addReview/post', {
             username: props.username,
             userId: props.userId,
             title: reviewData.postTitle,

@@ -86,7 +86,7 @@ export default function CreateAccount() {
       // setIsUsernameTaken(false)
       navigate('/')
       console.log("user id is: ", accountInfo.userId)
-      const postUrl = 'http://localhost:3001/createAccount/post'
+      const postUrl = 'http://localhost:3000/createAccount/post'
       const res = await axios.post(postUrl, {
         username: accountInfo.username,
         userId: accountInfo.userId,

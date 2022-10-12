@@ -16,7 +16,7 @@ export default function Profile(props) {
   const [backdrop, setBackdrop] = useState(false)
   const [hasReview, setHasReview] = useState(false)
 
-  const getUrl = `http://localhost:3001/profile/${props.username}/userPost`
+  const getUrl = `http://localhost:3000/profile/${props.username}/userPost`
 
   // getting post data from database and storing in userPostData
   useEffect(() => {

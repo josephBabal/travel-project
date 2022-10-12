@@ -14,7 +14,7 @@ export default function SearchPage(props) {
 
   const getSearchResult = async () => {
     if (searchInput !== '') {
-      const postUrl = "http://localhost:3001/search/checkInput"
+      const postUrl = "http://localhost:3000/search/checkInput"
       try {
         const res = await axios.post(postUrl, {searchValue: searchInput})
         console.log("res: ", res)
