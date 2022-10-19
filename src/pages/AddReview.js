@@ -6,16 +6,6 @@ import Star from '../components/Star'
 // date picker library
 import DatePicker from 'react-datepicker'
 import "react-datepicker/dist/react-datepicker.css";
-// react flatpickr
-// import "flatpickr/dist/themes/material_green.css";
-// theme options:
-// material_green.css
-// material_blue.css
-// material_red.css
-// material_orange.css
-// dark.css
-// airbnb.css
-// confetti.css
 import "flatpickr/dist/themes/airbnb.css";
 // import Flatpickr from "react-flatpickr";
 
@@ -34,23 +24,6 @@ export default function AddReview(props) {
    // const [date, setDate] = useState('')
    const [date, setDate] = useState(new Date())
 
-  // for button/img from computer
-  // const [photo, setPhoto] = useState(null)
-  // used for photo state being separte
-  // const [photo, setPhoto] = useState('')
-  // function handlePhoto(event) {
-  //   const {value} = event.target
-  //   console.log("event value: ", value)
-  //   setPhoto(value)
-  // }
-  // console.log("test photo: ", photo)
-
-  // function for button/choosing photo from computer
-  // function uploadPhoto(selectedPhoto) {
-  //   if (selectedPhoto) {
-  //     setPhoto(selectedPhoto[0])
-  //   }
-  // }
 
   // states used for star icons
   const [stars, setStars] = useState(newStar())
@@ -167,13 +140,7 @@ export default function AddReview(props) {
       <Navbar username={props.username} />
    
     
-      <div className="post-container"> 
-        {/* {useEffect(() => {
-          document.body.classList.contains('login-background') ?
-          document.body.classList.remove('login-background') :
-          document.body.classList.add('background-img')
-        },[])} */}
-    
+      <div className="post-container">     
         <div className="review-container">
             <h1 className="create-post-txt"> Create Post</h1>
             <form className="form-inputs" onSubmit={handleSubmit}>
@@ -187,23 +154,7 @@ export default function AddReview(props) {
                 name="postTitle"
                 maxLength={30}
               />
-              {/* <input
-                ref={setFp} 
-                name="dateOfTravel"
-                value={reviewData.dateOfTravel}
-                placeholder = "Enter date"
-                onChange={date => {
-                  setDate({date})
-                  console.log("printing", date)
-                }}
-                options={{
-                  altFormat: "d M Y",
-                  dateFormat:"d-M-Y",
-                  maxDate: "today",
-                  altInput: true
-                }} 
-              /> */}
-          
+             
             {/* Date traveled of post */}
               <label htmlFor="date-input" className="date-label"> Enter date traveled </label>
               <DatePicker 
@@ -221,26 +172,6 @@ export default function AddReview(props) {
                 showYearDropdown
                 scrollableMonthYearDropdown
               />
-          
-              {/* <Flatpickr
-                id="postDate"
-                name="postDate"
-                value={date}
-                // value={reviewData.postDate}
-                placeholder = "Select date that you went flatpickr"
-                onChange={newDate => {
-                  setDate(newDate)
-                }}
-                options={{
-                  // altFormat: "d M Y",
-                  // dateFormat: "d M Y",
-                  // altFormat: "M d Y",
-                  altFormate: "F j, Y",
-                  maxDate: "today",
-                  altInput: true,
-                  enableTime: false
-                }} 
-              /> */}
 
               {/* Rating/star of post */}
               <div className="star-container">
@@ -273,30 +204,6 @@ export default function AddReview(props) {
                   rows={10}
                   cols={50}
                 />
-                {/* button to get photo from user comptuer
-                <div className="photo-btn-container"> 
-                  <label htmlFor="postPhoto" className="postPhoto-label"> Choose photo </label>
-                  <input 
-                    type="file"
-                    // id="postPhoto"
-                    name="postPhoto"
-                    accept="image/png, .jpeg, .jpg"
-                    placeholder="Choose photo"
-                    onChange={(event) => uploadPhoto(event.target.files)}
-                  />
-                </div> */}
-                
-                {/* Photo displayed */}
-                {/* <div className="photo-display-container">
-                  {photo && 
-                  (
-                    <div>
-                      <img className="img-post" src={photo} alt=""/>
-                      <img className="img-post" src={URL.createObjectURL(photo)} alt="not found"/>
-                    </div>
-                  )
-                  }  
-                </div> */}
               </div>
               
             <div className="post-error">

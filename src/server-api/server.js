@@ -6,33 +6,16 @@ const mysql = require('mysql')
 
 // postData sql database
 const dbPostData = mysql.createPool({
-  host: 'localhost',
-  user: 'joseph',
-  password: 'Mbli8Okin',
-  database: 'postData'
+  host: process.env.HOST,
+  user: process.env.USER,
+  password: process.env.PASSWORD,
+  database: process.env.DATABASE
 });
-
-
-// var allowCrossDomain = (req, res, next) => {
-//   res.header('Access-Control-Allow-Origin', '*')
-//   res.header('Access-Control-Allow-Methods', 'GET,PUT,POST,DELETE')
-//   res.header('Access-Control-Allow-Headers', 'Content-Type')
-//   next()
-// }
 
 // middleware functions
 app.use(cors())
 app.use(express.json()) // you can grab stuff from front end to back end req.body
 app.use(bodyParser.urlencoded({extended: true}))
-
-
-
-// app.configure(function() {
-//   app.use(cors())
-//   app.use(express.json()) // you can grab stuff from front end to back end req.body
-//   app.use(bodyParser.urlencoded({extended: true}))
-//   app.use(allowCrossDomain) 
-// })
 
 app.get("/profile/:username/userPost", (req, res) => {
   const usernameParam = req.params.username

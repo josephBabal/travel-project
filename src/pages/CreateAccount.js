@@ -30,7 +30,10 @@ export default function CreateAccount() {
     const {name, value} = event.target
     checkCriteria()
 
-    // rest values
+    if (metLength && hasLowercase && hasUppercase && hasSpecialChar && hasNumber) setCriteria(true)
+    else setCriteria(false)
+
+    // reset values
     setIsUsernameTaken(false)
     setSamePassword(true)
     setAccountInfo(oldInfo => ({
@@ -39,8 +42,9 @@ export default function CreateAccount() {
     }))
   }
 
+  
   function checkCriteria() {
-    // const regex = /^(?=.*[a-z])(?=.*[A-Z])(?=.*[0-9])(?=.*[!@#$%&?]).{8,30}$/
+    /*
     const requirments = /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[#$@!%&*?])[A-Za-z\d#$@!%&*?]{7,}$/
     let found = requirments.test(accountInfo.password)
     console.log("test",found)
@@ -50,35 +54,23 @@ export default function CreateAccount() {
     else {
       setCriteria(false)
     }
+    */
 
-    const uppercaseRequirment = /[A-Z]/
-    let foundUpper = uppercaseRequirment.test(accountInfo.password)
-    if (foundUpper === true) {
-      setHasUppercase(true)
-    }
-    else {
-      setHasUppercase(false)
-    }
-    console.log("found upper", foundUpper)
-  }
+    if (accountInfo.password.length >= 8) setMetLength(true) 
+    else setMetLength(false)
   
+    if (accountInfo.password.search(/[A-Z]/) < 0) setHasUppercase(false)
+    else setHasUppercase(true) 
+    
+    if (accountInfo.password.search(/[a-z]/) < 0) setHasLowercase(false)
+    else setHasLowercase(true) 
 
+    if (accountInfo.password.search(/[#$@!%&*?]/) < 0) setHasSpecialChar(false)
+    else setHasSpecialChar(true)
 
-  // async function checkUsername() {
-  //   const postUrl = 'http://localhost:3001/createAccount/checkUsername'
-  //   try {
-  //     const res = await axios.post(postUrl, {
-  //       username: accountInfo.username
-  //     })
-  //     console.log("Res:", res)
-  //     if (res.data.message) {
-  //       setIsUsernameTaken(val => !val)
-  //     }
-
-  //   } catch(err) {
-  //     console.log(err)
-  //   }
-  // }
+    if (accountInfo.password.search(/[0-9]/) < 0) setHasNumber(false)
+    else setHasNumber(true)
+  }
 
   async function makeAccount() {
     try {
@@ -190,7 +182,18 @@ export default function CreateAccount() {
             {samePassword === false ? <label htmlFor="passwordConfirm" className="password-not-match"> Password does not match </label> : <label htmlFor="passwordConfirm"> Password Confirmation </label> }
           </div>
 
-          {criteria === false || accountInfo.password.length < 8 ? <div><p>Password requirements </p> <ul className ="password-requirements"> <li>1 uppercase letter </li> <li>1 lowercase leter </li> <li>1 special character</li> <li> Minimum length 8 characters</li> </ul> </div> : ""}
+          {/* {criteria === false || accountInfo.password.length < 8 ? <div><p>Password requirements </p> <ul className ="password-requirements"> <li>1 uppercase letter </li> <li>1 lowercase leter </li> <li>1 special character</li> <li> Minimum length 8 characters</li> </ul> </div> : ""} */}
+
+          <div>
+            <p>Password requirements </p> 
+            <ul> 
+              <li className={accountInfo.password.search(/[A-Z]/) < 0 ? "red" : "green"} > 1 uppercase letter </li> 
+              <li className={accountInfo.password.search(/[a-z]/) < 0 ? "red" : "green"} > 1 lowercase leter </li> 
+              <li className={accountInfo.password.search(/[#$@!%&*?]/) < 0 ? "red" : "green"} > 1 special character</li> 
+              <li className={accountInfo.password.search(/[0-9]/) < 0 ? "red" : "green"} > 1 number </li>
+              <li className={accountInfo.password.length >= 8 ? "green" : "red"}> Minimum length 8 characters </li> 
+            </ul> 
+          </div>
 
           <div className="account-btn-container">
             <input
@@ -201,12 +204,6 @@ export default function CreateAccount() {
             />
 
           </div>
-
-          {/* {useEffect(() => {
-            document.body.classList.remove('background-img')
-            // document.body.classList.add('profile-background')
-            document.body.classList.add('login-background')
-          },[])} */}
 
         </form>  
       </div>

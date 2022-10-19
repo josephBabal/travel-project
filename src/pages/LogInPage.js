@@ -61,38 +61,6 @@ export default function LogInPage(props) {
     }
   }
 
-  
-
-  // const handleLoginSubmit = (event) => {
-  //   event.preventDefault()
-  //   const postUrl = 'http://localhost:3001/login/post'
-  //   axios.post(postUrl, {
-  //     username: loginInfo.username,
-  //     userPassword: loginInfo.password,
-  //   }).then((response) => {
-  //     console.log(response)
-  //     // sets the message if it returns a message
-  //     if (response.data.message) {
-  //       setLoginStatus(response.data.message)
-  //     } else {
-  //       // sets it as password if there is a user
-  //       // setLoginStatus(response.data[0].userPassword)    
-
-  //       const {username, userId} = response.data[0]
-  //       // props.updateUser(username, userId)
-  //       console.log("username and userId:", username, userId)
-
-  
-  //       props.updateUser(response.data[0])
-
-  //       props.handleLogin()
-  //       navigate('/')
-  //       document.body.classList.remove('login-background') 
-  //       console.log(loginStatus)
-  //     }
-  //   })
-  // }
-
 
   return (
     <div className="login-background">
