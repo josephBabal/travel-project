@@ -26,6 +26,7 @@ export default function CreateAccount() {
 
   const navigate = useNavigate() 
 
+  // stores input and checks if the requirements of the password has been met
   const handleForm = (event) => {
     const {name, value} = event.target
     checkCriteria()
@@ -36,46 +37,40 @@ export default function CreateAccount() {
     // reset values
     setIsUsernameTaken(false)
     setSamePassword(true)
+
+    // storing input
     setAccountInfo(oldInfo => ({
       ...oldInfo,
       [name] : value
     }))
   }
 
-  
+  // sets values of criteria to true/false depending if the criteria has been met or not
   function checkCriteria() {
-    /*
-    const requirments = /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[#$@!%&*?])[A-Za-z\d#$@!%&*?]{7,}$/
-    let found = requirments.test(accountInfo.password)
-    console.log("test",found)
-    if (found === true) {
-      setCriteria(true)
-    }
-    else {
-      setCriteria(false)
-    }
-    */
-
+    // length  of 8 criteria
     if (accountInfo.password.length >= 8) setMetLength(true) 
     else setMetLength(false)
-  
+    
+    // at least 1 uppercase letter criteria
     if (accountInfo.password.search(/[A-Z]/) < 0) setHasUppercase(false)
     else setHasUppercase(true) 
     
+    // at least 1 owercase letter criteria
     if (accountInfo.password.search(/[a-z]/) < 0) setHasLowercase(false)
     else setHasLowercase(true) 
 
+    // at least 1 special character criteria
     if (accountInfo.password.search(/[#$@!%&*?]/) < 0) setHasSpecialChar(false)
     else setHasSpecialChar(true)
 
+    // at least 1 number criteria
     if (accountInfo.password.search(/[0-9]/) < 0) setHasNumber(false)
     else setHasNumber(true)
   }
 
+  // 
   async function makeAccount() {
     try {
-      // setSamePassword(false)
-      // setIsUsernameTaken(false)
       navigate('/')
       console.log("user id is: ", accountInfo.userId)
       const postUrl = 'http://localhost:3000/createAccount/post'
@@ -91,7 +86,7 @@ export default function CreateAccount() {
     }
   }
 
-  
+  // form submit function
   const handleSubmit = async(event) => {
     event.preventDefault()
     if (accountInfo.username === "" || accountInfo.password === "" ||
@@ -101,7 +96,7 @@ export default function CreateAccount() {
     } else if (accountInfo.password !== accountInfo.passwordConfirm) {
       setSamePassword(false)
       return
-    } else if (criteria === false || accountInfo.password.length < 8) {
+    } else if (criteria === false) {
       return
     } else {
       const postUrl = 'http://localhost:3001/createAccount/checkUsername'
@@ -129,7 +124,7 @@ export default function CreateAccount() {
   console.log(accountInfo)
   console.log(isUsernameTaken)
 
-
+  // body
   return (
     <div className="login-background">
       <div className="account-container">
@@ -160,12 +155,10 @@ export default function CreateAccount() {
               onChange={handleForm}
               value={accountInfo.password}
               maxLength={30}
-              // patten="/^(?=.*[a-z])(?=.*[A-Z])(?=.*[0-9])(?=.*[!@#$%&?]).{9,30}$/"
               required
             />
             <span></span> 
             {samePassword === false ? <label htmlFor="password" className="password-not-match"> Password does not match </label> : <label htmlFor="password"> Password </label> }
-            
           </div>
 
           <div className="account-form"> 
@@ -181,8 +174,6 @@ export default function CreateAccount() {
             <span></span>
             {samePassword === false ? <label htmlFor="passwordConfirm" className="password-not-match"> Password does not match </label> : <label htmlFor="passwordConfirm"> Password Confirmation </label> }
           </div>
-
-          {/* {criteria === false || accountInfo.password.length < 8 ? <div><p>Password requirements </p> <ul className ="password-requirements"> <li>1 uppercase letter </li> <li>1 lowercase leter </li> <li>1 special character</li> <li> Minimum length 8 characters</li> </ul> </div> : ""} */}
 
           <div>
             <p>Password requirements </p> 
@@ -200,11 +191,8 @@ export default function CreateAccount() {
               type="submit" 
               id="create-account-btn" 
               value="Create Account" 
-              // onClick={handleSubmit}
             />
-
           </div>
-
         </form>  
       </div>
     </div>

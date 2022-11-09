@@ -5,11 +5,10 @@ import { IoIosMenu } from "react-icons/io";
 
 
 export default function Navbar(props) {
-
   console.log("props username:", props.username)
+  
   return (
     <div className="navbar-page-container">
-      {/* <h1 className="title-site"> My Journey</h1> */}
       <div className="navbar-container">
         <h1 className="title-site"> My Journey</h1>       
         <nav className="main-nav">
@@ -19,16 +18,6 @@ export default function Navbar(props) {
             <li> <Link to="/addReview" className="nav-addReview"> Add Review </Link></li>
             <li> <Link to="/search" > Search </Link> </li>
             <li><Link to={`/profile/${props.username}`} className="nav-profile"> Profile</Link> </li>
-            {/* <div className="profile-dropDown-container"> 
-              <li> <Link to="/profile" className="nav-profile"> Profile</Link> </li>
-                <div className="profile-dropDown-menu ">
-                  <ul className="profile-nav-list">
-                    <li> <Link to="/logIn" className="logOut"> Log Out </Link></li>
-                  </ul>
-                </div>
-            </div> */}
-            
-            {/* <div className="active"></div> */}
           </ul>
         </nav>
       </div>

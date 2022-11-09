@@ -3,33 +3,28 @@ import Navbar from '../components/Navbar'
 import { useNavigate } from "react-router-dom"
 import axios from 'axios'
 import Star from '../components/Star'
-// date picker library
 import DatePicker from 'react-datepicker'
 import "react-datepicker/dist/react-datepicker.css";
 import "flatpickr/dist/themes/airbnb.css";
-// import Flatpickr from "react-flatpickr";
 
 
 export default function AddReview(props) {
   const navigate = useNavigate()
   const [isFilled, setIsFilled] = useState({postTitle: true, postDescription: true})
   console.log("filled", isFilled)
-  // all text data of post
   const [reviewData, setReviewData] = useState({
       postTitle: "",
       postDescription: "",
       postPhoto: ""
   })
-
-   // const [date, setDate] = useState('')
-   const [date, setDate] = useState(new Date())
-
+  const [date, setDate] = useState(new Date())
 
   // states used for star icons
   const [stars, setStars] = useState(newStar())
   const [rating, setRating] = useState(null)
   const [hover, setHover] = useState(null)
 
+  // inserting object in an array with its own id and ratingValue for each star
   function newStar() {
     const starArr = []
     for (let i = 0; i < 5; i++) {
@@ -55,7 +50,7 @@ export default function AddReview(props) {
     setHover(value)
   }
 
-  // if star is not hovered it sets hover to null
+  // resets hover
   function resetHover() {
     setHover(null)
   }
@@ -63,6 +58,7 @@ export default function AddReview(props) {
   console.log("rating is", rating)
   console.log("hover is", hover)
 
+  // mapping and returning <Star/> componenet
   const starElements = stars.map(star => (
     <Star 
       key={star.id} 
@@ -75,8 +71,7 @@ export default function AddReview(props) {
     />
   ))
 
-  // navigates back to home page if cancel btn is clicked
-
+  // handles and stores input from the input fields 
   function handleChange(event) {
       const {name, value} = event.target
       setReviewData(prevData => ({
@@ -86,25 +81,16 @@ export default function AddReview(props) {
       setIsFilled(old => ({...old, [name]: true}))
       console.log("review data", reviewData)
   }
-  
-  // function displayPhoto(photo) {
-  //   <div>
-  //     <img alt="not found" src={URL.createObjectURL(photo)}/>
-  //   </div> 
-  // }
-
   console.log(reviewData)
 
   // server for posting data
   const handleSubmit = async (event) => {
     event.preventDefault()
-    if (reviewData.postTitle !== "" && reviewData.postDescription !== "") 
-      {
+    if (reviewData.postTitle !== "" && reviewData.postDescription !== "") {
         try {
           const newDate = `{${date.getMonth()+1}/${date.getDate()}/${date.getFullYear()}}`
           console.log("newDate: ", newDate)
-          navigate('/')
-          // const url = 'https://localhost:3001/addReview/post'
+          navigate('/')                     // navigates back home
           const res = await axios.post('http://localhost:3000/addReview/post', {
             username: props.username,
             userId: props.userId,
@@ -117,16 +103,13 @@ export default function AddReview(props) {
         } catch(err) {
           alert(err)
         }
-
       } else {
         if (reviewData.postTitle === "") {
           setIsFilled(old => ({...old, postTitle: false})) 
         } 
-
         if (reviewData.postDescription === "") {
           setIsFilled(old => ({...old, postDescription: false})) 
         } 
-
         console.log("not completed")
       }
   }
@@ -134,12 +117,10 @@ export default function AddReview(props) {
   console.log("date traveled", date)
   console.log("new date: ", date)
 
-
+  // body
   return (
     <div className="background-img">
-      <Navbar username={props.username} />
-   
-    
+      <Navbar username={props.username} /> 
       <div className="post-container">     
         <div className="review-container">
             <h1 className="create-post-txt"> Create Post</h1>

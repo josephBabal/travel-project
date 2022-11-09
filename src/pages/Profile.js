@@ -9,8 +9,6 @@ import { IoIosCloseCircleOutline } from "react-icons/io"
 
 export default function Profile(props) {
   const navigate = useNavigate()
-  const {username} = useParams()
-
   const [userPostData, setUserPostData] = useState([])
   const [setting, setSetting] = useState(false)
   const [backdrop, setBackdrop] = useState(false)
@@ -38,12 +36,22 @@ export default function Profile(props) {
     getUserPostData()
   }, [getUrl])
 
-
+  // changes value of setting and backdrop each time the setting icon is pressed
   const handleSetting = () => {
     setSetting(oldSetting => !oldSetting)
     setBackdrop(oldBackdrop => !oldBackdrop)
   }
 
+  // inserting 5 <FaStar/> component with a specific color depending on the rating
+  function fillStarArr(val) {
+    const arr = []
+    for (let i = 0; i < 5; i++) {
+      arr.push(<FaStar key={i} className="card-star" color={i <= val.rating ? "#FFC107" : "E4E5E9"}/>)
+    }
+    return arr
+  }
+
+  // uses userPostData to store <Post/> components into userpostDataElements for it to be displayed
   let userPostDataElements
   if (hasReview === true) {
     userPostDataElements = userPostData.map((val) => {
@@ -53,16 +61,7 @@ export default function Profile(props) {
     console.log(newDate)
     console.log("proifle photo value: ", val.photo)
 
-    const starElements = fillStarArr()
-
-    function fillStarArr() {
-      const arr = []
-      for (let i = 0; i < 5; i++) {
-        arr.push(<FaStar key={i} className="card-star" color={i <= val.rating ? "#FFC107" : "E4E5E9"}/>)
-      }
-      return arr
-    }
-  
+    const starElements = fillStarArr(val)
     return (
       <Post 
         key={val.id}
@@ -74,18 +73,15 @@ export default function Profile(props) {
         photo={val.photo}
       />
     )
-    }).reverse()
+    }).reverse()      // newest posts show at the top
   }
 
+  // body
   return (
     <div className="search-background">
       <Navbar username={props.username} />
 
       <div className="profile-container">
-        {useEffect(() => {
-          document.body.classList.add('login-background')
-          // document.body.classList.add('white-background')
-        },[])}
 
         {/* backdrop, close setting btn and setting contents */}
         {backdrop && (<div id="modal-backdrop"></div> )}
@@ -97,9 +93,8 @@ export default function Profile(props) {
                 navigate('/')
                 props.handleLogout()
               }}> Log Out </button>
-              {/* <button className="delete-btn"> Delete Account </button> */}
             </div> 
-        </> 
+          </> 
         )}
 
         {/* profile page content */}
@@ -109,13 +104,11 @@ export default function Profile(props) {
             className="profile-setting" 
             onClick={handleSetting} 
           />
-          {/* <button className="profile-setting"> hello </button> */}
         </div>
 
         {hasReview ? <div className="card-grid"> {userPostDataElements} </div> :
           <h3 className="no-review-txt"> You have no reviews </h3>
         }
-
       </div>
     </div>
   )

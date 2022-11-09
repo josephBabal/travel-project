@@ -12,6 +12,7 @@ export default function LogInPage(props) {
   const [wrongInfo, setWrongInfo] = useState(false)
   const navigate = useNavigate() 
 
+  // stores input from input fields
   const handleForm = (event) => {
     setWrongInfo(false)
     const {name, value} = event.target
@@ -22,6 +23,7 @@ export default function LogInPage(props) {
     }))
   }
 
+  // form onSubmit function
   const handleLoginSubmit = async(event) => {
     event.preventDefault()
     const postUrl = 'http://localhost:3000/login/post'
@@ -52,7 +54,6 @@ export default function LogInPage(props) {
           console.log(res.data)
 
           navigate('/')
-          document.body.classList.remove('login-background') 
           console.log("login status",loginStatus)
         }
       } catch(err) {
@@ -61,7 +62,7 @@ export default function LogInPage(props) {
     }
   }
 
-
+  // body
   return (
     <div className="login-background">
       <div className="login-container">

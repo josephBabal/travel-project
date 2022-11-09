@@ -61,8 +61,6 @@ body {
   padding: 0;
 }
 
-
-
 /* navbar */
 .navbar-container {
   display: flex;
@@ -71,16 +69,6 @@ body {
   margin: 0 auto;
   width: 90%;
 }
-
-/* header {
-  padding: 10px 0;
-}
-
-header::after {
-  content: '';
-  display: table;
-  clear: both;
-} */
 
 .main-nav {
   display: flex;
@@ -114,28 +102,7 @@ nav a {
   cursor: pointer;
 }
 
-/* nav div {
-  display: inline-block;
-}
-
-.profile-dropDown-container {
-  position: relative;
-}
-
-.profile-dropDown-menu {
-  display: none;
-  position: absolute;
-  width: 107%;
-  z-index: 1;
-  overflow: auto;
-}
-
-.profile-dropDown-container:hover .profile-dropDown-menu {
-  display: block;
-} */
-
-
- /* resize nabbar */
+/* resize nabbar */
 .resize-nav-container {
   margin: 0;
   padding: 0;
@@ -158,13 +125,6 @@ nav a {
   transform: translateY(0);
   pointer-events: auto;
 }
-
-
-/* .dropdown:hover .resize-nav {
-  opacity: 1;
-  transform: translateY(0)
-} */
-
 
 .resize-nav {
   opacity: 0;
@@ -200,15 +160,6 @@ nav a {
   transform: scaleX(1);
 }
 
-
-
-
-
-
-
-
-
-
 /* home page */
 #slide-container {
   position: absolute;
@@ -238,12 +189,6 @@ nav a {
   word-spacing: 0.1em;
   margin: 0;
 }
-
-
-/* search page */
-/* .search-page-container {
-
-} */
 
 .search-container {
   display: flex;
@@ -277,14 +222,6 @@ nav a {
   text-align: center;
   margin: 20px 0 0 0;
 }
-
-
-
-
-
-
-
-
 
 /* add review whole container */
 .post-container {
@@ -341,40 +278,6 @@ nav a {
   border-bottom: 1px solid #1F0000;
 }
 
-/* #postTitle[data-error] {
-  border-bottom: 1px solid red;
-}
-
-#postTitle[data-error]::after {
-  content: attr(data-error);
-  font-size: 5px;
-}  */
-
-/* #dateOfTravel {
-  width: 50%;
-  height: 35px;
-  font-size: 1.0rem;
-  padding: 10px 10px;
-  border: none;
-  border-radius: 7px;
-  font-size: 20px;
-} */
-
-
-/* date container */
-/* for  */
-/* .form-control {
-  display: none;
-  font-size: 0.95em;
-  border: none;
-  border-radius: 7px;
-  padding: 10px 10px;
-  text-align: center;
-  width: 350px;
-  height: 10px;
-  border: 1px solid #1F0000;
-} */
-
 #date-input {
   font-size: 0.95em;
   border: none;
@@ -396,13 +299,6 @@ nav a {
 .react-datepicker-wrapper .react-datepicker__close-icon {
   display: none;
 }
-
-/* 
-#postDate {
- width: 350px;
- height: 10px;
- font-size: 0.95rem;
-} */
 
 /* stars for add review */
 .star-container {
@@ -721,15 +617,15 @@ input[type='file'] {
 }
 
 .card-description {
-  padding: 10px 10px 20px 20px;
+  padding: 10px 10px 20px 10px;
   margin: 0;
+  text-align: center;
 }
 
 
 .no-review-txt {
   text-align: center;
 }
-
 
 /* log in page */
 .login-container,

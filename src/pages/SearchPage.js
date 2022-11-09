@@ -7,11 +7,11 @@ import Navbar from '../components/Navbar'
 
 
 export default function SearchPage(props) {
-
   const [searchInput, setSearchInput] = useState('')
   const [validResult, setValidResult] = useState(true)
   const [matchingData, setMatchingData] = useState([])
 
+  // returns any post(s) with username/title that matches the input and stores the data in matchingData
   const getSearchResult = async () => {
     if (searchInput !== '') {
       const postUrl = "http://localhost:3000/search/checkInput"
@@ -35,7 +35,17 @@ export default function SearchPage(props) {
   console.log("search input: ", searchInput)
   console.log(matchingData)
 
-  
+
+  // inserting 5 <FaStar/> component with a specific color depending on the rating
+  function fillStarArr(val) {
+    const arr = []
+    for (let i = 0; i < 5; i++) {
+      arr.push(<FaStar key={i} className="card-star" color={i <= val.rating ? "#FFC107" : "E4E5E9"}/>)
+    }
+    return arr
+  }
+
+  // uses matchingData to store <Post/> components into matchingPostData for it to be displayed
   let matchingPostData
   if (validResult === true) {
     matchingPostData = matchingData.map((val) => {
@@ -45,16 +55,7 @@ export default function SearchPage(props) {
     console.log(newDate)
     console.log("search page photo value: ", val.photo)
 
-    const starElements = fillStarArr()
-
-    function fillStarArr() {
-      const arr = []
-      for (let i = 0; i < 5; i++) {
-        arr.push(<FaStar key={i} className="card-star" color={i <= val.rating ? "#FFC107" : "E4E5E9"}/>)
-      }
-      return arr
-    }
-  
+    const starElements = fillStarArr(val)
     return (
       <Post 
         key={val.id}
@@ -69,18 +70,11 @@ export default function SearchPage(props) {
     })
   }
 
+  // body
   return (
-    
     <div className="search-background">
       <Navbar username={props.username}/>
       <div className="search-page-container">
-        {useEffect(() => {
-          // document.body.classList.contains('login-background') ?
-          // document.body.classList.remove('login-background') :
-          // document.body.classList.add('background-img')
-          document.body.classList.remove('background-img')
-        },[])}
-
         <div className="search-container">
           <input 
             type="text"
