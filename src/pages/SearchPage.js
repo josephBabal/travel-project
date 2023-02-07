@@ -11,6 +11,7 @@ export default function SearchPage(props) {
   const [validResult, setValidResult] = useState(true)
   const [matchingData, setMatchingData] = useState([])
 
+
   // returns any post(s) with username/title that matches the input and stores the data in matchingData
   const getSearchResult = async () => {
     if (searchInput !== '') {
@@ -72,8 +73,11 @@ export default function SearchPage(props) {
 
   // body
   return (
-    <div className="search-background">
-      <Navbar username={props.username}/>
+    <div className="white-background">
+      {/* <Navbar 
+        username={props.username}
+        curPage={props.curPage}
+      /> */}
       <div className="search-page-container">
         <div className="search-container">
           <input 

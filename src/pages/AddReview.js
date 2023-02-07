@@ -1,4 +1,4 @@
-import React, { useState } from 'react'
+import React, { useEffect, useState } from 'react'
 import Navbar from '../components/Navbar'
 import { useNavigate } from "react-router-dom"
 import axios from 'axios'
@@ -10,7 +10,7 @@ import "flatpickr/dist/themes/airbnb.css";
 
 export default function AddReview(props) {
   const navigate = useNavigate()
-  const [isFilled, setIsFilled] = useState({postTitle: true, postDescription: true})
+  const [isFilled, setIsFilled] = useState({postTitle: true, postDescription: true, postStar: true})
   console.log("filled", isFilled)
   const [reviewData, setReviewData] = useState({
       postTitle: "",
@@ -18,6 +18,7 @@ export default function AddReview(props) {
       postPhoto: ""
   })
   const [date, setDate] = useState(new Date())
+  console.log("new", date);
 
   // states used for star icons
   const [stars, setStars] = useState(newStar())
@@ -83,87 +84,107 @@ export default function AddReview(props) {
   }
   console.log(reviewData)
 
+  const checkFilled = () => {
+    if (reviewData.postTitle === "") {
+      setIsFilled(old => ({...old, postTitle: false})) 
+    } 
+    if (reviewData.postDescription === "") {
+      setIsFilled(old => ({...old, postDescription: false})) 
+    } 
+    if (rating == null) {
+      setIsFilled(old => ({...old, postStar: false}))
+    }
+  }
+
   // server for posting data
   const handleSubmit = async (event) => {
     event.preventDefault()
-    if (reviewData.postTitle !== "" && reviewData.postDescription !== "") {
-        try {
-          const newDate = `{${date.getMonth()+1}/${date.getDate()}/${date.getFullYear()}}`
-          console.log("newDate: ", newDate)
-          navigate('/')                     // navigates back home
-          const res = await axios.post('http://localhost:3000/addReview/post', {
-            username: props.username,
-            userId: props.userId,
-            title: reviewData.postTitle,
-            postDate: newDate,
-            postRating: rating,
-            postDescription: reviewData.postDescription,
-            postPhoto: reviewData.postPhoto
-          })
-        } catch(err) {
-          alert(err)
-        }
-      } else {
-        if (reviewData.postTitle === "") {
-          setIsFilled(old => ({...old, postTitle: false})) 
-        } 
-        if (reviewData.postDescription === "") {
-          setIsFilled(old => ({...old, postDescription: false})) 
-        } 
-        console.log("not completed")
+    if (reviewData.postTitle !== "" && reviewData.postDescription !== "" && rating != null) {
+      try {
+        const newDate = `{${date.getMonth()+1}/${date.getDate()}/${date.getFullYear()}}`
+        console.log("newDate: ", newDate)
+        navigate('/')                     // navigates back home
+        const res = await axios.post('http://localhost:3000/addReview/post', {
+          username: props.username,
+          userId: props.userId,
+          title: reviewData.postTitle,
+          postDate: newDate,
+          postRating: rating,
+          postDescription: reviewData.postDescription,
+          postPhoto: reviewData.postPhoto
+        })
+      } catch(err) {
+        alert(err)
       }
+    } else {
+      checkFilled()
+      console.log("not completed")
+    }
   }
 
   console.log("date traveled", date)
   console.log("new date: ", date)
 
+
   // body
   return (
-    <div className="background-img">
-      <Navbar username={props.username} /> 
-      <div className="post-container">     
-        <div className="review-container">
-            <h1 className="create-post-txt"> Create Post</h1>
-            <form className="form-inputs" onSubmit={handleSubmit}>
-              {/* Title of post */}
+    <div className="white-background">
+    {/* <div className="background-img"> */}
+      {/* <Navbar 
+        username={props.username} 
+        curPage={props.curPage}
+      />  */}
+      <h1 className="create-post-txt"> Add Review </h1>
+      <div className="review-container">
+          <form className="form-inputs" onSubmit={handleSubmit}>
+          <div className="form-container">
+            {/* Rating/star of post */}
+            <div className="reviewBox">
+              <h4> Select a rating <span>*</span> </h4>
+              <div className="star-container"> {starElements} </div>
+            </div>
+
+            {/* Title of post */}
+            <div className="reviewBox">
+              <h4> Enter Title <span>*</span> </h4>
               <input
                 type="text"
                 id="postTitle"
-                placeholder="Enter a title"
+                // placeholder="Enter a title"
                 onChange={handleChange}
                 value={reviewData.postTitle}
                 name="postTitle"
                 maxLength={30}
               />
-             
-            {/* Date traveled of post */}
-              <label htmlFor="date-input" className="date-label"> Enter date traveled </label>
-              <DatePicker 
+            </div>
+
+
+            {/* <div className="dateContainer"> */}
+              {/* Date traveled of post */}
+              {/* <DatePicker 
                 id="date-input"
                 name="postDate"
-                selected={date}e
-                onChange={oldDate => {
-                  setDate(oldDate)
-                  
-                }}
+                selected={date}
+                // onChange={oldDate => {
+                //   setDate(oldDate)
+                // }}
                 dateFormate={"MM/DD/YYYY"}
                 
                 maxDate={new Date()}
                 isClearable
                 showYearDropdown
                 scrollableMonthYearDropdown
-              />
-
-              {/* Rating/star of post */}
-              <div className="star-container">
-                {starElements}
-              </div>
-                      
-              {/* Description of post */}
+              /> */}
+            {/* </div>  */}
+          
+                    
+            {/* Description of post */}
+            <div className="reviewBox">
+              <h4> Write a Review <span>*</span> </h4>
               <textarea 
                 type="text"
                 id="postDescription"
-                placeholder="Description/thoughts of destination/restaurant "
+                placeholder="Describe your experience"
                 onChange={handleChange}
                 value={reviewData.postDescription}
                 name="postDescription"
@@ -171,33 +192,35 @@ export default function AddReview(props) {
                 rows={10}
                 cols={50} 
               />
-
-              {/* choosing photo for post */}
-              <div className="postPhoto-container">
-                <input 
-                  id="photoUrl"
-                  type="text"
-                  placeholder="Enter url of photo"
-                  onChange={handleChange}
-                  name="postPhoto"
-                  value={reviewData.postPhoto}
-                  maxLength={100}
-                  rows={10}
-                  cols={50}
-                />
-              </div>
-              
-            <div className="post-error">
-              {isFilled.postTitle && isFilled.postDescription ? "" : <div className="post-txt-error"> *Title/description not filled</div>}
             </div>
 
-              {/* cancel and post buttons */}
-              <div className="btn-container">
-                <button className="cancel-btn" onClick={() => navigate('/')}> Cancel </button>
-                <button type="submit" className="post-btn"> Post </button>
-              </div>
-            </form>
-        </div>
+            {/* choosing photo for post */}
+            <div className="reviewBox">
+              <h4>Select a photo </h4>
+              <input 
+                className="photoUrl"
+                type="text"
+                placeholder="Enter url of photo"
+                onChange={handleChange}
+                name="postPhoto"
+                value={reviewData.postPhoto}
+                maxLength={100}
+                rows={10}
+                cols={50}
+              />
+            </div>
+            
+          <div className="post-error">
+            {isFilled.postTitle && isFilled.postDescription && isFilled.postStar ? "" : <div className="post-txt-error"> *Title/description/rating not completed</div>}
+          </div>
+
+            {/* cancel and post buttons */}
+            <div className="btn-container">
+              <button type="submit" className="post-review-btn"> Post Review </button>
+              <a className="cancel-review-btn" href={"/"}> Cancel </a>
+            </div>
+            </div>
+          </form>
       </div>
     </div>
   )

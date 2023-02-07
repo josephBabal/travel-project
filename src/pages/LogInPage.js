@@ -1,6 +1,7 @@
 import React, {useState} from 'react'
 import { useNavigate } from 'react-router-dom'
 import axios from 'axios'
+import { IoIosArrowRoundBack } from "react-icons/io"
 
 export default function LogInPage(props) {
   const [loginInfo, setLoginInfo] = useState({
@@ -65,8 +66,10 @@ export default function LogInPage(props) {
   // body
   return (
     <div className="login-background">
+            <h2 className="website-title-account"> MY JOURNEY </h2>
       <div className="login-container">
-        <div className="login-title"> <h2> MY JOURNEY </h2> </div>
+      <IoIosArrowRoundBack className="account-back-btn" onClick={() => navigate('/')} />
+        <div className="login-title"> <h2> Login </h2> </div>
 
         <form onSubmit={handleLoginSubmit}>
           <div className="login-form">
@@ -96,15 +99,17 @@ export default function LogInPage(props) {
           </div>
 
           <div className="login-btn-container">
-            <input
-              type="button" 
-              id="login-create-account-btn"
-              value="Create Account" 
-              onClick={() => {
-                navigate('/createAccount')
-              }}
-            />
             <input type="submit" id="login-btn" value="Login"/>
+            
+            <p id="sign-up"> Don't have an account? 
+              <input 
+                type="button"
+                id="sign-up-btn"
+                value="Sign Up" 
+                onClick={() => navigate('/createAccount')}
+              />
+            </p>
+            
           </div>
         </form> 
       </div>

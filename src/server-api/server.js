@@ -3,6 +3,8 @@ const bodyParser = require('body-parser')
 const cors = require('cors')
 const app = express()
 const mysql = require('mysql')
+const http = require("http")
+const { Server } = require("socket.io")
 
 // postData sql database
 const dbPostData = mysql.createPool({
@@ -17,7 +19,24 @@ app.use(cors())
 app.use(express.json()) // you can grab stuff from front end to back end req.body
 app.use(bodyParser.urlencoded({extended: true}))
 
-app.get("/profile/:username/userPost", (req, res) => {
+const server = http.createServer(app)
+const io = new Server(server, {
+  cors: {
+    origin: "http://localhost:3001",
+    methods: ["GET", "POST"],
+  },
+})
+
+// io.on("connection", (socket) => {
+//   console.log(socket.id)
+
+//   socket.on("disconnect", () => {
+//     console.log("user disconnected", socket.id)
+//   })
+// })
+
+
+app.get("/profile/:username/getUserPost", (req, res) => {
   const usernameParam = req.params.username
   const sqlGetUserPost = "SELECT * FROM postData WHERE username = ?";
   dbPostData.query(sqlGetUserPost, [usernameParam], (err, result) => {
@@ -31,6 +50,55 @@ app.get("/profile/:username/userPost", (req, res) => {
       res.send(result)
     } else {
       res.send({message: "no reviews"})
+    }
+  })
+})
+
+app.get("/profile/:username/:postID", (req, res) => {
+  const id = req.params.postID
+  const sqlgetPost = "SELECT * FROM postData WHERE id = ?";
+  dbPostData.query(sqlgetPost, [id], (err, result) => {
+    if (err) {
+      res.send(err)
+      console.log(err)
+    } 
+    if (result.length > 0) {
+      res.send(result)
+    } else {
+      res.send({message: "no reviews"})
+    }
+  })
+})
+
+app.put("/profile/:username/update", (req, res) => {
+  const id = req.body.id
+  const rating = req.body.rating
+  const title = req.body.title
+  const postDescription = req.body.postDescription
+  const photo = req.body.photo
+  console.log(rating, title, postDescription)
+  const sqlUpdatePost = "UPDATE postData SET title = ?, rating = ?, postDescription = ?, photo = ? WHERE id = ?"
+  dbPostData.query(sqlUpdatePost, [title, rating, postDescription,photo, id], (err, result) => {
+    if (err) {
+      res.send(err)
+      console.log(err)
+    } else {
+      res.send(result)
+      console.log(result)
+    }
+  })
+})
+
+app.delete("/profile/:username/delete", (req, res) => {
+  const id = req.body.idDelete
+  const sqlDeletePost = "DELETE FROM postData WHERE id = ?"
+  dbPostData.query(sqlDeletePost, id, (err, result) => {
+    if (err) {
+      res.send(err)
+      console.log(err)
+    } else {
+      res.send(result)
+      console.log(result)
     }
   })
 })

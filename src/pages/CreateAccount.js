@@ -127,9 +127,10 @@ export default function CreateAccount() {
   // body
   return (
     <div className="login-background">
+      <h2 className="website-title-account"> MY JOURNEY </h2>
       <div className="account-container">
         <IoIosArrowRoundBack className="account-back-btn" onClick={() => navigate('/')} />
-        <div className="account-title"> <h2> MY JOURNEY </h2> </div>
+        <div className="account-title"> <h2> Create Account </h2> </div>
 
         <form onSubmit={handleSubmit}>
           <div className="account-form">
@@ -176,8 +177,8 @@ export default function CreateAccount() {
           </div>
 
           <div>
-            <p>Password requirements </p> 
-            <ul> 
+            <p className="password-requirment-txt">Password requirements: </p> 
+            <ul id="password-requirements"> 
               <li className={accountInfo.password.search(/[A-Z]/) < 0 ? "red" : "green"} > 1 uppercase letter </li> 
               <li className={accountInfo.password.search(/[a-z]/) < 0 ? "red" : "green"} > 1 lowercase leter </li> 
               <li className={accountInfo.password.search(/[#$@!%&*?]/) < 0 ? "red" : "green"} > 1 special character</li> 

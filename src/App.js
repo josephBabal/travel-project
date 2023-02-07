@@ -1,5 +1,5 @@
 import React, {useState, useEffect}from 'react'
-// import Navbar from './components/Navbar'
+import Navbar from './components/Navbar'
 import {BrowserRouter as Router, Routes, Route, Link, useSearchParams} from 'react-router-dom'
 import Home from './pages/Home'
 // import Friends from './pages/Friends'
@@ -9,8 +9,12 @@ import Profile from './pages/Profile'
 import LogInPage from './pages/LogInPage'
 import CreateAccount from './pages/CreateAccount'
 import SearchPage from './pages/SearchPage'
+import StartPage from './pages/StartPage'
+import EditPost from './components/EditPost'
 // import { FaJournalWhills } from 'react-icons/fa'
 // import axios from 'axios'
+import io from "socket.io-client"
+const SOCKET = io.connect("http://localhost:3001")
 
 export default function App() {
   const [isLoggedIn, setIsloggedIn] = useState(false)
@@ -18,6 +22,11 @@ export default function App() {
     username: '',
     userId: ''
   })
+
+  const [curPage, setCurPage] = useState('');
+  function updateCurPage(page) {
+    setCurPage(page);
+  }
   console.log(user)
 
   function updateUser(value) {
@@ -67,14 +76,16 @@ export default function App() {
 
   console.log("user is:", user.username)
 
+
+
   return (
     <div>
       <Router>
-        {/* {isLoggedIn ? <Navbar username={user.username} /> : null } */}
-
+        {isLoggedIn === true && <Navbar username={user.username}/>}
         {isLoggedIn === false ? 
           <Routes>
-            <Route path="/" 
+            <Route path="/" element={<StartPage />} />
+            <Route path="/login" 
               element={<LogInPage 
                 updateUser={updateUser} 
                 handleLogin={handleLogin} />} 
@@ -84,24 +95,28 @@ export default function App() {
           </Routes>
           :
           <Routes>
-            <Route path="/" element={<Home username={user.username}/>} />
-            {/* <Route path="/home" element={<Home />} /> */}
-            {/* <Route path="/friends" element={<Friends />} />  */}
-            {/* <Route path="/userPost" element={<UserPost />} /> */}
+            <Route path="/" element={<Home />} />
+      
             <Route path="/addReview" 
               element={<AddReview
                 username={user.username} 
-                userId={user.userId} />} 
+                userId={user.userId} 
+                />} 
             /> 
             {/* <Route path="/profile" element={<Profile username={user.username} userId={user.userId} />} /> */}
             <Route path={`/profile/${user.username}`}  
               element={<Profile 
                 username={user.username} 
                 userId={user.userId} 
-                handleLogout={handleLogout} />}
-            /> 
+                handleLogout={handleLogout} 
+                />}
+            >
+            </Route> 
 
-            <Route path={'/search'} element={<SearchPage username={user.username}/>} />
+            <Route path={'/search'} element={<SearchPage 
+              username={user.username}
+              />} 
+            />
 
             {/* <Route path="/profile/:username" element={<Profile />} />  */}
             {/* <Route path="/login" element={<LogInPage/>} /> */}
