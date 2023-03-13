@@ -9,14 +9,10 @@ dotenv.config()
 
 // postData sql database
 const dbPostData = mysql.createPool({
-  // host: process.env.HOST,
-  // user: process.env.USER,
-  // password: process.env.PASSWORD,
-  // database: process.env.DATABASE
-  host: "localhost", 
-  user: "joseph",
-  password: "Mbli8Okin",
-  database: "postData"  
+  host: process.env.HOST,
+  user: process.env.USER,
+  password: process.env.PASSWORD,
+  database: process.env.DATABASE
 });
 
 // middleware functions
