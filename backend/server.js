@@ -5,15 +5,8 @@ const app = express()
 const dotenv = require("dotenv")
 dotenv.config()
 const mysql = require('mysql')
-<<<<<<< HEAD
-
-
-=======
-const http = require("http")
-const { Server } = require("socket.io")
-const dotenv = require("dotenv")
 dotenv.config()
->>>>>>> 17f09ad07cecb81b01c3b9df4c326ae8bea35941
+
 // postData sql database
 const dbPostData = mysql.createPool({
   // host: process.env.HOST,
