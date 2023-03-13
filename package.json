@@ -1,0 +1,50 @@
+{
+  "name": "travel-eating-blog",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "dependencies": {
+    "ansi-regex": "^5.0.1",
+    "ansi-styles": "^4.3.0",
+    "chalk": "^4.1.2",
+    "cliui": "^8.0.1",
+    "color-convert": "^2.0.1",
+    "color-name": "^1.1.4",
+    "concurrently": "^7.6.0",
+    "date-fns": "^2.29.3",
+    "emoji-regex": "^8.0.0",
+    "escalade": "^3.1.1",
+    "has-flag": "^4.0.0",
+    "get-caller-file": "^2.0.5",
+    "lodash": "^4.17.21",
+    "spawn-command": "^0.0.2-1",
+    "rxjs": "^7.8.0",
+    "is-fullwidth-code-point": "^3.0.0",
+    "require-directory": "^2.1.1",
+    "shell-quote": "^1.8.0",
+    "string-width": "^4.2.3",
+    "strip-ansi": "^6.0.1",
+    "supports-color": "^8.1.1",
+    "tree-kill": "^1.2.2",
+    "tslib": "^2.5.0",
+    "wrap-ansi": "^7.0.0",
+    "y18n": "^5.0.8",
+    "yargs": "^17.6.2",
+    "yargs-parser": "^21.1.1"
+  },
+  "devDependencies": {},
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/josephBabal/travel-project.git"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/josephBabal/travel-project/issues"
+  },
+  "homepage": "https://github.com/josephBabal/travel-project#readme"
+}
