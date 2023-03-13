@@ -6,18 +6,20 @@ const dotenv = require("dotenv")
 dotenv.config()
 const mysql = require('mysql')
 
+const { HOST, USER, PASSWORD, DATABASE } = process.env;
 
 // postData sql database
 const dbPostData = mysql.createPool({
-  // host: process.env.HOST,
-  // user: process.env.USER,
-  // password: process.env.PASSWORD,
-  // database: process.env.DATABASE
+  // host: HOST,
+  // user: USER,
+  // password: PASSWORD,
+  // database: DATABASE
   host: "localhost", 
   user: "joseph",
   password: "Mbli8Okin",
   database: "postData"  
 });
+
 
 // middleware functions
 app.use(cors())
