@@ -2,40 +2,27 @@ const express = require('express')
 const bodyParser = require('body-parser')
 const cors = require('cors')
 const app = express()
-const mysql = require('mysql')
-const http = require("http")
-const { Server } = require("socket.io")
 const dotenv = require("dotenv")
 dotenv.config()
+const mysql = require('mysql')
+
+
 // postData sql database
 const dbPostData = mysql.createPool({
-  host: process.env.HOST,
-  user: process.env.USER,
-  password: process.env.PASSWORD,
-  database: process.env.DATABASE
+  // host: process.env.HOST,
+  // user: process.env.USER,
+  // password: process.env.PASSWORD,
+  // database: process.env.DATABASE
+  host: "localhost", 
+  user: "joseph",
+  password: "Mbli8Okin",
+  database: "postData"  
 });
 
 // middleware functions
 app.use(cors())
 app.use(express.json()) // you can grab stuff from front end to back end req.body
-app.use(bodyParser.urlencoded({extended: true}))
-
-const server = http.createServer(app)
-const io = new Server(server, {
-  cors: {
-    origin: "http://localhost:3001",
-    methods: ["GET", "POST"],
-  },
-})
-
-// io.on("connection", (socket) => {
-//   console.log(socket.id)
-
-//   socket.on("disconnect", () => {
-//     console.log("user disconnected", socket.id)
-//   })
-// })
-
+app.use(bodyParser.urlencoded({ extended: true }))
 
 app.get("/profile/:username/getUserPost", (req, res) => {
   const usernameParam = req.params.username
@@ -43,14 +30,14 @@ app.get("/profile/:username/getUserPost", (req, res) => {
   dbPostData.query(sqlGetUserPost, [usernameParam], (err, result) => {
     console.log("user post data: ", result)
     if (err) {
-      res.send({err: err})
-    } 
-    
+      res.send({ err: err })
+    }
+
     // if reviews exist, send result to front end, else send err message
     if (result.length > 0) {
       res.send(result)
     } else {
-      res.send({message: "no reviews"})
+      res.send({ message: "no reviews" })
     }
   })
 })
@@ -62,11 +49,11 @@ app.get("/profile/:username/:postID", (req, res) => {
     if (err) {
       res.send(err)
       console.log(err)
-    } 
+    }
     if (result.length > 0) {
       res.send(result)
     } else {
-      res.send({message: "no reviews"})
+      res.send({ message: "no reviews" })
     }
   })
 })
@@ -79,7 +66,7 @@ app.put("/profile/:username/update", (req, res) => {
   const photo = req.body.photo
   console.log(rating, title, postDescription)
   const sqlUpdatePost = "UPDATE postData SET title = ?, rating = ?, postDescription = ?, photo = ? WHERE id = ?"
-  dbPostData.query(sqlUpdatePost, [title, rating, postDescription,photo, id], (err, result) => {
+  dbPostData.query(sqlUpdatePost, [title, rating, postDescription, photo, id], (err, result) => {
     if (err) {
       res.send(err)
       console.log(err)
@@ -113,7 +100,7 @@ app.post("/addReview/post", (req, res) => {
   const rating = req.body.postRating
   const postDescription = req.body.postDescription
   const photo = req.body.postPhoto
-  
+
   const sqlInsert = "INSERT INTO postData (username, userId, title, dateTraveled, rating, postDescription, photo) VALUES (?,?,?,?,?,?,?)";
   dbPostData.query(sqlInsert, [username, userId, title, dateTraveled, rating, postDescription, photo], (err, result) => {
     if (err) {
@@ -134,11 +121,11 @@ app.post('/search/checkInput', (req, res) => {
   const sqlSelect = "SELECT * FROM postData WHERE username LIKE ? OR title LIKE ?"
   dbPostData.query(sqlSelect, [searchValue, searchValue], (err, result) => {
     if (err) {
-      res.send({err: err})
+      res.send({ err: err })
     }
     if (result.length === 0) {
       console.log("no result found")
-      res.send({message: 'no results'})
+      res.send({ message: 'no results' })
     }
     else {
       console.log(result.length)
@@ -153,7 +140,7 @@ app.post('/createAccount/checkUsername', (req, res) => {
   const sqlSelect = "SELECT * FROM userData WHERE username = ?"
   dbPostData.query(sqlSelect, [username], (err, result) => {
     if (err) {
-      res.send({err: err})
+      res.send({ err: err })
     }
     // username is not taken
     if (result.length === 0) {
@@ -162,7 +149,7 @@ app.post('/createAccount/checkUsername', (req, res) => {
     }
     else {
       console.log(result.length)
-      res.send({message: 'username already used'})
+      res.send({ message: 'username already used' })
     }
   })
 })
@@ -177,7 +164,7 @@ app.post('/createAccount/post', (req, res) => {
   const sqlInsert = "INSERT INTO userData (username, userId, userPassword, userPasswordConfirm) VALUES (?,?,?,?)";
   dbPostData.query(sqlInsert, [username, userId, userPassword, userPasswordConfirm], (err, result) => {
     if (err) {
-      res.send({err: err})
+      res.send({ err: err })
     } else {
       res.send(result)
     }
@@ -193,18 +180,19 @@ app.post('/login/post', (req, res) => {
 
     // send is like a return
     if (err) {
-      res.send({err: err})
-    } 
-    
+      res.send({ err: err })
+      return
+    }
+
     // if result/user exist, send result to front end, else send err message
     if (result.length > 0) {
       res.send(result)
     } else {
-      res.send({message: "wrong username/password"})
+      res.send({ message: "wrong username/password" })
     }
   })
 })
- 
+
 // Testing database
 // app.get('/', (req, res) => {
 //   // sql insert statment

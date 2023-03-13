@@ -99,7 +99,7 @@ export default function CreateAccount() {
     } else if (criteria === false) {
       return
     } else {
-      const postUrl = 'http://localhost:3001/createAccount/checkUsername'
+      const postUrl = 'http://localhost:3000/createAccount/checkUsername'
       try {
         const res = await axios.post(postUrl, {
           username: accountInfo.username

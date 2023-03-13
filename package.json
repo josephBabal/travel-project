@@ -1,0 +1,26 @@
+{
+  "name": "travel-eating-blog",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "startFrontend": "cd frontend && npm start",
+    "startBackend": "cd backend && npm run dev",
+    "start": "concurrently \"npm run startFrontend\" \"npm run startBackend\""
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/josephBabal/travel-project.git"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/josephBabal/travel-project/issues"
+  },
+  "homepage": "https://github.com/josephBabal/travel-project#readme",
+  "dependencies": {
+    "concurrently": "^7.6.0"
+  }
+}

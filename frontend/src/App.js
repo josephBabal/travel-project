@@ -13,8 +13,8 @@ import StartPage from './pages/StartPage'
 import EditPost from './components/EditPost'
 // import { FaJournalWhills } from 'react-icons/fa'
 // import axios from 'axios'
-import io from "socket.io-client"
-const SOCKET = io.connect("http://localhost:3001")
+// import io from "socket.io-client"
+// const SOCKET = io.connect("http://localhost:3001")
 
 export default function App() {
   const [isLoggedIn, setIsloggedIn] = useState(false)
