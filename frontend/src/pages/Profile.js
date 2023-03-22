@@ -8,13 +8,15 @@ import { IoMdSettings } from "react-icons/io"
 import { IoIosCloseCircleOutline } from "react-icons/io"
 import EditPost from '../components/EditPost'
 import Star from '../components/Star'
-import { useDispatch, useSelector } from 'react-redux'
-import { addPost } from '../redux/postSlice'
-import { getPostList } from '../redux/selectors'
 import PostList from '../components/PostList'
+import { useDispatch, useSelector } from 'react-redux'
+import { getPosts } from '../redux/selectors'
+import { addPost } from '../redux/actions'
 
 export default function Profile(props) {
-  // const dispatch = useDispatch();
+  const dispatch = useDispatch()
+  const postList = useSelector(getPosts)
+
   const navigate = useNavigate()
   const [userPostData, setUserPostData] = useState([])
   const [setting, setSetting] = useState(false)
@@ -27,30 +29,54 @@ export default function Profile(props) {
   const getUrl = `http://localhost:3000/profile/${props.username}/getUserPost`
 
   // getting post data from database and storing in userPostData
-  const getUserPostData = async () => {
-    try {
-      const res = await axios.get(getUrl)
-      if (res.data.message) {
-        console.log(res.data.message)
-        setUserPostData(res.data.message)
-      } else {
-        setUserPostData(res.data.reverse())
-        // console.log(res.data)
-        setHasReview(oldVal => true)
-      }
-    } catch(err) {
-      console.log(err)
-    }
+  const getAllPosts = () => {
+    axios.get(getUrl)
+      .then(res => {
+        if (res.data.message) {
+          console.log(res.data.message)
+          setUserPostData(res.data.message)
+        } else {
+          setUserPostData(res.data.reverse())
+          res.data.forEach(post => dispatch(addPost(post)))         
+          //  console.log("==userpost", userPostData)
+          // console.log(userPostData)
+          setHasReview(oldVal => true)
+        }
+      })
+      .catch(err => {
+        console.error(err)
+      })
   }
+  
 
+  // const getUserPostData = async () => {
+  //   try {
+  //     const res = await axios.get(getUrl)
+  //     if (res.data.message) {
+  //       console.log(res.data.message)
+  //       setUserPostData(res.data.message)
+  //     } else {
+  //       setUserPostData(res.data.reverse())
+  //       console.log("==userpost", userPostData)
+  //       // console.log(res.data)
+  //       setHasReview(oldVal => true)
+  //     }
+  //   } catch(err) {
+  //     console.log(err)
+  //   }
+  // }
+
+  console.log("==post list", postList)
 
   const refreshPage = () => {
     window.location.reload()
   }
 
   useEffect(() => {
-    getUserPostData()
+    // getUserPostData()
+    getAllPosts()
   }, [])
+
 
 
   // changes value of setting and backdrop each time the setting icon is pressed
@@ -100,6 +126,8 @@ export default function Profile(props) {
       updatePhoto: photo
     }))
   } 
+
+  console.log("==old review data", oldReviewData)
 
   function handleReviewData(event) {
     const {name, value} = event.target

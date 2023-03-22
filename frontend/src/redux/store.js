@@ -1,13 +1,11 @@
-import { configureStore } from '@reduxjs/toolkit'
-import postReducer from './postSlice'
+import { createStore } from 'redux'
+import rootReducer from './reducer';
 
+const store = createStore(rootReducer) 
 
-export const store = configureStore({
-  reducer: {
-    postList: postReducer
-  },
-});
+store.subscribe(() => {
+  console.log("== store:", store.getState())
+})
 
-
-console.log("==store", store.getState())
+export default store
 
