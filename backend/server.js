@@ -5,7 +5,7 @@ const app = express()
 const dotenv = require("dotenv")
 dotenv.config()
 const mysql = require('mysql')
-dotenv.config()
+// dotenv.config()
 
 // postData sql database
 const dbPostData = mysql.createPool({
@@ -204,7 +204,3 @@ app.post('/login/post', (req, res) => {
 app.get('*', (req, res) => {
   res.status(404).send("Error page")
 });
-
-app.listen(3001, () => {
-  console.log('running on port 3001')
-})

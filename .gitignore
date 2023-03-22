@@ -1,5 +1,7 @@
 node_modules
 .env
 postData.session.sql
-recording1.mp4
+backend
+server.js
+
 

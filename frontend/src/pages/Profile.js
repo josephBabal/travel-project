@@ -8,8 +8,13 @@ import { IoMdSettings } from "react-icons/io"
 import { IoIosCloseCircleOutline } from "react-icons/io"
 import EditPost from '../components/EditPost'
 import Star from '../components/Star'
+import { useDispatch, useSelector } from 'react-redux'
+import { addPost } from '../redux/postSlice'
+import { getPostList } from '../redux/selectors'
+import PostList from '../components/PostList'
 
 export default function Profile(props) {
+  // const dispatch = useDispatch();
   const navigate = useNavigate()
   const [userPostData, setUserPostData] = useState([])
   const [setting, setSetting] = useState(false)
@@ -30,13 +35,14 @@ export default function Profile(props) {
         setUserPostData(res.data.message)
       } else {
         setUserPostData(res.data.reverse())
-        console.log(res.data)
+        // console.log(res.data)
         setHasReview(oldVal => true)
       }
     } catch(err) {
       console.log(err)
     }
   }
+
 
   const refreshPage = () => {
     window.location.reload()
@@ -85,13 +91,13 @@ export default function Profile(props) {
 
   console.log(oldReviewData)
 
-  function insertReviewData(idx) {
+  function insertReviewData(postId, title, description, photo) {
     setOldReviewData(() => ({
-      postID: userPostData[idx].id,
-      rating: userPostData[idx].rating,
-      updateTitle: userPostData[idx].title,
-      updateDescription: userPostData[idx].postDescription,
-      updatePhoto: userPostData[idx].photo
+      postID: postId,
+      rating: 0,
+      updateTitle: title,
+      updateDescription: description,
+      updatePhoto: photo
     }))
   } 
 
@@ -111,7 +117,6 @@ export default function Profile(props) {
     const starArr = []
     for (let i = 0; i < 5; i++) {
       starArr.push(generateStar(i))
-      // console.log(starArr[i].id)
     }
     return starArr
   }
@@ -217,12 +222,12 @@ export default function Profile(props) {
   }
 
   
-  console.log("all posts", userPostData)
-  console.log("old review data", oldReviewData)
-  console.log("userPostData[0]", userPostData[0])
-  console.log("userPostData[1]", userPostData[1])
-  console.log("userPostData[2]", userPostData[2])
-  console.log("post elements", userPostDataElements)
+  // console.log("all posts", userPostData)
+  // console.log("old review data", oldReviewData)
+  // console.log("userPostData[0]", userPostData[0])
+  // console.log("userPostData[1]", userPostData[1])
+  // console.log("userPostData[2]", userPostData[2])
+  // console.log("post elements", userPostDataElements)
 
   // body
   return (
@@ -269,31 +274,15 @@ export default function Profile(props) {
   
 
         {hasReview ? 
-          <div className="profile-review-container"> 
-            <h3 className="myReview-title"> My Reviews </h3>
-            <div className="card-grid"> 
-              {userPostDataElements.map((item,idx) => {
-                return (
-                  <Post 
-                    key={item.index}
-                    id={item.id}
-                    username={item.username}
-                    title={item.title}
-                    dateTraveled={item.dateTraveled}
-                    rating={item.rating}
-                    postDescription={item.postDescription}
-                    photo={item.photo}
-                    handleBackdrop={handleBackdrop}
-                    handleEditOptions={handleEditOptions}
-                    editOptions={editOptions}
-                    refreshPage = {refreshPage}
-                    handleEditForm={handleEditForm}
-                    insertReviewData={() => insertReviewData(idx)}
-                    // isFilled={isFilled}
-                  />
-                )})}
-            </div>  
-          </div>
+          <PostList 
+            posts={userPostDataElements} 
+            handleBackdrop={handleBackdrop}
+            handleEditOptions={handleEditOptions}
+            editOptions={editOptions}
+            refreshPage = {refreshPage}
+            handleEditForm={handleEditForm}
+            insertReviewData={insertReviewData}
+          />
             :
             <h3 className="no-review-txt"> You have no reviews </h3>
         }
