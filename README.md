@@ -11,11 +11,13 @@
 <h3 align="center"> Preview </h3>
 <div align="center">
 
-![Alt Text](screenshots/screenshot-1.png)
+<img src="screenshots/screenshot-1.png" alt="Alt Text" width="500"/>
 
-![Alt Text](screenshots/screenshot-2.png)
 
-![Alt Text](screenshots/screenshot-3.png)
+<img src="screenshots/screenshot-2.png" alt="Alt Text" width="500"/>
 
-![Alt Text](screenshots/screenshot-4.png)
-</div>
+
+<img src="screenshots/screenshot-3.png" alt="Alt Text" width="500"/>
+
+
+<img src="screenshots/screenshot-4.png" alt="Alt Text" width="500"/>
