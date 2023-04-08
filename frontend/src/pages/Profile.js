@@ -10,12 +10,14 @@ import EditPost from '../components/EditPost'
 import Star from '../components/Star'
 import PostList from '../components/PostList'
 import { useDispatch, useSelector } from 'react-redux'
-import { getPosts } from '../redux/selectors'
+import { getPosts, getPosts2 } from '../redux/selectors'
 import { addPost } from '../redux/actions'
+// import { addPost } from '../redux/postReducer2'
 
 export default function Profile(props) {
   const dispatch = useDispatch()
   const postList = useSelector(getPosts)
+  // const postList = useSelector(getPosts2)
 
   const navigate = useNavigate()
   const [userPostData, setUserPostData] = useState([])
@@ -37,7 +39,12 @@ export default function Profile(props) {
           setUserPostData(res.data.message)
         } else {
           setUserPostData(res.data.reverse())
-          res.data.forEach(post => dispatch(addPost(post)))         
+          // res.data.forEach(post => {
+          //   dispatch(addPost(post))
+          //   console.log("==post list after adding post", postList)
+          // })
+          res.data.reverse().forEach(post => dispatch(addPost(post)))  
+          console.log("==post list", postList)       
           //  console.log("==userpost", userPostData)
           // console.log(userPostData)
           setHasReview(oldVal => true)
@@ -66,7 +73,7 @@ export default function Profile(props) {
   //   }
   // }
 
-  console.log("==post list", postList)
+
 
   const refreshPage = () => {
     window.location.reload()
@@ -117,13 +124,15 @@ export default function Profile(props) {
 
   console.log(oldReviewData)
 
-  function insertReviewData(postId, title, description, photo) {
+  function insertReviewData(postId) {
+    const post = postList.find(post => post.id === postId)
+    // console.log("insert post id", post.id)
     setOldReviewData(() => ({
-      postID: postId,
+      postID: post.id,
       rating: 0,
-      updateTitle: title,
-      updateDescription: description,
-      updatePhoto: photo
+      updateTitle: post.title,
+      updateDescription: post.postDescription,
+      updatePhoto: post.photo
     }))
   } 
 
@@ -303,7 +312,7 @@ export default function Profile(props) {
 
         {hasReview ? 
           <PostList 
-            posts={userPostDataElements} 
+        
             handleBackdrop={handleBackdrop}
             handleEditOptions={handleEditOptions}
             editOptions={editOptions}

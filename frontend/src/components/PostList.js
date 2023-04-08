@@ -1,25 +1,21 @@
 import React from 'react'
 import Post from './Post'
+import { useDispatch, useSelector } from 'react-redux'
+import { getPosts } from '../redux/selectors'
 
-
-export default function PostList({posts, handleBackdrop, handleEditOptions, editOptions, refreshPage, handleEditForm, insertReviewData}) {
+export default function PostList({handleBackdrop, handleEditOptions, editOptions, refreshPage, handleEditForm, insertReviewData}) {
+  const postList = useSelector(getPosts)
 
   
   return (
     <div className="profile-review-container"> 
       <h3 className="myReview-title"> My Reviews </h3>
       <div className="card-grid"> 
-        {posts.map((item,idx) => {
+        {postList.map((item,idx) => {
           return (
             <Post 
-              key={idx}
-              id={item.id}
-              username={item.username}
-              title={item.title}
-              dateTraveled={item.dateTraveled}
-              rating={item.rating}
-              postDescription={item.postDescription}
-              photo={item.photo}
+              key={item.id}
+              post={item}
               handleBackdrop={handleBackdrop}
               handleEditOptions={handleEditOptions}
               editOptions={editOptions}
