@@ -1,11 +1,11 @@
 import React, {useState} from 'react'
 import {Link, NavLink} from 'react-router-dom'
 import { IoIosMenu } from "react-icons/io";
+import '../styles/Navbar.css'
 
 
-
-export default function Navbar(props) {
-  console.log("props username:", props.username)
+export default function Navbar({username}) {
+  console.log("props username:", username)
 
   const [isDropDownClick, setIsDropDownClicked] = useState(false)
   const handleDropDown = () => {
@@ -23,7 +23,7 @@ export default function Navbar(props) {
             <li> <NavLink to="/"> Home </NavLink> </li>
             <li> <NavLink to="/addReview"> Add Review </NavLink></li>
             <li> <NavLink to="/search"> Search </NavLink> </li>
-            <li> <NavLink to={`/profile/${props.username}`}> Profile</NavLink> </li>
+            <li> <NavLink to={`/profile/${username}`}> Profile</NavLink> </li>
           </ul>
         </nav>
       </div>
@@ -41,7 +41,7 @@ export default function Navbar(props) {
               <div className="nav-separator"></div>
               <li> <NavLink to="/search" > Search </NavLink> </li>
               <div className="nav-separator"></div>
-              <li><NavLink to={`/profile/${props.username}`} className="dropdown-profile"> Profile</NavLink> </li>
+              <li><NavLink to={`/profile/${username}`} className="dropdown-profile"> Profile</NavLink> </li>
             </ul>
           </nav>
         </div>

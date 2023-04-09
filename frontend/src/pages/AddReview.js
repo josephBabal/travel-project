@@ -6,9 +6,9 @@ import Star from '../components/Star'
 import DatePicker from 'react-datepicker'
 import "react-datepicker/dist/react-datepicker.css";
 import "flatpickr/dist/themes/airbnb.css";
+import '../styles/addReview.css'
 
-
-export default function AddReview(props) {
+export default function AddReview({username, userId }) {
   const navigate = useNavigate()
   const [isFilled, setIsFilled] = useState({postTitle: true, postDescription: true, postStar: true})
   console.log("filled", isFilled)
@@ -105,8 +105,8 @@ export default function AddReview(props) {
         console.log("newDate: ", newDate)
         navigate('/')                     // navigates back home
         const res = await axios.post('http://localhost:3000/addReview/post', {
-          username: props.username,
-          userId: props.userId,
+          username: username,
+          userId: userId,
           title: reviewData.postTitle,
           postDate: newDate,
           postRating: rating,
@@ -131,8 +131,8 @@ export default function AddReview(props) {
     <div className="white-background">
     {/* <div className="background-img"> */}
       {/* <Navbar 
-        username={props.username} 
-        curPage={props.curPage}
+        username={username} 
+        curPage={curPage}
       />  */}
       <h1 className="create-post-txt"> Add Review </h1>
       <div className="review-container">

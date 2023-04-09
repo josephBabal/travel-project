@@ -1,5 +1,4 @@
 import React, {useState, useEffect } from 'react'
-import Navbar from '../components/Navbar'
 import { useNavigate, useParams, Outlet } from 'react-router-dom'
 import axios from 'axios'
 import Post from '../components/Post'
@@ -10,14 +9,14 @@ import EditPost from '../components/EditPost'
 import Star from '../components/Star'
 import PostList from '../components/PostList'
 import { useDispatch, useSelector } from 'react-redux'
-import { getPosts, getPosts2 } from '../redux/selectors'
+import { getPosts } from '../redux/selectors'
 import { addPost } from '../redux/actions'
 // import { addPost } from '../redux/postReducer2'
+import '../styles/Profile.css'
 
-export default function Profile(props) {
+export default function Profile({username, userId,handleLogout }) {
   const dispatch = useDispatch()
   const postList = useSelector(getPosts)
-  // const postList = useSelector(getPosts2)
 
   const navigate = useNavigate()
   const [userPostData, setUserPostData] = useState([])
@@ -28,50 +27,62 @@ export default function Profile(props) {
   const [hasReview, setHasReview] = useState(false)
   const [isUpdated, setisUpdated] = useState(false)
 
-  const getUrl = `http://localhost:3000/profile/${props.username}/getUserPost`
-
+  const getUrl = `http://localhost:3000/profile/${username}/getUserPost`
+  console.log("==userId", userId)
   // getting post data from database and storing in userPostData
-  const getAllPosts = () => {
-    axios.get(getUrl)
-      .then(res => {
-        if (res.data.message) {
-          console.log(res.data.message)
-          setUserPostData(res.data.message)
-        } else {
-          setUserPostData(res.data.reverse())
-          // res.data.forEach(post => {
-          //   dispatch(addPost(post))
-          //   console.log("==post list after adding post", postList)
-          // })
-          res.data.reverse().forEach(post => dispatch(addPost(post)))  
-          console.log("==post list", postList)       
-          //  console.log("==userpost", userPostData)
-          // console.log(userPostData)
-          setHasReview(oldVal => true)
-        }
-      })
-      .catch(err => {
-        console.error(err)
-      })
-  }
+  // const getAllPosts = () => {
+  //   axios.get(getUrl, { 
+  //       params: {
+  //         userId: userId
+  //       }
+  //     })
+  //     .then(res => {
+  //       if (res.data.message) {
+  //         console.log(res.data.message)
+  //         setUserPostData(res.data.message)
+  //       } else {
+  //         setUserPostData(res.data.reverse())
+  //         // res.data.forEach(post => {
+  //         //   dispatch(addPost(post))
+  //         //   console.log("==post list after adding post", postList)
+  //         // })
+  //         res.data.reverse().forEach(post => dispatch(addPost(post)))  
+  //         console.log("==post list", postList)       
+  //         //  console.log("==userpost", userPostData)
+  //         // console.log(userPostData)
+  //         setHasReview(oldVal => true)
+  //       }
+  //     })
+  //     .catch(err => {
+  //       console.error(err)
+  //     })
+  // }
   
 
-  // const getUserPostData = async () => {
-  //   try {
-  //     const res = await axios.get(getUrl)
-  //     if (res.data.message) {
-  //       console.log(res.data.message)
-  //       setUserPostData(res.data.message)
-  //     } else {
-  //       setUserPostData(res.data.reverse())
-  //       console.log("==userpost", userPostData)
-  //       // console.log(res.data)
-  //       setHasReview(oldVal => true)
-  //     }
-  //   } catch(err) {
-  //     console.log(err)
-  //   }
-  // }
+  const getUserPostData = async () => {
+    try {
+      const res = await axios.get(getUrl, 
+        { 
+          params: {
+            userId: userId
+          }
+        })
+      if (res.data.message) {
+        console.log(res.data.message)
+        setUserPostData(res.data.message)
+      } else {
+        console.log("==all posts", res.data)
+        res.data.reverse().forEach(post => dispatch(addPost(post)))  
+
+        setUserPostData(res.data.reverse())
+        console.log("==userpost", userPostData)
+        // console.log(res.data)
+        setHasReview(oldVal => true)
+      }
+    } catch(err) {
+      console.log(err)
+    }
+  }
 
 
 
@@ -80,8 +91,8 @@ export default function Profile(props) {
   }
 
   useEffect(() => {
-    // getUserPostData()
-    getAllPosts()
+    getUserPostData()
+    // getAllPosts()
   }, [])
 
 
@@ -209,8 +220,8 @@ export default function Profile(props) {
     event.preventDefault()
     if (oldReviewData.updateTitle !== "" && oldReviewData.updateDescription !== "" && rating != null) {
       try {
-        navigate(`/profile/${props.username}`)
-        const updateUrl = `http://localhost:3000/profile/${props.username}/update`
+        navigate(`/profile/${username}`)
+        const updateUrl = `http://localhost:3000/profile/${username}/update`
         const res = await axios.put(updateUrl, {
           id: oldReviewData.postID,
           title: oldReviewData.updateTitle,
@@ -278,7 +289,7 @@ export default function Profile(props) {
               {/* <IoIosCloseCircleOutline className="close-btn" onClick={handleSetting} /> */}
               <button className="logout-btn" onClick={() => {
                 navigate('/')
-                props.handleLogout()
+                handleLogout()
               }}> Log Out 
               </button>
               <button className="cancel-edit-btn" onClick={handleSetting}> Cancel </button>
@@ -301,7 +312,7 @@ export default function Profile(props) {
         {/* profile page content */}
         <div>
           <div className="profile-header">
-            <h3 className="profile-username"> {props.username} </h3>
+            <h3 className="profile-username"> {username} </h3>
             <IoMdSettings
               className="profile-setting" 
               onClick={handleSetting} 

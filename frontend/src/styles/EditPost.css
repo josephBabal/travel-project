@@ -1,0 +1,83 @@
+.updateFormContainer {
+  position: fixed;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  z-index: 1001;
+  padding: 10px 30px 10px 30px;
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  justify-content: center;
+  background: white;
+  color: white;
+}
+
+.updateFormContainer h4 {
+  color: black;
+}
+
+.update-btn-container {
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+  margin: 0 0 10px 0;
+}
+
+.update-btn {
+  width: 100px;
+  padding: 10px;
+  border: none;
+  border-radius: 0.25rem;
+  background-color: #E4E5E9;
+  box-shadow: 0 4px 3px 0 rgba(0, 0, 0, 0.3);
+  font-size: 0.8rem;
+  cursor: pointer;
+  transition: all 150ms ease-in-out;
+}
+
+.update-btn:hover {
+  color: white;
+  background-color: rgb(90, 90, 90);
+}
+
+.update-btn:active {
+  box-shadow: 0 2px 3px 0 rgba(0, 0, 0, 0.3);
+  transform: translateY(2px);
+}
+
+.cancel-update-btn {
+  border: none;
+  background: none;
+  cursor: pointer;
+  transition: all 150ms ease-in;
+}
+
+.cancel-update-btn:active {
+  color: rgb(230, 230, 230);
+}
+
+
+#updateDescription {
+  font-size: 1.0rem;
+  padding: 11px 10px;
+  resize: none;
+  border: none;
+  margin: 0;
+  width: 350px;
+  height: 155px;
+  border: 1px solid rgb(228, 228, 228);
+}
+
+#updateTitle {
+  width: 350px;
+  height: 15px;
+  padding: 20px 0 20px 10px;
+  border: none;
+  font-size: 1.3rem;
+  /* border: none; */
+  border: 1px solid rgb(228, 228, 228);
+  /* outline: none; */
+  background: none;
+  /* border-bottom: 1px solid #1F0000; */
+}

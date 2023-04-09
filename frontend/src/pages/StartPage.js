@@ -3,6 +3,8 @@ import {Link} from 'react-router-dom'
 import LogInPage from './LogInPage'
 import CreateAccount from './CreateAccount'
 import { useNavigate } from "react-router-dom"
+import '../styles/Landing.css'
+import '../styles/LoginAndAccount.css' 
 
 export default function StartPage() {
   const navigate = useNavigate()

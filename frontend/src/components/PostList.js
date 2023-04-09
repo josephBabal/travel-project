@@ -14,7 +14,8 @@ export default function PostList({handleBackdrop, handleEditOptions, editOptions
         {postList.map((item,idx) => {
           return (
             <Post 
-              key={item.id}
+              key={idx}
+              // key={item.id}
               post={item}
               handleBackdrop={handleBackdrop}
               handleEditOptions={handleEditOptions}

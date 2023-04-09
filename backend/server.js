@@ -15,9 +15,10 @@ app.use(express.json()) // you can grab stuff from front end to back end req.bod
 app.use(bodyParser.urlencoded({ extended: true }))
 
 app.get("/profile/:username/getUserPost", (req, res) => {
-  const usernameParam = req.params.username
-  const sqlGetUserPost = "SELECT * FROM postData WHERE username = ?";
-  dbPostData.pool.query(sqlGetUserPost, [usernameParam], (err, result) => {
+  const userId = req.query.userId
+  console.log("==userid", req.query)
+  const sqlGetUserPost = "SELECT * FROM posts WHERE userId = ?";
+  dbPostData.pool.query(sqlGetUserPost, [userId], (err, result) => {
     console.log("user post data: ", result)
     if (err) {
       res.send({ err: err })
@@ -34,7 +35,7 @@ app.get("/profile/:username/getUserPost", (req, res) => {
 
 app.get("/profile/:username/:postID", (req, res) => {
   const id = req.params.postID
-  const sqlgetPost = "SELECT * FROM postData WHERE id = ?";
+  const sqlgetPost = "SELECT * FROM posts WHERE id = ?";
   dbPostData.pool.query(sqlgetPost, [id], (err, result) => {
     if (err) {
       res.send(err)
@@ -55,7 +56,7 @@ app.put("/profile/:username/update", (req, res) => {
   const postDescription = req.body.postDescription
   const photo = req.body.photo
   console.log(rating, title, postDescription)
-  const sqlUpdatePost = "UPDATE postData SET title = ?, rating = ?, postDescription = ?, photo = ? WHERE id = ?"
+  const sqlUpdatePost = "UPDATE posts SET title = ?, rating = ?, postDescription = ?, photo = ? WHERE id = ?"
   dbPostData.pool.query(sqlUpdatePost, [title, rating, postDescription, photo, id], (err, result) => {
     if (err) {
       res.send(err)
@@ -69,7 +70,7 @@ app.put("/profile/:username/update", (req, res) => {
 
 app.delete("/profile/:username/delete", (req, res) => {
   const id = req.query.idDelete
-  const sqlDeletePost = "DELETE FROM postData WHERE id = ?"
+  const sqlDeletePost = "DELETE FROM posts WHERE id = ?"
   dbPostData.pool.query(sqlDeletePost, id, (err, result) => {
     if (err) {
       res.send(err)
@@ -90,9 +91,10 @@ app.post("/addReview/post", (req, res) => {
   const rating = req.body.postRating
   const postDescription = req.body.postDescription
   const photo = req.body.postPhoto
+  console.log("==req.body", req.body)
 
-  const sqlInsert = "INSERT INTO postData (username, userId, title, dateTraveled, rating, postDescription, photo) VALUES (?,?,?,?,?,?,?)";
-  dbPostData.pool.query(sqlInsert, [username, userId, title, dateTraveled, rating, postDescription, photo], (err, result) => {
+  const sqlInsert = "INSERT INTO posts (userId, username, title, dateTraveled, rating, postDescription, photo) VALUES (?,?,?,?,?,?,?)";
+  dbPostData.pool.query(sqlInsert, [userId, username, title, dateTraveled, rating, postDescription, photo], (err, result) => {
     if (err) {
       res.send(err)
       console.log(err)
@@ -108,7 +110,7 @@ app.post("/addReview/post", (req, res) => {
 // searching for words in post
 app.post('/search/checkInput', (req, res) => {
   const searchValue = req.body.searchValue
-  const sqlSelect = "SELECT * FROM postData WHERE username LIKE ? OR title LIKE ?"
+  const sqlSelect = "SELECT * FROM posts WHERE username LIKE ? OR title LIKE ?"
   dbPostData.pool.query(sqlSelect, [searchValue, searchValue], (err, result) => {
     if (err) {
       res.send({ err: err })
@@ -147,12 +149,11 @@ app.post('/createAccount/checkUsername', (req, res) => {
 
 app.post('/createAccount/post', (req, res) => {
   const username = req.body.username
-  const userId = req.body.userId
   const userPassword = req.body.userPassword
   const userPasswordConfirm = req.body.userPasswordConfirm
 
-  const sqlInsert = "INSERT INTO userData (username, userId, userPassword, userPasswordConfirm) VALUES (?,?,?,?)";
-  dbPostData.pool.query(sqlInsert, [username, userId, userPassword, userPasswordConfirm], (err, result) => {
+  const sqlInsert = "INSERT INTO userData (username, userPassword, userPasswordConfirm) VALUES (?,?,?)";
+  dbPostData.pool.query(sqlInsert, [username, userPassword, userPasswordConfirm], (err, result) => {
     if (err) {
       res.send({ err: err })
     } else {

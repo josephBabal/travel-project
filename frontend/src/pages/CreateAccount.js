@@ -4,14 +4,13 @@ import { nanoid } from 'nanoid'
 import axios from 'axios'
 import { IoIosArrowRoundBack } from "react-icons/io"
 // import { classnames } from 'classnames'
-
+// import styles from '../styles/LoginAndAccount.css'
 
 export default function CreateAccount() {
   const [accountInfo, setAccountInfo] = useState({
     username: "",
     password: "",
-    passwordConfirm: "",
-    userId: nanoid()
+    passwordConfirm: ""
   })
 
 
@@ -76,7 +75,6 @@ export default function CreateAccount() {
       const postUrl = 'http://localhost:3000/createAccount/post'
       const res = await axios.post(postUrl, {
         username: accountInfo.username,
-        userId: accountInfo.userId,
         userPassword: accountInfo.password,
         userPasswordConfirm: accountInfo.passwordConfirm
       })

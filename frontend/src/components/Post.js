@@ -5,6 +5,7 @@ import { useNavigate } from 'react-router-dom'
 import {FaStar} from 'react-icons/fa'
 import { useDispatch, useSelector } from 'react-redux'
 import { getPosts } from '../redux/selectors'
+import '../styles/Posts.css'
 
 export default function Post({id, post, handleEditOptions, handleBackdrop, editOptions, refreshPage, handleEditForm, insertReviewData}) {
   // const postList = useSelector(getPosts)

@@ -1,5 +1,6 @@
 import React, {useEffect} from 'react'
 import Navbar from '../components/Navbar'
+import '../styles/Home.css'
 export default function Home() {
 
   return (

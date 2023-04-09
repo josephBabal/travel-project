@@ -1,0 +1,629 @@
+* {
+  font-family: Lato, sans-serif;
+}
+
+body {
+  font-family: Lato, sans-serif;
+  color: #1F0000;
+  margin: 0;
+  padding: 0;
+}
+
+*,
+*:before,
+*:after {
+  box-sizing: border-box;
+  padding: 0;
+  margin: 0;
+  /* font-size: 1.2rem; */
+}
+
+
+.background-img {
+  /* position: relative; */
+  /* background-image: url('./images/beach-photo-2.jpg'); */
+  background-size: cover;
+  height: 100vh;
+  background-position: center;
+  background-repeat: no-repeat;
+  margin: 0;
+  padding: 0;
+}
+
+.white-background {
+  padding: 0 0 40px 0;
+  background-color: white;
+}
+
+.login-background {
+  background: linear-gradient(99deg, #F4B4BC, #F6C3A7);
+  /* background: rgb(105, 105, 130); */
+  height: 100vh;
+}
+
+.search-background {
+  /* background: linear-gradient(180deg, #90F7EC, #0396FF); */
+  background-color: rgba(100, 255, 255, 0.6);
+  height: 100vh;
+}
+
+.reviewBackground {
+  /* background-color: rgba(100, 255, 255, 0.6); */
+  height: 100vh;
+}
+
+.err-page-container {
+  background: rgb(150, 150, 150);
+  height: 100vh;
+}
+
+.err-title {
+  padding: 10px 0 0 10px;
+  font-size: 20px;
+}
+
+.err-msg-container {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.err-msg {
+  font-size: 1.3rem;
+}
+
+
+
+.search-container {
+  display: flex;
+  justify-content: center;
+  padding-top: 10px;
+}
+
+#searchbar {
+  outline: none;
+  border: none;
+  width: 250px;
+  height: 30px;
+  border-radius: 1.2rem;
+  padding-left: 10px;
+  font-size: 1.0rem;
+  background-color: rgba(0, 0, 0, 0.1);
+  color: white;
+}
+
+#searchbar::placeholder {
+  color: white;
+}
+
+.search-icon {
+  margin: 5px 0 0 2px;
+  font-size: 1.3rem;
+  color: rgba(0, 0, 0, 0.5);
+  cursor: pointer;
+}
+
+.search-result {
+  text-align: center;
+  margin: 20px 0 0 0;
+}
+
+/* add review whole container */
+/* input fields */
+.form-inputs {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  gap: 8px;
+  margin: 0 auto;
+}
+
+/* review container */
+/* center div horizontally, child has margin: 0 auto  */
+/* center div w/flexbox vertically, parent justify-content: center */
+
+
+
+/* update */
+
+
+
+
+/* media */
+/* between regular and long width for desktop  */
+@media (min-width: 401px) and (max-width:600px) {
+  .nav-items a:hover::after,
+  .dropdown-items a:hover::after {
+    width: 0;
+    transform: translateX(0)
+  }
+
+  .startPage-content {
+    width: 500px;
+  }
+
+  #slide-container {
+    width: 300px;
+  }
+
+  .slide-intro {
+    padding: 30px 0 0 30px;
+    font-size: 1.2em;
+  }
+
+  .slide-txt {
+    font-size: 0.9rem;
+    padding-bottom: 30px;
+  }
+
+  /* .review-container {
+    width: 300px;
+    height: 410px;
+    margin-top: 20px;
+  }
+
+  .create-post-txt {
+    margin: 0;
+    font-size: 1.1rem;
+  }
+
+  #postTitle,
+  #updateTitle {
+    width: 53%;
+    margin: 0 auto;
+    font-size: 0.9em;
+  }
+
+  .date-label {
+    margin: 0;
+    font-size: 0.9em;
+  }
+
+  #date-input {
+    width: auto;
+    padding-left: 45px;
+    font-size: 0.9em;
+  }
+
+  .post-star {
+    font-size: 1.0rem;
+  }
+
+  #postDescription,
+  #updateDescription {
+    width: 225px;
+    font-size: 0.9em;
+    height: 90px;
+  } */
+
+  /* .photoUrl {
+    width: 227px;
+    font-size: 0.9em;
+  } */
+
+  /* .post-txt-error {
+    font-size: 0.7em;
+  }
+
+  .btn-container {
+    margin: 0;
+  }
+
+  .cancel-btn {
+    font-size: 0.7rem;
+  }
+
+  .post-btn {
+    font-size: 0.7rem;
+  } */
+
+  .login-container {
+    width: 450px;
+  }
+
+  .login-btn-container {
+    flex-direction: column-reverse;
+    align-items: center;
+  }
+
+  .account-container {
+    width: 450px;
+  }
+
+  /* .card-grid {
+    grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+  } */
+
+  .card-bottom {
+    /* flex-direction: row-reverse; */
+    /* align-items: center; */
+  }
+
+  .card-photo {
+    /* width: 100%; */
+    /* border-radius: 0;
+    margin-left: 0; */
+  }
+
+  .card-photo-container,
+  .card-content {
+    /* width: 100%; */
+  }
+}
+
+
+/* phones */
+@media (max-width: 400px) {
+  .title-site {
+    font-size: 1rem;
+    margin: 0 auto 0 auto;
+    padding: 13px 45px 10px 0;
+    /* margin: 10px 10px 10px 10px; */
+  }
+
+  .website-title-account {
+    font-size: 1rem;
+  }
+
+  .startPage-nav .startPage-nav-login a {
+    font-size: 0.9rem;
+  }
+
+  .startPage-content {
+    width: 300px;
+    font-size: 0.7rem;
+  }
+
+  .get-started-btn {
+    font-size: 0.7rem;
+  }
+
+  .normal-navbar-container {
+    display: none;
+  }
+
+  .resize-nav-container {
+    display: flex;
+  }
+
+  .create-post-txt {
+    font-size: 1.1rem;
+    text-align: center;
+  }
+
+  .reviewBox {
+    width: 250px;
+  }
+
+  .form-inputs {
+    font-size: 0.9rem;
+  }
+
+  #postTitle,
+  #postDescription,
+  .photoUrl,
+  #updateTitle,
+  #updateDescription,
+  #updatePhoto {
+    width: 250px;
+    font-size: 0.9rem;
+  }
+
+  .post--review-btn,
+  .cancel-review-btn,
+  #update-btn,
+  #cancel-update-btn, 
+  .login-title,
+  .account-title {
+    font-size: 0.7rem;
+  } 
+
+  .profile-username {
+    font-size: 1.2rem;
+  }
+
+  .profile-setting {
+    font-size: 1.5rem;
+  }
+
+  /* .card-post */
+  .profile-review-container {
+    width: 300px;
+    font-size: 0.9rem;
+  }
+
+  .card-post {
+    font-size: 0.8rem;
+  }
+
+  .setting-btn-list button,
+  .card-update-btn-list button {
+    width: 325px;
+    font-size: 0.7rem;
+  }
+
+  .login-container,
+  .account-container {
+    width: 300px;
+    font-size: 0.9rem;
+  }
+
+  .account-back-btn {
+    font-size: 2.2rem;
+  }
+
+  .login-form label,
+  .account-form label,
+  .login-form Input,
+  .account-form Input {
+    font-size: 0.9rem;
+  }
+
+  #sign-up {
+    font-size: 0.8rem;
+  }
+
+
+  input[type="submit"]#login-btn {
+    width: 70px;
+    height: 35px;
+    font-size: 0.8rem;
+  }
+
+  .password-requirment-txt,
+  #password-requirements {
+    font-size: 0.9rem;
+  }
+
+  input[type="submit"]#create-account-btn {
+    font-size: 1rem;
+    height: 40px;
+  }
+
+
+
+
+  /* .account-container {
+    width: 600px;
+  }
+
+  .login-container {
+    width: 490px;
+  }
+
+  input[type="submit"]#login-btn,
+  input[type="button"]#login-create-account-btn {
+    width: 150px;
+    margin-top: 0;
+  }
+
+  .startPage-content {
+    width: 400px;
+  } */
+}
+
+
+/* very tall screen */
+/* @media (min-height: 1000px) {
+  .review-container {
+    margin-top: 200px;
+  }
+
+  .create-post-txt {
+    font-size: 1.4rem;
+  }
+
+  .btn-container {
+    margin: 0;
+    padding: 0 0 25px 0;
+  }
+} */
+
+/* very wide but low height */
+@media (min-width: 1000px) and (max-height: 600px) {
+  .review-container {
+    width: 450px;
+    height: 485px;
+    margin: 15px auto;
+  }
+
+  .create-post-txt {
+    font-size: 1.3rem;
+    margin: 0 0 10px 0;
+  }
+
+  #postTitle,
+  #updateTitle {
+    font-size: 1.0rem;
+  }
+
+  #postDescription,
+  #updateDescripiton {
+    height: 110px;
+  }
+
+  .btn-container {
+    margin: 0;
+    padding-top: 10px;
+  }
+}
+
+/* very low width */
+/* @media(max-width: 300px) {
+  .normal-navbar-container {
+    display: none;
+  }
+
+  .resize-nav-container {
+    display: flex;
+    justify-content: space-between;
+    margin: 0 auto;
+    width: 90%;
+  }
+
+  nav a {
+    font-size: 0.8rem;
+  }
+
+  .dropdown-icon {
+    padding: 0;
+    margin-top: 10px;
+  }
+
+  .nav-items a:hover::after,
+  .dropdown-items a:hover::after {
+    width: 0;
+    transform: translateX(0)
+  }
+
+  #slide-container {
+    width: 250px;
+  }
+
+  .slide-intro {
+    padding: 30px 0 0 30px;
+    font-size: 1.2em;
+  }
+
+  .slide-txt {
+    font-size: 0.9rem;
+    padding-bottom: 30px;
+  }
+
+  .review-container {
+    width: 225px;
+    height: 420px;
+    margin-top: 20px;
+  }
+
+  .create-post-txt {
+    margin: 0;
+    font-size: 1.1rem;
+  }
+
+  #postTitle {
+    width: 53%;
+    margin: 0 auto;
+    font-size: 0.9em;
+  }
+
+  .date-label {
+    margin: 0;
+    font-size: 0.9em;
+  }
+
+  #date-input {
+    width: auto;
+    font-size: 0.9em;
+  }
+
+  .post-star {
+    font-size: 1.0rem;
+  }
+
+  #postDescription,
+  #updateDescription {
+    width: 150px;
+    font-size: 0.9em;
+    height: 90px;
+  }
+
+  #photoUrl {
+    width: 150px;
+    font-size: 0.9em;
+  }
+
+  .post-txt-error {
+    font-size: 0.7em;
+  }
+
+  .btn-container {
+    margin: 0;
+  }
+
+  .cancel-btn {
+    font-size: 0.6rem;
+  }
+
+  .post-btn {
+    font-size: 0.6rem;
+  }
+
+  .card-grid {
+    grid-template-columns: repeat(auto-fit, minmax(225px, 1fr));
+  }
+
+  .card-bottom {
+    flex-direction: column-reverse;
+    align-items: center;
+    margin: 0;
+  }
+
+  .card-photo {
+    width: 100%;
+    border-radius: 0;
+    margin-left: 0;
+  }
+
+  .card-photo-container,
+  .card-content {
+    width: 100%;
+  }
+
+
+
+  #setting-btn-list {
+    width: 200px;
+  }
+
+  .login-container {
+    width: 240px;
+  }
+
+  .login-btn-container {
+    flex-direction: column-reverse;
+    align-items: center;
+  }
+
+  input[type="submit"]#login-btn,
+  input[type="button"]#login-create-account-btn {
+    width: 120px;
+    height: 45px;
+    margin: 10px 0 10px 0;
+    font-size: 0.7rem;
+  }
+
+  input[type="button"]#login-create-account-btn {
+    margin-bottom: 25px;
+  }
+
+  .account-container {
+    width: 250px;
+    height: 500px;
+  }
+
+  .account-title {
+    font-size: 0.8rem;
+  }
+
+  .account-back-btn {
+    margin: 8px;
+  }
+
+  .account-form label {
+    font-size: 1.0rem;
+  }
+
+  input[type="submit"]#create-account-btn {
+    font-size: 1.0rem;
+
+  }
+
+  .password-requirements {
+    font-size: 0.8rem;
+  }
+
+  #searchbar {
+    width: 150px;
+  }
+} */

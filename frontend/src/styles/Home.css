@@ -1,0 +1,31 @@
+
+/* home page */
+#slide-container {
+  margin: 50px 0 0 0;
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  width: 470px;
+  height: 300px;
+  background-color: rgba(0, 0, 0, 0.2);
+  border-radius: 0.6rem;
+}
+
+.slide-intro {
+  color: white;
+  padding: 20px 0 0 65px;
+  font-size: 1.7rem;
+}
+
+.slide-txt {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  text-align: center;
+  font-size: 1.3rem;
+  color: white;
+  word-spacing: 0.1em;
+  margin: 0;
+}

@@ -1,0 +1,178 @@
+/* log in page */
+.login-container,
+.account-container {
+  /* position to transform used to center */
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  width: 550px;
+  height: auto;
+  background: white;
+  /* background: rgba(255, 255, 255, 0.6); */
+  border-radius: 12px;
+}
+
+.login-title,
+.account-title {
+  border-bottom: 1px solid #BDBDBD;
+  text-align: center;
+  padding: 30px 0;
+}
+
+.login-container form,
+.account-container form {
+  padding: 0 40px;
+
+}
+
+form .login-form,
+form .account-form {
+  position: relative;
+  border-bottom: 1px solid #BDBDBD;
+  margin: 30px 0;
+}
+
+.login-form Input,
+.account-form Input {
+  width: 100%;
+  padding: 0 5px;
+  height: 40px;
+  border: none;
+  outline: none;
+  background: none;
+  font-size: 1.0rem;
+}
+
+.login-form label,
+.account-form label {
+  position: absolute;
+  left: 5px;
+  top: -5px;
+  transform: translateY(-50%);
+  color: #BDBDBD;
+  font-size: 1.15rem;
+  pointer-events: none;
+  transition: 0.4s;
+}
+
+
+.login-form span::before,
+.account-form span::before {
+  content: '';
+  position: absolute;
+  width: 0;
+  top: 40px;
+  left: 0;
+  height: 2px;
+  background: #FDB289;
+  transition: 0.4s;
+  transform: scaleX(0);
+}
+
+/* if input is focused it will hold these properties */
+/* input:valid: any content inside will hold properties*/
+.login-form input:focus~label,
+.login-form input:valid~label,
+.account-form input:focus~label,
+.account-form input:valid~label {
+  color: #FDB289;
+}
+
+
+
+.login-form input:focus~span::before,
+.login-form input:valid~span::before,
+.account-form input:focus~span::before,
+.acount-form input:valid~span::before {
+  width: 100%;
+  transform: scaleX(1);
+}
+
+.password-requirment-txt {
+  font-size: 1rem;
+}
+#password-requirements {
+  color: #C92432;
+  list-style: none;
+  font-size: 1rem;
+  /* color: black; */
+}
+
+.green {
+  color: green;
+}
+
+.red {
+  color: #C92432;
+}
+
+.login-form input:valid~.wrong-login,
+.account-form input:valid~.username-taken,
+.account-form input:valid~.password-not-match {
+  color: #C92432;
+}
+
+.invalid-str-account {
+  position: absolute;
+  top: 280px;
+  margin-left: 5px;
+  color: #C92432;
+}
+
+/* .login-btn-container {
+  display: flex;
+  justify-content: space-between;
+} */
+
+input[type="submit"]#login-btn {
+  width: 100px;
+  height: 40px;
+  background: #FDB289;
+  /* background: rgb(105, 105, 130); */
+  border: 1px solid;
+  /* border-radius: 28px; */
+  /* border-radius: 15px; */
+  font-size: 0.9rem;
+  color: #FAFAFA;
+  font-weight: 700;
+  letter-spacing: 0.1rem;
+  margin: 15px 0;
+  cursor: pointer;
+  outline: none;
+}
+
+#sign-up {
+  font-size: 0.9rem;
+}
+
+#sign-up-btn {
+  margin: 0 0 25px 5px;
+  color: blue;
+  background-color: transparent;
+  border: none;
+  font-size: inherit;
+  cursor: pointer;
+}
+
+input[type="submit"]#create-account-btn {
+  width: 100%;
+  height: 50px;
+  background: #FDB289;
+  border: 1px solid;
+  /* border-radius: 28px; */
+  font-size: 1.2rem;
+  color: #FAFAFA;
+  font-weight: 700;
+  letter-spacing: 0.1rem;
+  margin: 30px 0 25px 0;
+  cursor: pointer;
+  outline: none;
+}
+
+.account-back-btn {
+  position: absolute;
+  font-size: 2.6rem;
+  margin: 23px 0 0 35px;
+  cursor: pointer
+}

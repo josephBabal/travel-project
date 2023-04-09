@@ -1,0 +1,150 @@
+
+/* full page of profile */
+.profile-container {
+  margin: 0 auto;
+  width: 100%;
+  display: flex;
+  flex-wrap: wrap;
+}
+
+/* username and setting */
+.profile-header {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 20px;
+  padding: 0 0 20px 0;
+}
+
+.profile-username {
+  font-size: 1.8rem;
+  margin-left: 45px;
+}
+
+/* setting button and features */
+.profile-setting {
+  font-size: 1.5rem;
+  padding-top: 0.5rem
+}
+
+.profile-setting:hover {
+  cursor: pointer;
+}
+
+
+#modal-backdrop {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  z-index: 1000;
+  background-color: rgba(89, 89, 89, 0.6);
+}
+
+.close-btn {
+  font-size: 2.0rem;
+  color: white;
+  z-index: 1001;
+  cursor: pointer;
+}
+
+.logout-btn,
+.delete-btn {
+  border: none;
+  width: 100%;
+  margin: 0;
+  padding: 10px;
+  background-color: #FAFAFA;
+  /* border-bottom: 1px solid #DDDDDD; */
+  border-bottom: 1px solid rgb(219, 219, 219);
+  font-size: 14px;
+}
+
+.delete-btn {
+  border-bottom: 0px;
+}
+
+.logout-btn,
+.delete-btn:hover {
+  cursor: pointer;
+}
+
+.profile-review-container {
+  display: flex;
+  flex-direction: column;
+  margin: 0 auto;
+  border: 1px solid rgb(200, 200, 200);
+  width: 500px;
+}
+
+
+.myReview-title {
+  border-bottom: 1px solid rgb(228, 228, 228);
+  padding: 10px 0 10px 10px;
+  margin: 0 0 0 0;
+}
+
+/* all of users' post */
+.card-grid {
+  /* display: grid; */
+  /* grid-template-columns: repeat(auto-fit, minmax(400px, 0.5fr)); */
+  /* justify-content: center; */
+  /* gap: 35px; */
+}
+
+/* settings and edit  */
+.setting-btn-list,
+.card-update-btn-list {
+  position: fixed;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  z-index: 1001;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  background: white;
+}
+
+
+.setting-btn-list button,
+.card-update-btn-list button {
+  width: 400px;
+  height: 48px;
+  cursor: pointer;
+  font-size: 0.9rem;
+  border: none;
+  /* color: rgb(250,250, 250); */
+  /* background: rgb(49,49,49); */
+  background: rgb(255, 255, 255);
+  color: black;
+  transition: hover 100ms, active 120ms ease-in;
+}
+
+
+.setting-btn-list button:hover,
+.card-update-btn-list button:hover {
+  /* background: rgb(70, 70, 70); */
+  background: rgb(210, 210, 210);
+}
+
+.setting-btn-list button:active,
+.card-update-btn-list button:active {
+  /* background: rgb(65, 65, 65); */
+  background-color: rgb(230, 230, 230);
+  color: black;
+}
+
+.card-update-btn-list .delete-post-btn {
+  color: rgb(255, 73, 86);
+  /* border-bottom: 1px solid rgb(79,79,79); */
+  border-bottom: 1px solid rgb(219, 219, 219);
+}
+
+.setting-btn-list .logout-btn,
+.card-update-btn-list .edit-btn {
+  /* border-bottom: 1px solid rgb(79,79,79); */
+  border-bottom: 1px solid rgb(219, 219, 219);
+}

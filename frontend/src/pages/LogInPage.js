@@ -3,7 +3,8 @@ import { useNavigate } from 'react-router-dom'
 import axios from 'axios'
 import { IoIosArrowRoundBack } from "react-icons/io"
 
-export default function LogInPage(props) {
+
+export default function LogInPage({updateUser, handleLogin }) {
   const [loginInfo, setLoginInfo] = useState({
     username: "",
     password: "",
@@ -45,9 +46,9 @@ export default function LogInPage(props) {
           console.log("username and userId:", username, userId)
   
           // setting user
-          props.updateUser(res.data[0])
+          updateUser(res.data[0])
           // setting login to true
-          props.handleLogin()
+          handleLogin()
 
           // store the user in localStorage when user refreshes or leaves/comes back
           // stringify res.data[0] since it's an object and not a string since local storage stores strings

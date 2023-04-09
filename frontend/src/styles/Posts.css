@@ -1,0 +1,119 @@
+.card-post {
+  background: white;
+  overflow: hidden;
+  margin: 10px 0 0 0;
+}
+
+
+.card-top {
+  display: flex;
+  flex-direction: column;
+  padding: 0 0 10px 0;
+}
+
+.card-top-user-date {
+  display: flex;
+  justify-content: space-between;
+}
+
+.card-date-rate {
+  display: flex;
+  justify-content: space-between;
+}
+
+.card-username {
+  font-size: 0.8rem;
+  /* padding: 10px 0 0 20px; */
+  /* color: rgb(79,79,79); */
+}
+
+.card-dots {
+  margin: 10px 20px 10px 0;
+  cursor: pointer;
+  border: none;
+  font-size: 0.9rem;
+  background: none;
+  color: black;
+  transition: all 100ms;
+}
+
+.card-dots:hover {
+  color: rgba(0, 0, 0, 0.2);
+}
+
+.card-date {
+  padding: 0px 20px 10px 20px;
+}
+
+.card-title {
+  margin: 0;
+  padding: 10px 0 10px 20px;
+  /* text-align: center; */
+}
+
+.card-rating-container {
+  padding: 0 0 0 20px;
+  /* text-align: center; */
+}
+
+
+.card-bottom {
+  display: flex;
+  flex-direction: row;
+  /* justify-content: center; */
+  /* align-items: center; */
+  /* text-align: start; */
+  margin: 10px 0 20px 0;
+}
+
+.card-photo-container {
+  width: 50%;
+  /* margin: 5px; */
+}
+
+/* .card-photo-container:hover > img {
+  transform: scale(1.02);
+} */
+
+.card-photo {
+  display: block;
+  overflow: hidden;
+  width: 50%;
+  height: 170px;
+  margin: 0 10px 0 0;
+  /* margin-left: 15px; */
+  aspect-ratio: 16 / 9;
+  border-radius: 0.5rem;
+  object-fit: cover;
+  object-position: center;
+  transition: 225ms transform ease-in-out;
+}
+
+.card-content {
+  width: 50%;
+  margin: 0;
+}
+
+.card-content2 {
+  width: 100%;
+}
+
+.card-star {
+  font-size: 1.3rem;
+  padding: 0 0.1rem;
+}
+
+.card-description {
+  margin: 0px 10px 20px 20px;
+}
+
+.no-review-txt {
+  text-align: center;
+}
+
+
+.review-separator {
+  width: 90%;
+  margin: 0 auto;
+  border-bottom: 1px solid rgb(228, 228, 228);
+}
