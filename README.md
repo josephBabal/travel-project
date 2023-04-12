@@ -3,6 +3,12 @@
 <img width="100px" height="30px" src="https://img.shields.io/badge/javascript-%23323330.svg?style=for-the-badge&logo=javascript&logoColor=%23F7DF1E" />
 </div>
 
+<h3 align="center"> 
+NOTE: Not all the code
+has been pushed to the repository 
+so it won't fully work when you clone it.
+</h3>
+
 <h4 align="center">  Welcome to My Journey. 
 </h4>
 

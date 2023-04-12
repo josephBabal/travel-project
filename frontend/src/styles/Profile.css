@@ -86,12 +86,6 @@
 }
 
 /* all of users' post */
-.card-grid {
-  /* display: grid; */
-  /* grid-template-columns: repeat(auto-fit, minmax(400px, 0.5fr)); */
-  /* justify-content: center; */
-  /* gap: 35px; */
-}
 
 /* settings and edit  */
 .setting-btn-list,

@@ -30,7 +30,6 @@ export default function AddReview({username, userId }) {
     const starArr = []
     for (let i = 0; i < 5; i++) {
       starArr.push(generateStar(i))
-      console.log(starArr[i].id)
     }
     return starArr
   }
@@ -114,7 +113,7 @@ export default function AddReview({username, userId }) {
           postPhoto: reviewData.postPhoto
         })
       } catch(err) {
-        alert(err)
+        
       }
     } else {
       checkFilled()
@@ -129,11 +128,6 @@ export default function AddReview({username, userId }) {
   // body
   return (
     <div className="white-background">
-    {/* <div className="background-img"> */}
-      {/* <Navbar 
-        username={username} 
-        curPage={curPage}
-      />  */}
       <h1 className="create-post-txt"> Add Review </h1>
       <div className="review-container">
           <form className="form-inputs" onSubmit={handleSubmit}>

@@ -7,30 +7,10 @@ import { useDispatch, useSelector } from 'react-redux'
 import { getPosts } from '../redux/selectors'
 import '../styles/Posts.css'
 
-export default function Post({id, post, handleEditOptions, handleBackdrop, editOptions, refreshPage, handleEditForm, insertReviewData}) {
+export default function Post({post, handleEditOptions, handleBackdrop, editOptions, refreshPage, handleEditForm, insertReviewData, handleSelectDeleted}) {
   // const postList = useSelector(getPosts)
   // const post = postList.find(post => post.id === id)
-  const newId = post.id
-  const navigate = useNavigate()
-  // console.log("photo: ", photo)
-  console.log("==post id", post.id)
-  const deletePost = async(event) => {
-    // event.preventDefault()
-    try {
-      navigate(`/profile/${post.username}`)
-      const deleteUrl = `http://localhost:3000/profile/${post.username}/delete`
-      const res = await axios.delete(deleteUrl, {
-        params: {
-          idDelete: post.id
-        }
-      })
-      handleEditForm()
-      handleBackdrop()
-      refreshPage()
-    } catch (err) {
-      alert(err)
-    }
-  }
+ 
 
   function fillStarArr(rating) {
     const arr = []
@@ -47,23 +27,16 @@ export default function Post({id, post, handleEditOptions, handleBackdrop, editO
   // console.log(reviewData.updateDescription, reviewData.updateTitle, reviewData.updatePhoto)
   return (
     <div>
-      {editOptions && 
-      <div className="card-update-btn-list">
-        <button className="delete-post-btn" onClick={() => { {console.log("==deletee post id", newId)} {deletePost()} }}> Delete </button>
-        <button className="edit-btn" onClick={() => { {console.log("==edit post id", newId)} {insertReviewData(newId)} {handleEditOptions()} {handleEditForm()} }}> Edit</button>
-        <button className="cancel-update-btn" onClick={() => {{handleBackdrop()} {handleEditOptions()} }}> Cancel </button>
-      </div> }
-
-  
       <div className="card-post"> 
         <div className="card-top">
           <div className="card-top-user-date">
             <h3 className="card-title"> {post.title} <p className="card-username"> By {post.username} </p> </h3>
             <button type="button" className="card-dots"
               onClick={() => {
-                {console.log("==pressed post id", newId)}
-                {handleBackdrop()} 
-                {handleEditOptions()}
+                insertReviewData(post.postId)
+                handleSelectDeleted(post.postId)
+                handleBackdrop()
+                handleEditOptions()
               }}
             > <BsThreeDotsVertical />
             </button>

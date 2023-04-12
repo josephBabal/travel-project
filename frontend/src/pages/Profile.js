@@ -1,7 +1,6 @@
 import React, {useState, useEffect } from 'react'
 import { useNavigate, useParams, Outlet } from 'react-router-dom'
 import axios from 'axios'
-import Post from '../components/Post'
 import {FaStar} from 'react-icons/fa'
 import { IoMdSettings } from "react-icons/io"
 import { IoIosCloseCircleOutline } from "react-icons/io"
@@ -26,38 +25,12 @@ export default function Profile({username, userId,handleLogout }) {
   const [showEditForm, setShowEditForm] = useState(false) 
   const [hasReview, setHasReview] = useState(false)
   const [isUpdated, setisUpdated] = useState(false)
-
+  const [selectDeleted, setSelectDeleted] = useState()
+  const handleSelectDeleted = (postId) => {
+    setSelectDeleted(postId)
+  }
   const getUrl = `http://localhost:3000/profile/${username}/getUserPost`
   console.log("==userId", userId)
-  // getting post data from database and storing in userPostData
-  // const getAllPosts = () => {
-  //   axios.get(getUrl, { 
-  //       params: {
-  //         userId: userId
-  //       }
-  //     })
-  //     .then(res => {
-  //       if (res.data.message) {
-  //         console.log(res.data.message)
-  //         setUserPostData(res.data.message)
-  //       } else {
-  //         setUserPostData(res.data.reverse())
-  //         // res.data.forEach(post => {
-  //         //   dispatch(addPost(post))
-  //         //   console.log("==post list after adding post", postList)
-  //         // })
-  //         res.data.reverse().forEach(post => dispatch(addPost(post)))  
-  //         console.log("==post list", postList)       
-  //         //  console.log("==userpost", userPostData)
-  //         // console.log(userPostData)
-  //         setHasReview(oldVal => true)
-  //       }
-  //     })
-  //     .catch(err => {
-  //       console.error(err)
-  //     })
-  // }
-  
 
   const getUserPostData = async () => {
     try {
@@ -72,7 +45,7 @@ export default function Profile({username, userId,handleLogout }) {
         setUserPostData(res.data.message)
       } else {
         console.log("==all posts", res.data)
-        res.data.reverse().forEach(post => dispatch(addPost(post)))  
+        res.data.forEach(post => dispatch(addPost(post)))  
 
         setUserPostData(res.data.reverse())
         console.log("==userpost", userPostData)
@@ -85,14 +58,12 @@ export default function Profile({username, userId,handleLogout }) {
   }
 
 
-
   const refreshPage = () => {
     window.location.reload()
   }
 
   useEffect(() => {
     getUserPostData()
-    // getAllPosts()
   }, [])
 
 
@@ -136,10 +107,10 @@ export default function Profile({username, userId,handleLogout }) {
   console.log(oldReviewData)
 
   function insertReviewData(postId) {
-    const post = postList.find(post => post.id === postId)
+    const post = postList.posts.find(post => post.postId === postId)
     // console.log("insert post id", post.id)
     setOldReviewData(() => ({
-      postID: post.id,
+      postID: post.postId,
       rating: 0,
       updateTitle: post.title,
       updateDescription: post.postDescription,
@@ -217,7 +188,6 @@ export default function Profile({username, userId,handleLogout }) {
   // }
 
   const updatePost = async(event) => {
-    event.preventDefault()
     if (oldReviewData.updateTitle !== "" && oldReviewData.updateDescription !== "" && rating != null) {
       try {
         navigate(`/profile/${username}`)
@@ -232,6 +202,7 @@ export default function Profile({username, userId,handleLogout }) {
         handleEditForm()
         handleBackdrop()
         refreshPage()
+
       } catch (err) {
         alert(err)
       }
@@ -242,6 +213,22 @@ export default function Profile({username, userId,handleLogout }) {
   }
 
 
+  const deletePost = async() => {
+    try {
+      console.log("==delete post id", selectDeleted)
+      const deleteUrl = `http://localhost:3000/profile/${username}/delete`
+      const res = await axios.delete(deleteUrl, {
+        params: {
+          postId: selectDeleted
+        }
+      })
+      handleEditForm()
+      handleBackdrop()
+      refreshPage()
+    } catch (err) {
+      console.log("==err")
+    }
+  }
 
 
 
@@ -297,6 +284,27 @@ export default function Profile({username, userId,handleLogout }) {
           </> 
         )}
 
+        {editOptions && 
+          <div className="card-update-btn-list">
+            <button className="delete-post-btn"
+              onClick={() => { 
+                deletePost()
+              }}
+            > 
+              Delete 
+            </button>
+            <button className="edit-btn" 
+              onClick={() => {   
+                handleEditOptions() 
+                handleEditForm() 
+              }}
+            > 
+              Edit
+            </button>
+            <button className="cancel-update-btn" onClick={() => {{handleBackdrop()} {handleEditOptions()} }}> Cancel </button>
+          </div> 
+        }
+
         {showEditForm && 
           <EditPost 
             oldReviewData={oldReviewData} 
@@ -323,7 +331,7 @@ export default function Profile({username, userId,handleLogout }) {
 
         {hasReview ? 
           <PostList 
-        
+            handleSelectDeleted={handleSelectDeleted}
             handleBackdrop={handleBackdrop}
             handleEditOptions={handleEditOptions}
             editOptions={editOptions}

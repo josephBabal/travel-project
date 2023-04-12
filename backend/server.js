@@ -50,14 +50,14 @@ app.get("/profile/:username/:postID", (req, res) => {
 })
 
 app.put("/profile/:username/update", (req, res) => {
-  const id = req.body.id
+  const postId = req.body.id
   const rating = req.body.rating
   const title = req.body.title
   const postDescription = req.body.postDescription
   const photo = req.body.photo
   console.log(rating, title, postDescription)
-  const sqlUpdatePost = "UPDATE posts SET title = ?, rating = ?, postDescription = ?, photo = ? WHERE id = ?"
-  dbPostData.pool.query(sqlUpdatePost, [title, rating, postDescription, photo, id], (err, result) => {
+  const sqlUpdatePost = "UPDATE posts SET title = ?, rating = ?, postDescription = ?, photo = ? WHERE postId = ?"
+  dbPostData.pool.query(sqlUpdatePost, [title, rating, postDescription, photo, postId], (err, result) => {
     if (err) {
       res.send(err)
       console.log(err)
@@ -69,9 +69,10 @@ app.put("/profile/:username/update", (req, res) => {
 })
 
 app.delete("/profile/:username/delete", (req, res) => {
-  const id = req.query.idDelete
-  const sqlDeletePost = "DELETE FROM posts WHERE id = ?"
-  dbPostData.pool.query(sqlDeletePost, id, (err, result) => {
+  const postId = req.query.postId
+  console.log("==server postId", postId)
+  const sqlDeletePost = "DELETE FROM posts WHERE postId = ?"
+  dbPostData.pool.query(sqlDeletePost, [postId], (err, result) => {
     if (err) {
       res.send(err)
       console.log(err)
