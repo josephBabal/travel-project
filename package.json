@@ -22,6 +22,6 @@
   "homepage": "https://github.com/josephBabal/travel-project#readme",
   "dependencies": {
     "concurrently": "^7.6.0",
-    "npm": "^10.1.0"
+    "npm": "latest"
   }
 }
